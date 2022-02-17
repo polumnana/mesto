@@ -103,6 +103,8 @@
     height: 24px;
     margin: 0 auto 30px 18px;
     padding: 0;
+    cursor: pointer;
+
 }
 
 .profile__button-add {
@@ -114,7 +116,7 @@
     height: 50px;
     margin: 0 0 0 auto;
     padding: 0;
-
+    cursor: pointer;
 }
 
 
@@ -178,6 +180,7 @@
     height: 19px;
     background: none;
     border-style: none;
+    cursor: pointer;
 }
 
 .element__like {
@@ -225,9 +228,9 @@
     align-items: center;
 }
 
-/* .popup_none {
+.popup_none {
     display: none;
-} */
+}
 
 .popup__container {
     margin: 0;
