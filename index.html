@@ -30,21 +30,7 @@
                     <img src="./images/Add_post.png" alt="Кнопка плюсик " class="">
                 </button>
 
-                <div class="popup">
-                    <div class="popup__container">
-                        <h2 class="edit-profile">Редактировать профиль</h2>
-                        <div class="edit-profile__name">
-                            <input type="text" class="edit-profile__name-text" name="name"
-                                placeholder="Леник Бобзиковна" required>
-                        </div>
-                        <div class="edit-profile__about">
-                            <input type="text" class="edit-profile__about-text" placeholder="Люблю кушать" required>
-                        </div>
-                        <div class="edit-profile__submit">
-                            <button type="submit" class="edit-profile__submit-text">Сохранить</button>
-                        </div>
-                    </div>
-                </div>
+
             </section>
 
             <section class="elements">
@@ -102,7 +88,29 @@
         <footer class="footer">
             <p class="footer__copyright">© 2022 Mesto Russia</p>
         </footer>
+
+        <div class="popup">
+            <div class="popup__container">
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <div class="popup__form">
+                    <input type="text" class="popup__form popup__form_name" name="name" placeholder="Леник Бобзиковна"
+                        required>
+                    <input type="text" class="popup__form popup__form_about" placeholder="Люблю кушать" required>
+                    <button type="submit" class="popup__form_submit">Сохранить</button>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+
+
+
+
+
+
+
+
 
     <script src="./index.js"></script>
 </body>
