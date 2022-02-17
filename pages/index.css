@@ -272,8 +272,8 @@
 
 .popup__close-form {
     position: absolute;
-    top: 33%;
-    left: 65%;
+    top: -40px;
+    right: -40px;
     background: none;
     cursor: pointer;
     margin: 0;
