@@ -214,7 +214,6 @@
 
 
 .popup {
-    /* display: none; */
     position: absolute;
     top: 0;
     right: 0;
@@ -224,6 +223,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.popup_none {
+    display: none;
 }
 
 .popup__container {
