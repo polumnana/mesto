@@ -89,23 +89,25 @@
             <p class="footer__copyright">© 2022 Mesto Russia</p>
         </footer>
 
-        <div class="popup popup_opened">
+        <section class="popup popup_opened">
             <div class="popup__container">
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <div class="popup__form">
-                    <input type="text" class="popup__form popup__form_name" name="name" placeholder="Леник Бобзиковна"
-                        required>
-                    <input type="text" class="popup__form popup__form_about" placeholder="Люблю кушать" required>
-                    <button type="submit" class="popup__form_submit">Сохранить</button>
+                    <input type="text" class="popup__form-input popup__form_name" name="name"
+                        placeholder="Леник Бобзиковна" required>
+                    <input type="text" class="popup__form-input popup__form popup__form_about" name="about"
+                        placeholder="Люблю кушать" required>
+                    <button type="submit" class="popup__form-submit popup__form_submit">Сохранить</button>
                 </div>
                 <button class="popup__close-form">
                     <img src="./images/Close_edit_Icon.png" alt="Кнопка закрыть крестик" class="">
                 </button>
             </div>
 
-        </div>
+        </section>
 
         <script src="./index.js"></script>
+    </div>
 </body>
 
 </html>
