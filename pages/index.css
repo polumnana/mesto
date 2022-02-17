@@ -104,7 +104,10 @@
     margin: 0 auto 30px 18px;
     padding: 0;
     cursor: pointer;
+}
 
+.profile__button-edit:hover {
+    opacity: .6;
 }
 
 .profile__button-add {
@@ -119,7 +122,9 @@
     cursor: pointer;
 }
 
-
+.profile__button-add:hover {
+    opacity: .6;
+}
 
 .elements {
     width: 880px;
@@ -217,19 +222,20 @@
 
 
 .popup {
+    display: none;
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
+
+}
+
+.popup_opened {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.popup_none {
-    display: none;
 }
 
 .popup__container {
@@ -274,6 +280,9 @@
     padding: 0;
     margin: 0;
     margin-bottom: 30px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .popup__close-form {
@@ -281,6 +290,10 @@
     top: 33%;
     left: 63.5%;
     cursor: pointer;
+}
+
+.popup__close-form:hover {
+    opacity: .6;
 }
 
 .popup__form_about {
@@ -296,6 +309,9 @@
     font-family: inherit;
     padding: 0;
     margin: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .popup__form_submit {
@@ -313,4 +329,8 @@
     text-align: center;
     cursor: pointer;
     border: none;
+}
+
+.popup__form_submit:hover {
+    opacity: .8;
 }
