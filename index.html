@@ -19,18 +19,24 @@
                 <img src="./images/Avatar.jpg" alt="Аватар пользователя" class="avatar">
 
                 <div class="profile-info">
-                    <h1 class="profile-info__name">Леник</h1>
-                    <p class="profile-info__about-me">Любительница котиков</p>
+                    <h1 class="profile-info__name">Жак-Ив Кусто</h1>
+                    <p class="profile-info__about-me">Исследователь океана</p>
 
                 </div>
-
-                <button type="" class="profile__button">
-                    <img src="./images/Add_post.png" alt="" class="profile__button-add">
+                <button type="" class="profile__button-edit">
+                    <img src="./images/Edit_Button.png" alt="" class="">
+                </button>
+                <button type="" class="profile__button-add">
+                    <img src="./images/Add_post.png" alt="" class="">
                 </button>
 
                 <div class="popup">
                     <div class="popup__container">
-
+                        <h2 class="edit-profile">Редактировать профиль</h2>
+                        <input type="text" class="edit-profile__name" name="name" placeholder="Леник Бобзиковна"
+                            required>
+                        <input type="text" class="edit-profile__about" placeholder="Люблю кушать" required>
+                        <button type="submit" class="edit-profile__submit">Сохранить</button>
                     </div>
                 </div>
             </section>
