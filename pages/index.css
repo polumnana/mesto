@@ -225,9 +225,9 @@
     align-items: center;
 }
 
-.popup_none {
+/* .popup_none {
     display: none;
-}
+} */
 
 .popup__container {
     margin: 0;
@@ -239,6 +239,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .popup__title {
@@ -270,6 +271,13 @@
     padding: 0;
     margin: 0;
     margin-bottom: 30px;
+}
+
+.popup__close-form {
+    position: absolute;
+    top: 33%;
+    left: 63.5%;
+    cursor: pointer;
 }
 
 .popup__form_about {
