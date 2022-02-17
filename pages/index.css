@@ -193,12 +193,18 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
     gap: 20px 17px;
-
 }
+
+
+/* @media screen and (min-width: 320px) and (max-width: 886px) {
+    .elements {
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+    } */
 
 .element {
     display: grid;
-    grid-template-columns: 245px 37px;
+    grid-template-columns: 87% 13%;
     grid-template-rows: 282px 54px;
     width: 282px;
     height: 361px;
@@ -233,7 +239,7 @@
 .element__button {
     display: block;
     grid-column: 2/3;
-    margin: 0 15px 0 0;
+    margin: 0;
     padding: 0;
     width: 22px;
     height: 19px;
