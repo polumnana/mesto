@@ -8,7 +8,7 @@ let buttonEditProfile = document.querySelector('.profile__button-edit'); // Ре
 let nameProfile = document.querySelector('.popup__form-name'); // Данные в edit profile
 let aboutProfile = document.querySelector('.popup__form-about'); // Данные в edit profile
 let formSubmit = document.querySelector('.popup__form-submit'); // Сохранить
-
+let profileInfoName = document.querySelector('.profile-info__name'); // 
 
 function closePopup() {
     popup.classList.remove('popup_opened');
@@ -16,6 +16,7 @@ function closePopup() {
 
 function openPopup() {
     popup.classList.add('popup_opened');
+    nameProfile.value = profileInfoName.textContent;
 } // Прописываю функцию, открывающую попап кликом
 
 
@@ -29,8 +30,8 @@ buttonCloseEditProfile.addEventListener("click", closePopup); // Прописы�
 
 
 // В окне в поле name берутся данные из .profile-info__name
-let profileInfoName = document.querySelector('.profile-info__name');
-nameProfile = profileInfoName.textContent;
+
+
 
 
 
