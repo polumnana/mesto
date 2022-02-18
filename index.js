@@ -28,8 +28,44 @@ buttonEditProfile.addEventListener("click", openPopup); //Вызываю фун�
 buttonCloseEditProfile.addEventListener("click", closePopup); // Прописываю функцию, закрывающую попап кликом на крестик
 
 
+// В окне в поле name берутся данные из .profile-info__name
+let profileInfoName = document.querySelector('.profile-info__name');
+nameProfile = profileInfoName.textContent;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Я запуталась, что кто куда должен вводить и как и куда это выводится
 
-nameProfile.textContent = input.value;
-aboutProfile.textContent = input.value;
-
+// nameProfile.textContent = input.value;
+// aboutProfile.textContent = input.value;
