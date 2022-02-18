@@ -1,0 +1,11 @@
+.element__button {
+    display: block;
+    grid-column: 2/3;
+    margin: 0;
+    padding: 0;
+    width: 22px;
+    height: 19px;
+    background: none;
+    border-style: none;
+    cursor: pointer;
+}

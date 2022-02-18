@@ -6,8 +6,8 @@ let buttonSubmitEditProfile = document.querySelector('.popup__form-submit'); // 
 
 let nameProfileInput = document.querySelector('.popup__form-name'); // Данные ИМЯ в инпуте
 let aboutProfileInput = document.querySelector('.popup__form-about'); // Данные О СЕБЕ в инпуте
-let profileInfoName = document.querySelector('.profile-info__name'); // Данные ИМЯ в самом профиле
-let profileInfoAbout = document.querySelector('.profile-info__about'); // Данные О СЕБЕ в самом профиле
+let profileInfoName = document.querySelector('.profile__info-name'); // Данные ИМЯ в самом профиле
+let profileInfoAbout = document.querySelector('.profile__info-about'); // Данные О СЕБЕ в самом профиле
 // let addNewPost = document.querySelector('.profile__button-add'); // Добавить пост (пока что не делаем)
 
 
