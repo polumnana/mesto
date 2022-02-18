@@ -1,72 +1,40 @@
 // Объявляю переменные
-let popup = document.querySelector('.popup'); // попап
+let popupEditProfile = document.querySelector('.popup'); // Попап редактировать профиль
 let buttonCloseEditProfile = document.querySelector('.popup__close-form'); // Закрыть попап
 let buttonEditProfile = document.querySelector('.profile__button-edit'); // Редактировать профиль
+let buttonSubmitEditProfile = document.querySelector('.popup__form-submit'); // Сохранить попап ред профиля
 
+let nameProfileInput = document.querySelector('.popup__form-name'); // Данные ИМЯ в инпуте
+let aboutProfileInput = document.querySelector('.popup__form-about'); // Данные О СЕБЕ в инпуте
+let profileInfoName = document.querySelector('.profile-info__name'); // Данные ИМЯ в самом профиле
+let profileInfoAbout = document.querySelector('.profile-info__about'); // Данные О СЕБЕ в самом профиле
 // let addNewPost = document.querySelector('.profile__button-add'); // Добавить пост (пока что не делаем)
 
-let nameProfile = document.querySelector('.popup__form-name'); // Данные в edit profile
-let aboutProfile = document.querySelector('.popup__form-about'); // Данные в edit profile
-let formSubmit = document.querySelector('.popup__form-submit'); // Сохранить
-let profileInfoName = document.querySelector('.profile-info__name'); // 
 
+// Прописываю функции
 function closePopup() {
-    popup.classList.remove('popup_opened');
+    popupEditProfile.classList.remove('popup_opened');
 } // Прописываю функцию, закрывающую попап при чтении страницы
 
 function openPopup() {
-    popup.classList.add('popup_opened');
-    nameProfile.value = profileInfoName.textContent;
-} // Прописываю функцию, открывающую попап кликом
+    popupEditProfile.classList.add('popup_opened');
+    nameProfileInput.value = profileInfoName.textContent; // В инпут берутся данные из профиля
+    aboutProfileInput.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
+} // Прописываю функцию, открывающую попап кликом и подгружающую в инпуты данные из профиля
+
+function savePopup() {
+    profileInfoName.textContent = nameProfileInput.value; // Из инпута данные летят в профиль
+    profileInfoAbout.textContent = aboutProfileInput.value; // Из инпута данные летят в профиль
+    closePopup(); // Автоматически закрыть попап
+} // Прописываю функцию, передающую из инпутов в данные профиля
 
 
+// Вызываю функции
 closePopup(); // Вызываю функцию, закрывающую попап при чтении страницы
 
-// Прописываю функцию, открывающую добавить пост (пока что не делаем)
 
-buttonEditProfile.addEventListener("click", openPopup); //Вызываю функцию, открывающую попап кликом
-
+// Прописываю события
+buttonEditProfile.addEventListener("click", openPopup); //Вызываю функцию, открывающую попап кликом на карандашик
 buttonCloseEditProfile.addEventListener("click", closePopup); // Прописываю функцию, закрывающую попап кликом на крестик
-
-
-// В окне в поле name берутся данные из .profile-info__name
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Я запуталась, что кто куда должен вводить и как и куда это выводится
-
-// nameProfile.textContent = input.value;
-// aboutProfile.textContent = input.value;
+buttonSubmitEditProfile.addEventListener("click", savePopup); // Прописываю функцию, сохраняющую значения кликом на сохранить
+// Прописываю функцию, открывающую добавить пост (пока что не делаем)
