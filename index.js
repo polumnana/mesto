@@ -2,35 +2,34 @@
 let popup = document.querySelector('.popup'); // попап
 let buttonCloseEditProfile = document.querySelector('.popup__close-form'); // Закрыть попап
 let buttonEditProfile = document.querySelector('.profile__button-edit'); // Редактировать профиль
-// let addNewPost = document.querySelector('.profile__button-add'); // Добавить пост (пока что не делаем)
-let formElement = document.querySelector('.popup__form-input'); // Данные в edit profile
 
-// Прописываю функцию, закрывающую попап при чтении страницы
+// let addNewPost = document.querySelector('.profile__button-add'); // Добавить пост (пока что не делаем)
+
+let nameProfile = document.querySelector('.popup__form-name'); // Данные в edit profile
+let aboutProfile = document.querySelector('.popup__form-about'); // Данные в edit profile
+let formSubmit = document.querySelector('.popup__form-submit'); // Сохранить
+
+
 function closePopup() {
     popup.classList.remove('popup_opened');
-}
+} // Прописываю функцию, закрывающую попап при чтении страницы
 
-// Вызываю функцию, закрывающую попап при чтении страницы
-closePopup();
-
-// Прописываю функцию, открывающую попап кликом
 function openPopup() {
     popup.classList.add('popup_opened');
-}
+} // Прописываю функцию, открывающую попап кликом
+
+
+closePopup(); // Вызываю функцию, закрывающую попап при чтении страницы
 
 // Прописываю функцию, открывающую добавить пост (пока что не делаем)
 
+buttonEditProfile.addEventListener("click", openPopup); //Вызываю функцию, открывающую попап кликом
 
-//Вызываю функцию, открывающую попап кликом
-buttonEditProfile.addEventListener("click", openPopup);
-
-
+buttonCloseEditProfile.addEventListener("click", closePopup); // Прописываю функцию, закрывающую попап кликом на крестик
 
 
-formElement.addEventListener('submit', function () {
-    console.log('Форма отправлена');
-});
+// Я запуталась, что кто куда должен вводить и как и куда это выводится
 
-// Удаляю попап, если нажимаю на крестик
-buttonCloseEditProfile.addEventListener("click", closePopup);
+nameProfile.textContent = input.value;
+aboutProfile.textContent = input.value;
 
