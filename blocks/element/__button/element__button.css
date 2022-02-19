@@ -15,5 +15,6 @@
 }
 
 .element__button:active {
+    opacity: 1;
     background-image: url(../../../images/Like_black.svg);
 }
