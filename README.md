@@ -15,4 +15,6 @@ https://github.com/polumnana/mesto
 * построение сетки макета при помощи свойств flex и grid;
 * подключены сторонние шрифты;
 * создана файловая структура по БЭМ (nested);
-* работа выложена в GitHub Pages.
+* работа выложена в GitHub Pages
+
+https://polumnana.github.io/mesto/
