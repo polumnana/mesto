@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./pages/index.css">
-    <title>Mesto Russia</title>
+    <title>Место Россия</title>
 </head>
 
 <body>
     <div class="page">
         <header class="header">
-            <img src="./images/Logo.png" alt="Логотип Место" class="header__logo">
+            <img src="./images/Logo.svg" alt="Логотип Место" class="header__logo">
         </header>
 
         <main class="content">
@@ -24,7 +24,7 @@
 
                 </div>
                 <button type="button" class="profile__button-edit">
-                    <img src="./images/Edit_Button.png" alt="Кнопка карандашик" class="">
+                    <img src="./images/Edit_Button.svg" alt="Кнопка карандашик" class="">
                 </button>
                 <button type="button" class="profile__button-add">
                     <img src="./images/Add_post.png" alt="Кнопка плюсик " class="">
@@ -32,48 +32,48 @@
             </section>
 
             <section class="elements">
-                <div class="element">
+                <article class="element">
                     <img src="./images/Karachaevsk.png" alt="Карачаевск" class="element__img">
                     <h2 class="element__title">Карачаевск</h2>
-                    <button class="element__button">
+                    <button type="submit" class="element__button">
                         <img src="./images/Like.png" alt="Лайк сердечко" class="element__like">
                     </button>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img src="./images/Elbrus.png" alt="Карачаевск" class="element__img">
                     <h2 class="element__title">Гора Эльбрус</h2>
-                    <button class="element__button">
+                    <button type="submit" class="element__button">
                         <img src="./images/Like.png" alt="Лайк сердечко" class="element__like">
                     </button>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img src="./images/Dombay.png" alt="Карачаевск" class="element__img">
                     <h2 class="element__title">Домбай</h2>
-                    <button class="element__button">
+                    <button type="submit" class="element__button">
                         <img src="./images/Like.png" alt="Лайк сердечко" class="element__like">
                     </button>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img src="./images/Elbrus.png" alt="Карачаевск" class="element__img">
                     <h2 class="element__title">Гора Эльбрус</h2>
-                    <button class="element__button">
+                    <button type="submit" class="element__button">
                         <img src="./images/Like.png" alt="Лайк сердечко" class="element__like">
                     </button>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img src="./images/Dombay.png" alt="Карачаевск" class="element__img">
                     <h2 class="element__title">Домбай</h2>
-                    <button class="element__button">
+                    <button type="submit" class="element__button">
                         <img src="./images/Like.png" alt="Лайк сердечко" class="element__like">
                     </button>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img src="./images/Karachaevsk.png" alt="Карачаевск" class="element__img">
                     <h2 class="element__title">Карачаево-Черкессия</h2>
-                    <button class="element__button">
+                    <button type="submit" class="element__button">
                         <img src="./images/Like.png" alt="Лайк сердечко" class="element__like">
                     </button>
-                </div>
+                </article>
             </section>
         </main>
 
@@ -81,17 +81,17 @@
             <p class="footer__copyright">© 2022 Mesto Russia</p>
         </footer>
 
-        <section class="popup popup_opened">
+        <section class="popup">
             <div class="popup__container">
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <div class="popup__form">
+                <form class="popup__form" name="">
                     <input type="text" class="popup__input popup__form-name" name="name" placeholder="Леник Бобзиковна"
                         required value="">
                     <input type="text" class="popup__input popup__form-about" name="about"
                         placeholder="Люблю гладить котиков" required value="">
                     <button type="submit" class="popup__form-submit">Сохранить</button>
-                </div>
-                <button class="popup__close-form">
+                </form>
+                <button type="reset" class="popup__close-form">
                     <img src="./images/Close_edit_Icon.png" alt="Кнопка закрыть крестик" class="">
                 </button>
             </div>
