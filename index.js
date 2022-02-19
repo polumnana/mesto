@@ -4,8 +4,8 @@ let buttonCloseEditProfile = document.querySelector('.popup__close-form'); // З
 let buttonEditProfile = document.querySelector('.profile__button-edit'); // Редактировать профиль
 let buttonSubmitEditProfile = document.querySelector('.popup__form-submit'); // Сохранить попап ред профиля
 
-let nameProfileInput = document.querySelector('.popup__form-name'); // Данные ИМЯ в инпуте
-let aboutProfileInput = document.querySelector('.popup__form-about'); // Данные О СЕБЕ в инпуте
+let nameProfileInput = document.querySelector('.popup__input_form_name'); // Данные ИМЯ в инпуте
+let aboutProfileInput = document.querySelector('.popup__input_form_about'); // Данные О СЕБЕ в инпуте
 let profileInfoName = document.querySelector('.profile__info-name'); // Данные ИМЯ в самом профиле
 let profileInfoAbout = document.querySelector('.profile__info-about'); // Данные О СЕБЕ в самом профиле
 // let addNewPost = document.querySelector('.profile__button-add'); // Добавить пост (пока что не делаем)
