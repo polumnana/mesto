@@ -13,3 +13,10 @@
     opacity: .6;
     transition: opacity .2s linear;
 }
+
+@media screen and (min-width: 320px) and (max-width: 520px) {
+    .popup__close-form {
+        top: -36px;
+        right: 0;
+    }
+}
