@@ -1,5 +1,5 @@
 .profile__info-name {
-    margin: 0 0 16px 0;
+    margin: 0;
     font-style: normal;
     font-weight: 500;
     font-size: 42px;
@@ -7,13 +7,16 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    max-width: 525px;
+    grid-row: 1;
+    grid-column: 1/2;
 }
 
-@media screen and (min-width: 320px) and (max-width: 680px) {
+/* @media screen and (min-width: 320px) and (max-width: 680px) {
     .profile__info-name {
         margin: 0 0 14px 0;
         text-align: center;
         font-size: 27px;
         line-height: 33px;
     }
-}
+} */
