@@ -2,28 +2,36 @@
     margin: 0;
     width: 880px;
     display: grid;
-    flex-direction: row;
-    grid-template-columns: max-content 1fr max-content;
-    grid-template-rows: max-content max-content;
-    gap: 16px 0;
+    grid-template-columns: 120px minmax(auto, 535px) 150px;
+    grid-template-rows: repeat(2, max-content);
+    grid-template-areas:
+        "avatar info add"
+        "avatar about add";
+    align-items: center;
+    gap: 0 30px;
+    background-color: red;
 }
 
-@media screen and (min-width: 681px) and (max-width: 880px) {
+@media screen and (min-width: 731px) and (max-width: 900px) {
     .profile {
-        width: 100%;
-        /* max-width: 400px; */
-        padding: 0 27px;
-        box-sizing: border-box;
+        width: 700px;
+        grid-template-columns: 120px minmax(auto, 390px) 150px;
+        gap: 0 20px;
+        background-color: pink;
     }
 }
 
-@media screen and (min-width: 320px) and (max-width: 700px) {
+@media screen and (min-width: 320px) and (max-width: 730px) {
     .profile {
-        width: 282px;
-        display: grid;
-        grid-template-columns: auto max-content;
+        max-width: 282px;
+        grid-template-columns: 282px;
         grid-template-rows: repeat(4, max-content);
-        align-items: center;
+        grid-template-areas:
+            "avatar"
+            "info"
+            "about"
+            "add";
         gap: 0 0;
+        background-color: green;
     }
 }
