@@ -9,7 +9,6 @@
         "avatar about add";
     align-items: center;
     gap: 0 30px;
-    background-color: red;
 }
 
 @media screen and (min-width: 731px) and (max-width: 900px) {
@@ -17,7 +16,6 @@
         width: 700px;
         grid-template-columns: 120px minmax(auto, 390px) 150px;
         gap: 0 20px;
-        background-color: pink;
     }
 }
 
@@ -32,6 +30,5 @@
             "about"
             "add";
         gap: 0 0;
-        background-color: green;
     }
 }
