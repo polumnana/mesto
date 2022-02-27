@@ -80,28 +80,29 @@ function addPost(title, image) {
     let photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
     let elementTemplate = photosTemplate.querySelector('.element').cloneNode(true); // Скопировала содержимое блока-шаблона с содержимым
     elementTemplate.querySelector('.element__title').textContent = title; // То, что в первом инпуте, положилось в заголовок
-    elementTemplate.querySelector('.element__img').setAttribute('src', image); // То, что во втором инпуте, положилось в атрибут
+    elementTemplate.querySelector('.element__img').setAttribute('src', image);// Ссылка положилась в атрибут SRC
+    elementTemplate.querySelector('.element__img').setAttribute('alt', title); // Название положилось в атрибут ALT
     photosContainer.prepend(elementTemplate);
 } // Прописываю функцию, добавляющую посты в ленту
 
 
 initialCards.forEach(function (element) {
     addPost(element.name, element.link);
-});
+}); // Вызываю функцию, добавляющую фото в ленту из задания (надо завернуть в функцию)
 
 function savePopup(evt) {
     evt.preventDefault();  // Отменяет стандартную отправку формы
     profileInfoName.textContent = firstProfileInput.value; // Из инпута данные летят в профиль
     profileInfoAbout.textContent = secondProfileInput.value; // Из инпута данные летят в профиль
     closePopup(); // Автоматически закрыть попап
-    console.log('❤️');
+    console.log('Информация обновлена ❤️');
 } // Прописываю функцию, передающую из инпутов в данные профиля
 
 function savePopupPhoto(evt) {
     evt.preventDefault();  // Отменить стандартную отправку формы
     addPost(firstProfileInput.value, secondProfileInput.value); // Добавить пост в ленту (в аргументах инпуты, где пользователь ввёл данные)
     closePopup(); // Автоматически закрыть попап
-    console.log('❤️❤️');
+    console.log('Лента обновлена ❤️❤️');
 } // Прописываю функцию, передающую из инпутов в блок с картинками
 
 
