@@ -4,8 +4,9 @@ let buttonCloseEditProfile = document.querySelector('.popup__close-form'); // З
 let buttonEditProfile = document.querySelector('.profile__button-edit'); // Редактировать профиль
 
 let formSubmit = document.querySelector('.popup__form'); // Форма
-let firstProfileInput = document.querySelector('.popup__input_form_name'); // Данные ИМЯ в инпуте
-let secondProfileInput = document.querySelector('.popup__input_form_about'); // Данные О СЕБЕ в инпуте
+let popupTitle = document.querySelector('.popup__title');
+let firstProfileInput = document.querySelector('.popup__input_form_name'); // Данные в первом инпуте
+let secondProfileInput = document.querySelector('.popup__input_form_about'); // Данные во втором инпуте
 let profileInfoName = document.querySelector('.profile__info-name'); // Данные ИМЯ в самом профиле
 let profileInfoAbout = document.querySelector('.profile__info-about'); // Данные О СЕБЕ в самом профиле
 let buttonAddNewPost = document.querySelector('.profile__button-add'); // Добавить пост 
@@ -40,10 +41,10 @@ const initialCards = [
     }
 ];
 
-let popupTitle = document.querySelector('.popup__title');
+
+
+
 // Прописываю функции
-
-
 
 function closePopup() {
     popupEditProfile.classList.remove('popup_opened');
@@ -75,6 +76,13 @@ function openPopupForPhoto() {
     formSubmit.addEventListener("submit", savePopupPhoto);
 } // Прописываю функцию, ничего не подгружающую в инпуты, заполняющую плейсхолдеры и заполняющую заголовок попапа
 
+function addPost() {
+    let photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
+    let elementTemplate = photosTemplate.querySelector('.element').cloneNode(true); // Скопировала содержимое блока-шаблона с содержимым
+    elementTemplate.querySelector('.element__title').textContent = firstProfileInput.value; // То, что ввёл пользователь, положилось в тайтл
+    elementTemplate.querySelector('.element__img').setAttribute('src', secondProfileInput.value); // То, что ввёл пользователь, положилось в ИМЖ
+    photosContainer.prepend(elementTemplate);
+} // Прописываю функцию, добавляющую посты в ленту
 
 function savePopup(evt) {
     evt.preventDefault();  // Отменяет стандартную отправку формы
@@ -85,16 +93,8 @@ function savePopup(evt) {
 } // Прописываю функцию, передающую из инпутов в данные профиля
 
 function savePopupPhoto(evt) {
-    evt.preventDefault();  // Отменяет стандартную отправку формы
-
-    let photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
-    let elementTemplate = photosTemplate.querySelector('.element').cloneNode(true); // Скопировала содержимое блока-шаблона с содержимым
-
-    elementTemplate.querySelector('.element__title').textContent = firstProfileInput.value; // То, что ввёл пользователь, положилось в тайтл
-    elementTemplate.querySelector('.element__img').setAttribute('src', secondProfileInput.value); // То, что ввёл пользователь, положилось в ИМЖ
-
-
-    photosContainer.prepend(elementTemplate);
+    evt.preventDefault();  // Отменить стандартную отправку формы
+    addPost(); // Добавить пост в ленту
     closePopup(); // Автоматически закрыть попап
     console.log('❤️❤️');
 } // Прописываю функцию, передающую из инпутов в блок с картинками
