@@ -30,7 +30,9 @@ function openPopupForProfile() {
     popupTitle.textContent = 'Редактировать профиль';
     firstProfileInput.placeholder = 'Леник Бобзиковна';
     secondProfileInput.placeholder = 'Люблю гладить котиков';
-} // Прописываю функцию, подгружающую в инпуты данные из профиля
+    formSubmit.removeEventListener("submit", savePopupPhoto);
+    formSubmit.addEventListener("submit", savePopup);
+} // Прописываю функцию, подгружающую в инпуты данные из профиля, заполняющую плейсхолдеры и заполняющую заголовок попапа
 
 function openPopupForPhoto() {
     openPopup();
@@ -39,9 +41,9 @@ function openPopupForPhoto() {
     popupTitle.textContent = 'Новое место';
     firstProfileInput.placeholder = 'Название';
     secondProfileInput.placeholder = 'Ссылка на картинку';
-
-
-}
+    formSubmit.removeEventListener("submit", savePopup);
+    formSubmit.addEventListener("submit", savePopupPhoto);
+} // Прописываю функцию, ничего не подгружающую в инпуты, заполняющую плейсхолдеры и заполняющую заголовок попапа
 
 
 
@@ -51,6 +53,14 @@ function savePopup(evt) {
     profileInfoName.textContent = firstProfileInput.value; // Из инпута данные летят в профиль
     profileInfoAbout.textContent = secondProfileInput.value; // Из инпута данные летят в профиль
     closePopup(); // Автоматически закрыть попап
+    console.log(1);
+} // Прописываю функцию, передающую из инпутов в данные профиля
+
+function savePopupPhoto(evt) {
+    evt.preventDefault();  // Отменяет стандартную отправку формы
+    closePopup(); // Автоматически закрыть попап
+    console.log(2);
+
 } // Прописываю функцию, передающую из инпутов в данные профиля
 
 
@@ -59,5 +69,5 @@ function savePopup(evt) {
 buttonEditProfile.addEventListener("click", openPopupForProfile); //Вызываю функцию, открывающую попап кликом на карандашик (ПРОФИЛЬ)
 buttonAddNewPost.addEventListener("click", openPopupForPhoto);//Вызываю функцию, открывающую попап кликом на плюсик (ФОТО)
 buttonCloseEditProfile.addEventListener("click", closePopup); // Прописываю функцию, закрывающую попап кликом на крестик
-formSubmit.addEventListener("submit", savePopup);// Прописываю функцию, сохраняющую значения формы
+// Прописываю функцию, сохраняющую значения формы
 // Прописываю функцию, открывающую добавить пост (пока что не делаем)
