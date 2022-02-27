@@ -1,10 +1,10 @@
-// Объявляю переменные
+// Объявляю переменные:
 let popupEditProfile = document.querySelector('.popup'); // Попап редактировать профиль
 let buttonCloseEditProfile = document.querySelector('.popup__close-form'); // Закрыть попап
 let buttonEditProfile = document.querySelector('.profile__button-edit'); // Редактировать профиль
 
 let formSubmit = document.querySelector('.popup__form'); // Форма
-let popupTitle = document.querySelector('.popup__title');
+let popupTitle = document.querySelector('.popup__title'); // Заголовок формы
 let firstProfileInput = document.querySelector('.popup__input_form_name'); // Данные в первом инпуте
 let secondProfileInput = document.querySelector('.popup__input_form_about'); // Данные во втором инпуте
 let profileInfoName = document.querySelector('.profile__info-name'); // Данные ИМЯ в самом профиле
@@ -13,7 +13,7 @@ let buttonAddNewPost = document.querySelector('.profile__button-add'); // Доб
 let photosContainer = document.querySelector('.elements'); // Контейнер с постами
 
 
-// Массив с исходными фотографиями
+// Массив с исходными фотографиями:
 const initialCards = [
     {
         name: 'Архыз',
@@ -44,7 +44,7 @@ const initialCards = [
 
 
 
-// Прописываю функции
+// Прописываю функции:
 
 function closePopup() {
     popupEditProfile.classList.remove('popup_opened');
@@ -76,9 +76,19 @@ function openPopupForPhoto() {
     formSubmit.addEventListener("submit", savePopupPhoto);
 } // Прописываю функцию, ничего не подгружающую в инпуты, заполняющую плейсхолдеры и заполняющую заголовок попапа
 
+function likeActive(evt) {
+    const targetLike = evt.target;
+    targetLike.classList.toggle('element__button_active');
+    console.log('Лайков много не бывает! ❤️');
+} // Прописываю функцию, меняющую лайк
+
 function addPost(title, image) {
     let photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
     let elementTemplate = photosTemplate.querySelector('.element').cloneNode(true); // Скопировала содержимое блока-шаблона с содержимым
+
+    let like = elementTemplate.querySelector('.element__button'); // Нашла в копии шаблона лайк
+    like.addEventListener("click", likeActive); // Добавила на лайк слушатель
+
     elementTemplate.querySelector('.element__title').textContent = title; // То, что в первом инпуте, положилось в заголовок
     elementTemplate.querySelector('.element__img').setAttribute('src', image);// Ссылка положилась в атрибут SRC
     elementTemplate.querySelector('.element__img').setAttribute('alt', title); // Название положилось в атрибут ALT
@@ -86,30 +96,32 @@ function addPost(title, image) {
 } // Прописываю функцию, добавляющую посты в ленту
 
 
-initialCards.forEach(function (element) {
-    addPost(element.name, element.link);
-}); // Вызываю функцию, добавляющую фото в ленту из задания (надо завернуть в функцию)
+function addDefaultPost() {
+    initialCards.forEach(function (element) {
+        addPost(element.name, element.link);
+    });
+} // Прописываю функцию, добавляющую фото в ленту из задания
 
 function savePopup(evt) {
-    evt.preventDefault();  // Отменяет стандартную отправку формы
+    evt.preventDefault();  // Отменить стандартную отправку формы
     profileInfoName.textContent = firstProfileInput.value; // Из инпута данные летят в профиль
     profileInfoAbout.textContent = secondProfileInput.value; // Из инпута данные летят в профиль
     closePopup(); // Автоматически закрыть попап
-    console.log('Информация обновлена ❤️');
+    console.log('Информация обновлена 🥰');
 } // Прописываю функцию, передающую из инпутов в данные профиля
 
 function savePopupPhoto(evt) {
     evt.preventDefault();  // Отменить стандартную отправку формы
     addPost(firstProfileInput.value, secondProfileInput.value); // Добавить пост в ленту (в аргументах инпуты, где пользователь ввёл данные)
     closePopup(); // Автоматически закрыть попап
-    console.log('Лента обновлена ❤️❤️');
+    console.log('Лента обновлена 💬');
 } // Прописываю функцию, передающую из инпутов в блок с картинками
 
 
+// Прописываю события:
+addDefaultPost(); // Вызываю функцию, добавляющую фото в ленту из задания
 
-// Прописываю события
 buttonEditProfile.addEventListener("click", openPopupForProfile); //Вызываю функцию, открывающую попап кликом на карандашик (ПРОФИЛЬ)
 buttonAddNewPost.addEventListener("click", openPopupForPhoto);//Вызываю функцию, открывающую попап кликом на плюсик (ФОТО)
 buttonCloseEditProfile.addEventListener("click", closePopup); // Прописываю функцию, закрывающую попап кликом на крестик
-// Прописываю функцию, сохраняющую значения формы
-// Прописываю функцию, открывающую добавить пост (пока что не делаем)
+
