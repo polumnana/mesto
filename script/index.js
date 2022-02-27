@@ -8,7 +8,37 @@ let firstProfileInput = document.querySelector('.popup__input_form_name'); // Д
 let secondProfileInput = document.querySelector('.popup__input_form_about'); // Данные О СЕБЕ в инпуте
 let profileInfoName = document.querySelector('.profile__info-name'); // Данные ИМЯ в самом профиле
 let profileInfoAbout = document.querySelector('.profile__info-about'); // Данные О СЕБЕ в самом профиле
-let buttonAddNewPost = document.querySelector('.profile__button-add'); // Добавить пост (пока что не делаем)
+let buttonAddNewPost = document.querySelector('.profile__button-add'); // Добавить пост 
+let photosContainer = document.querySelector('.elements'); // Контейнер с постами
+
+
+// Массив с исходными фотографиями
+const initialCards = [
+    {
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+];
 
 let popupTitle = document.querySelector('.popup__title');
 // Прописываю функции
@@ -46,22 +76,28 @@ function openPopupForPhoto() {
 } // Прописываю функцию, ничего не подгружающую в инпуты, заполняющую плейсхолдеры и заполняющую заголовок попапа
 
 
-
-
 function savePopup(evt) {
     evt.preventDefault();  // Отменяет стандартную отправку формы
     profileInfoName.textContent = firstProfileInput.value; // Из инпута данные летят в профиль
     profileInfoAbout.textContent = secondProfileInput.value; // Из инпута данные летят в профиль
     closePopup(); // Автоматически закрыть попап
-    console.log(1);
+    console.log('❤️');
 } // Прописываю функцию, передающую из инпутов в данные профиля
 
 function savePopupPhoto(evt) {
     evt.preventDefault();  // Отменяет стандартную отправку формы
-    closePopup(); // Автоматически закрыть попап
-    console.log(2);
 
-} // Прописываю функцию, передающую из инпутов в данные профиля
+    let photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
+    let elementTemplate = photosTemplate.querySelector('.element').cloneNode(true); // Скопировала содержимое блока-шаблона с содержимым
+
+    elementTemplate.querySelector('.element__title').textContent = firstProfileInput.value; // То, что ввёл пользователь, положилось в тайтл
+    elementTemplate.querySelector('.element__img').setAttribute('src', secondProfileInput.value); // То, что ввёл пользователь, положилось в ИМЖ
+
+
+    photosContainer.prepend(elementTemplate);
+    closePopup(); // Автоматически закрыть попап
+    console.log('❤️❤️');
+} // Прописываю функцию, передающую из инпутов в блок с картинками
 
 
 
