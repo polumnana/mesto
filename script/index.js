@@ -79,10 +79,15 @@ function openPopupForPhoto() {
 function addPost(title, image) {
     let photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
     let elementTemplate = photosTemplate.querySelector('.element').cloneNode(true); // Скопировала содержимое блока-шаблона с содержимым
-    elementTemplate.querySelector('.element__title').textContent = title.value; // То, что в первом инпуте, положилось в заголовок
-    elementTemplate.querySelector('.element__img').setAttribute('src', image.value); // То, что во втором инпуте, положилось в атрибут
+    elementTemplate.querySelector('.element__title').textContent = title; // То, что в первом инпуте, положилось в заголовок
+    elementTemplate.querySelector('.element__img').setAttribute('src', image); // То, что во втором инпуте, положилось в атрибут
     photosContainer.prepend(elementTemplate);
 } // Прописываю функцию, добавляющую посты в ленту
+
+
+initialCards.forEach(function (element) {
+    addPost(element.name, element.link);
+});
 
 function savePopup(evt) {
     evt.preventDefault();  // Отменяет стандартную отправку формы
@@ -94,7 +99,7 @@ function savePopup(evt) {
 
 function savePopupPhoto(evt) {
     evt.preventDefault();  // Отменить стандартную отправку формы
-    addPost(firstProfileInput, secondProfileInput); // Добавить пост в ленту (в аргументах инпуты, где пользователь ввёл данные)
+    addPost(firstProfileInput.value, secondProfileInput.value); // Добавить пост в ленту (в аргументах инпуты, где пользователь ввёл данные)
     closePopup(); // Автоматически закрыть попап
     console.log('❤️❤️');
 } // Прописываю функцию, передающую из инпутов в блок с картинками
