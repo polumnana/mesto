@@ -4,13 +4,13 @@ let buttonCloseEditProfile = document.querySelector('.popup__close-form'); // З
 let buttonEditProfile = document.querySelector('.profile__button-edit'); // Редактировать профиль
 
 let formSubmit = document.querySelector('.popup__form'); // Форма
-let nameProfileInput = document.querySelector('.popup__input_form_name'); // Данные ИМЯ в инпуте
-let aboutProfileInput = document.querySelector('.popup__input_form_about'); // Данные О СЕБЕ в инпуте
+let firstProfileInput = document.querySelector('.popup__input_form_name'); // Данные ИМЯ в инпуте
+let secondProfileInput = document.querySelector('.popup__input_form_about'); // Данные О СЕБЕ в инпуте
 let profileInfoName = document.querySelector('.profile__info-name'); // Данные ИМЯ в самом профиле
 let profileInfoAbout = document.querySelector('.profile__info-about'); // Данные О СЕБЕ в самом профиле
 let buttonAddNewPost = document.querySelector('.profile__button-add'); // Добавить пост (пока что не делаем)
 
-
+let popupTitle = document.querySelector('.popup__title');
 // Прописываю функции
 
 
@@ -25,14 +25,22 @@ function openPopup() {
 
 function openPopupForProfile() {
     openPopup();
-    nameProfileInput.value = profileInfoName.textContent; // В инпут берутся данные из профиля
-    aboutProfileInput.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
+    firstProfileInput.value = profileInfoName.textContent; // В инпут берутся данные из профиля
+    secondProfileInput.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
+    popupTitle.textContent = 'Редактировать профиль';
+    firstProfileInput.placeholder = 'Леник Бобзиковна';
+    secondProfileInput.placeholder = 'Люблю гладить котиков';
 } // Прописываю функцию, подгружающую в инпуты данные из профиля
 
 function openPopupForPhoto() {
     openPopup();
-    nameProfileInput.value = ''; // В инпуте должно быть пусто
-    aboutProfileInput.value = ''; // В инпуте должно быть пусто
+    firstProfileInput.value = ''; // В инпуте должно быть пусто
+    secondProfileInput.value = ''; // В инпуте должно быть пусто
+    popupTitle.textContent = 'Новое место';
+    firstProfileInput.placeholder = 'Название';
+    secondProfileInput.placeholder = 'Ссылка на картинку';
+
+
 }
 
 
@@ -40,8 +48,8 @@ function openPopupForPhoto() {
 
 function savePopup(evt) {
     evt.preventDefault();  // Отменяет стандартную отправку формы
-    profileInfoName.textContent = nameProfileInput.value; // Из инпута данные летят в профиль
-    profileInfoAbout.textContent = aboutProfileInput.value; // Из инпута данные летят в профиль
+    profileInfoName.textContent = firstProfileInput.value; // Из инпута данные летят в профиль
+    profileInfoAbout.textContent = secondProfileInput.value; // Из инпута данные летят в профиль
     closePopup(); // Автоматически закрыть попап
 } // Прописываю функцию, передающую из инпутов в данные профиля
 
