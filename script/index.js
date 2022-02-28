@@ -43,12 +43,9 @@ const initialCards = [
 
 
 
-
-// Прописываю функции:
-
 function closePopup() {
     popupEditProfile.classList.remove('popup_opened');
-} // Прописываю функцию, закрывающую попап при чтении страницы
+} // Прописываю функцию, закрывающую попап 
 
 function openPopup() {
     popupEditProfile.classList.add('popup_opened');
@@ -85,14 +82,38 @@ function likeActive(evt) {
 function addPost(title, image) {
     let photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
     let elementTemplate = photosTemplate.querySelector('.element').cloneNode(true); // Скопировала содержимое блока-шаблона с содержимым
+    let elementPreview = elementTemplate.querySelector('.element__preview');
+
 
     let like = elementTemplate.querySelector('.element__button'); // Нашла в копии шаблона лайк
     like.addEventListener("click", likeActive); // Добавила на лайк слушатель
+
+    let buttonOpenPreview = elementTemplate.querySelector('.element__img');
+    buttonOpenPreview.addEventListener("click", evt => {
+        elementPreview.classList.add('element__preview_opened');
+    });
+    console.log('Я добавляю класс 👀');
+
+
+    let buttonClosePreview = elementTemplate.querySelector('.preview__close-form');
+    buttonClosePreview.addEventListener("click", evt => {
+        elementPreview.classList.remove('element__preview_opened');
+    });
+
+
+
+    elementTemplate.querySelector('.preview__img').setAttribute('src', image);
+    elementTemplate.querySelector('.preview__img').setAttribute('alt', title);
+    elementTemplate.querySelector('.preview__text').textContent = title;
+
 
     elementTemplate.querySelector('.element__title').textContent = title; // То, что в первом инпуте, положилось в заголовок
     elementTemplate.querySelector('.element__img').setAttribute('src', image);// Ссылка положилась в атрибут SRC
     elementTemplate.querySelector('.element__img').setAttribute('alt', title); // Название положилось в атрибут ALT
     photosContainer.prepend(elementTemplate);
+
+
+    console.log('Я добавляю постики в ленту 🌸🌸🌸');
 } // Прописываю функцию, добавляющую посты в ленту
 
 
@@ -124,4 +145,3 @@ addDefaultPost(); // Вызываю функцию, добавляющую фо�
 buttonEditProfile.addEventListener("click", openPopupForProfile); //Вызываю функцию, открывающую попап кликом на карандашик (ПРОФИЛЬ)
 buttonAddNewPost.addEventListener("click", openPopupForPhoto);//Вызываю функцию, открывающую попап кликом на плюсик (ФОТО)
 buttonCloseEditProfile.addEventListener("click", closePopup); // Прописываю функцию, закрывающую попап кликом на крестик
-

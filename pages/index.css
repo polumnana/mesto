@@ -38,3 +38,67 @@
 
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/element/__button/_active/element__button_active.css);
+
+.element__preview {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+
+    background-color: pink;
+}
+
+.element__preview_opened {
+    display: flex;
+}
+
+.preview__container {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.preview__img {
+    max-height: 80vh;
+    object-fit: contain;
+    width: 100%;
+}
+
+.preview__text {
+    margin: 10px 0 0;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+.preview__close-form {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    background: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.preview__close-form:hover {
+    opacity: .6;
+    transition: opacity .2s linear;
+}
+
+@media screen and (min-width: 320px) and (max-width: 520px) {
+    .preview__close-form {
+        top: -36px;
+        right: 0;
+    }
+}
