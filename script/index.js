@@ -84,6 +84,9 @@ function addPost(title, image) {
     let elementTemplate = photosTemplate.querySelector('.element').cloneNode(true); // Скопировала содержимое блока-шаблона с содержимым
     let elementPreview = elementTemplate.querySelector('.element__preview');
 
+    let delete = elementTemplate.querySelector('.element__delete'); // Нашла в копии шаблона удалить
+    delete.addEventListener("click",);
+
 
     let like = elementTemplate.querySelector('.element__button'); // Нашла в копии шаблона лайк
     like.addEventListener("click", likeActive); // Добавила на лайк слушатель

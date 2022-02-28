@@ -39,6 +39,29 @@
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/element/__button/_active/element__button_active.css);
 
+
+.element__delete {
+    display: block;
+    grid-column: 2/3;
+    grid-row: 1;
+    z-index: 2;
+    margin: 20px 20px 0 0;
+    padding: 0;
+    width: 18px;
+    height: 19px;
+    background: none;
+    border-style: none;
+    cursor: pointer;
+}
+
+.element__delete:hover {
+    opacity: .5;
+    transition: opacity .2s linear;
+}
+
+
+
+/*  */
 .element__preview {
     display: none;
     position: fixed;
