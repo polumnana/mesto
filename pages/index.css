@@ -50,7 +50,7 @@
     justify-content: center;
     align-items: center;
 
-    background-color: pink;
+    /* background-color: pink; */
 }
 
 .element__preview_opened {
@@ -62,14 +62,26 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     position: relative;
 }
 
 .preview__img {
-    max-height: 80vh;
+    max-height: 540px;
+    /* max-width: 80%; */
     object-fit: contain;
-    width: 100%;
+}
+
+@media screen and (min-width: 521px) and (max-width: 920px) {
+    .preview__img {
+        height: 350px;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 520px) {
+    .preview__img {
+        height: 300px;
+    }
 }
 
 .preview__text {
@@ -100,5 +112,17 @@
     .preview__close-form {
         top: -36px;
         right: 0;
+    }
+}
+
+.preview__close-form-img {
+    width: 32px;
+    height: 32px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 520px) {
+    .preview__close-form-img {
+        width: 20px;
+        height: 20px;
     }
 }

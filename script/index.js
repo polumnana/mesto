@@ -98,6 +98,7 @@ function addPost(title, image) {
     let buttonClosePreview = elementTemplate.querySelector('.preview__close-form');
     buttonClosePreview.addEventListener("click", evt => {
         elementPreview.classList.remove('element__preview_opened');
+        console.log('А я удаляю класс 🔥');
     });
 
 
