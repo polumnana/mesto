@@ -14,7 +14,6 @@
 
 @import url(../blocks/element/__button/element__button.css);
 @import url(../blocks/element/__img/element__img.css);
-@import url(../blocks/element/__like/element__like.css);
 @import url(../blocks/element/__title/element__title.css);
 
 @import url(../blocks/footer/__copyright/footer__copyright.css);
@@ -89,9 +88,9 @@
 }
 
 .preview__img {
-    max-height: 540px;
-    /* max-width: 80%; */
-    object-fit: contain;
+    max-height: 75vh;
+    max-width: 75vw;
+    object-fit: cover;
 }
 
 @media screen and (min-width: 521px) and (max-width: 920px) {
