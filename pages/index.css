@@ -1,7 +1,7 @@
 @import url(../vendor/normalize.css);
 @import url(../fonts/Inter/fonts.css);
 
-
+/* Блоки */
 @import url(../blocks/content/content.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/elements/elements.css);
@@ -10,11 +10,14 @@
 @import url(../blocks/page/page.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/profile/profile.css);
+@import url(../blocks/preview/preview.css);
 
-
+/* Элементы */
 @import url(../blocks/element/__button/element__button.css);
 @import url(../blocks/element/__img/element__img.css);
 @import url(../blocks/element/__title/element__title.css);
+@import url(../blocks/element/__delete/element__delete.css);
+@import url(../blocks/element/__preview/element__preview.css);
 
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 
@@ -34,116 +37,12 @@
 @import url(../blocks/profile/__info-name/profile__info-name.css);
 @import url(../blocks/profile/__info/profile__info.css);
 
+@import url(../blocks/preview/__close-form-img/preview__close-form-img.css);
+@import url(../blocks/preview/__close-form/preview__close-form.css);
+@import url(../blocks/preview/__img/preview__img.css);
+@import url(../blocks/preview/__text/preview__text.css);
 
+/* Модификаторы */
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/element/__button/_active/element__button_active.css);
-
-
-.element__delete {
-    display: block;
-    grid-column: 2/3;
-    grid-row: 1;
-    margin: 20px 20px 0 0;
-    padding: 0;
-    width: 18px;
-    height: 19px;
-    background: none;
-    border-style: none;
-    cursor: pointer;
-}
-
-.element__delete:hover {
-    opacity: .5;
-    transition: opacity .2s linear;
-}
-
-
-
-/*  */
-.element__preview {
-    display: none;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.9);
-    justify-content: center;
-    align-items: center;
-
-    /* background-color: pink; */
-}
-
-.element__preview_opened {
-    display: flex;
-}
-
-.preview__container {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: flex-start;
-    position: relative;
-}
-
-.preview__img {
-    max-height: 75vh;
-    max-width: 75vw;
-    object-fit: cover;
-}
-
-@media screen and (min-width: 521px) and (max-width: 920px) {
-    .preview__img {
-        height: 350px;
-    }
-}
-
-@media screen and (min-width: 320px) and (max-width: 520px) {
-    .preview__img {
-        height: 300px;
-    }
-}
-
-.preview__text {
-    margin: 10px 0 0;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 15px;
-}
-
-.preview__close-form {
-    position: absolute;
-    top: -40px;
-    right: -40px;
-    background: none;
-    cursor: pointer;
-    margin: 0;
-    padding: 0;
-    border: none;
-}
-
-.preview__close-form:hover {
-    opacity: .6;
-    transition: opacity .2s linear;
-}
-
-@media screen and (min-width: 320px) and (max-width: 520px) {
-    .preview__close-form {
-        top: -36px;
-        right: 0;
-    }
-}
-
-.preview__close-form-img {
-    width: 32px;
-    height: 32px;
-}
-
-@media screen and (min-width: 320px) and (max-width: 520px) {
-    .preview__close-form-img {
-        width: 20px;
-        height: 20px;
-    }
-}
+@import url(../blocks/element/__preview/_opened/element__preview_opened.css);
