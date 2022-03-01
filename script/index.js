@@ -74,18 +74,27 @@ function openPopupForPhoto() {
 } // Прописываю функцию, ничего не подгружающую в инпуты, заполняющую плейсхолдеры и заполняющую заголовок попапа
 
 function likeActive(evt) {
+    evt.preventDefault();  // Отменить стандартную отправку формы
     const targetLike = evt.target;
     targetLike.classList.toggle('element__button_active');
     console.log('Лайков много не бывает! ❤️');
 } // Прописываю функцию, меняющую лайк
 
 function addPost(title, image) {
+
     let photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
     let elementTemplate = photosTemplate.querySelector('.element').cloneNode(true); // Скопировала содержимое блока-шаблона с содержимым
     let elementPreview = elementTemplate.querySelector('.element__preview');
 
-    let delete = elementTemplate.querySelector('.element__delete'); // Нашла в копии шаблона удалить
-    delete.addEventListener("click",);
+    let elementDelete = elementTemplate.querySelector('.element__delete'); // Нашла в копии шаблона удалить
+    elementDelete.addEventListener("click", removeElement);
+
+
+    function removeElement(evt) {
+        evt.preventDefault();  // Отменить стандартную отправку формы
+        elementTemplate.remove();
+        console.log('Прощай, пост! 🙈');
+    }
 
 
     let like = elementTemplate.querySelector('.element__button'); // Нашла в копии шаблона лайк
@@ -94,6 +103,7 @@ function addPost(title, image) {
     let buttonOpenPreview = elementTemplate.querySelector('.element__img');
     buttonOpenPreview.addEventListener("click", evt => {
         elementPreview.classList.add('element__preview_opened');
+
     });
     console.log('Я добавляю класс 👀');
 
@@ -117,7 +127,7 @@ function addPost(title, image) {
     photosContainer.prepend(elementTemplate);
 
 
-    console.log('Я добавляю постики в ленту 🌸🌸🌸');
+    console.log('Я добавляю постик в ленту 🌸🌸🌸');
 } // Прописываю функцию, добавляющую посты в ленту
 
 
