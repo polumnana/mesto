@@ -1,16 +1,16 @@
 // Объявляю переменные:
-let popupEditProfile = document.querySelector('.popup'); // Попап редактировать профиль
-let buttonCloseEditProfile = document.querySelector('.popup__close-form'); // Закрыть попап
-let buttonEditProfile = document.querySelector('.profile__button-edit'); // Редактировать профиль
+const popupEditProfile = document.querySelector('.popup'); // Попап редактировать профиль
+const buttonCloseEditProfile = document.querySelector('.popup__close-form'); // Закрыть попап
+const buttonEditProfile = document.querySelector('.profile__button-edit'); // Редактировать профиль
 
-let formSubmit = document.querySelector('.popup__form'); // Форма
-let popupTitle = document.querySelector('.popup__title'); // Заголовок формы
-let firstProfileInput = document.querySelector('.popup__input_form_name'); // Данные в первом инпуте
-let secondProfileInput = document.querySelector('.popup__input_form_about'); // Данные во втором инпуте
-let profileInfoName = document.querySelector('.profile__info-name'); // Данные ИМЯ в самом профиле
-let profileInfoAbout = document.querySelector('.profile__info-about'); // Данные О СЕБЕ в самом профиле
-let buttonAddNewPost = document.querySelector('.profile__button-add'); // Добавить пост 
-let photosContainer = document.querySelector('.elements'); // Контейнер с постами
+const formSubmit = document.querySelector('.popup__form'); // Форма
+const popupTitle = document.querySelector('.popup__title'); // Заголовок формы
+const firstProfileInput = document.querySelector('.popup__input_form_name'); // Данные в первом инпуте
+const secondProfileInput = document.querySelector('.popup__input_form_about'); // Данные во втором инпуте
+const profileInfoName = document.querySelector('.profile__info-name'); // Данные ИМЯ в самом профиле
+const profileInfoAbout = document.querySelector('.profile__info-about'); // Данные О СЕБЕ в самом профиле
+const buttonAddNewPost = document.querySelector('.profile__button-add'); // Добавить пост 
+const photosContainer = document.querySelector('.elements'); // Контейнер с постами
 
 
 // Массив с исходными фотографиями:
@@ -41,26 +41,26 @@ const initialCards = [
     }
 ];
 
-
+// Прописываю функции:
 
 function closePopup() {
     popupEditProfile.classList.remove('popup_opened');
-} // Прописываю функцию, закрывающую попап 
+} // Закрывающую попап 
 
 function openPopup() {
     popupEditProfile.classList.add('popup_opened');
-} // Прописываю функцию, открывающую попап кликом 
+} // Открывающую попап
 
 function openPopupForProfile() {
-    openPopup();
+    openPopup(); // Открыть попап
     firstProfileInput.value = profileInfoName.textContent; // В инпут берутся данные из профиля
     secondProfileInput.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
     popupTitle.textContent = 'Редактировать профиль';
     firstProfileInput.placeholder = 'Леник Бобзиковна';
     secondProfileInput.placeholder = 'Люблю гладить котиков';
-    formSubmit.removeEventListener("submit", savePopupPhoto);
-    formSubmit.addEventListener("submit", savePopup);
-} // Прописываю функцию, подгружающую в инпуты данные из профиля, заполняющую плейсхолдеры и заполняющую заголовок попапа
+    formSubmit.removeEventListener("submit", savePopupPhoto); // Убираю чужой слушатель
+    formSubmit.addEventListener("submit", savePopup); // Добавляю нужный слушатель
+} // Подгружающую в инпуты данные из профиля, заполняющую плейсхолдеры и заполняющую заголовок попапа
 
 function openPopupForPhoto() {
     openPopup();
@@ -69,92 +69,86 @@ function openPopupForPhoto() {
     popupTitle.textContent = 'Новое место';
     firstProfileInput.placeholder = 'Название';
     secondProfileInput.placeholder = 'Ссылка на картинку';
-    formSubmit.removeEventListener("submit", savePopup);
-    formSubmit.addEventListener("submit", savePopupPhoto);
-} // Прописываю функцию, ничего не подгружающую в инпуты, заполняющую плейсхолдеры и заполняющую заголовок попапа
+    formSubmit.removeEventListener("submit", savePopup); // Убираю чужой слушатель
+    formSubmit.addEventListener("submit", savePopupPhoto); // Добавляю нужный слушатель
+} // Ничего не подгружающую в инпуты, заполняющую плейсхолдеры и заполняющую заголовок попапа
 
 function likeActive(evt) {
-    evt.preventDefault();  // Отменить стандартную отправку формы
-    const targetLike = evt.target;
-    targetLike.classList.toggle('element__button_active');
+    evt.preventDefault(); // Отменить выполнение события по умолчанию
+    const targetLike = evt.target; // То, куда нажали, кладём в переменную
+    targetLike.classList.toggle('element__button_active'); // Тому, что в переменной, переключаем класс
     console.log('Лайков много не бывает! ❤️');
-} // Прописываю функцию, меняющую лайк
+} // Меняющую лайк
 
 function addPost(title, image) {
 
-    let photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
-    let elementTemplate = photosTemplate.querySelector('.element').cloneNode(true); // Скопировала содержимое блока-шаблона с содержимым
-    let elementPreview = elementTemplate.querySelector('.element__preview');
+    // Переменные
+    const photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
+    const elementTemplate = photosTemplate.querySelector('.element').cloneNode(true); // Скопировала содержимое блока-шаблона с содержимым
 
-    let elementDelete = elementTemplate.querySelector('.element__delete'); // Нашла в копии шаблона удалить
-    elementDelete.addEventListener("click", removeElement);
+    const elementPreview = elementTemplate.querySelector('.element__preview'); // Нашла в копии шаблона "просмотр"
+    const elementDelete = elementTemplate.querySelector('.element__delete'); // Нашла в копии шаблона "удалить"
+    const like = elementTemplate.querySelector('.element__button'); // Нашла в копии шаблона "лайк"
+    const buttonOpenPreview = elementTemplate.querySelector('.element__img'); // Нашла в копии шаблона "фото"
+    const buttonClosePreview = elementTemplate.querySelector('.preview__close-form'); // Нашла в копии шаблона "закрыть"
 
-
-    function removeElement(evt) {
-        evt.preventDefault();  // Отменить стандартную отправку формы
-        elementTemplate.remove();
-        console.log('Прощай, пост! 🙈');
-    }
-
-
-    let like = elementTemplate.querySelector('.element__button'); // Нашла в копии шаблона лайк
-    like.addEventListener("click", likeActive); // Добавила на лайк слушатель
-
-    let buttonOpenPreview = elementTemplate.querySelector('.element__img');
-    buttonOpenPreview.addEventListener("click", evt => {
-        elementPreview.classList.add('element__preview_opened');
-
-    });
-    console.log('Я добавляю класс 👀');
-
-
-    let buttonClosePreview = elementTemplate.querySelector('.preview__close-form');
-    buttonClosePreview.addEventListener("click", evt => {
-        elementPreview.classList.remove('element__preview_opened');
-        console.log('А я удаляю класс 🔥');
-    });
-
-
-
-    elementTemplate.querySelector('.preview__img').setAttribute('src', image);
-    elementTemplate.querySelector('.preview__img').setAttribute('alt', title);
-    elementTemplate.querySelector('.preview__text').textContent = title;
-
+    // Возвращаю значения в нужные места:
+    elementTemplate.querySelector('.preview__img').setAttribute('src', image); // Передали карточке SRC 
+    elementTemplate.querySelector('.preview__img').setAttribute('alt', title); // Передали карточке ALT 
+    elementTemplate.querySelector('.preview__text').textContent = title;  // Передали карточке заголовок 
 
     elementTemplate.querySelector('.element__title').textContent = title; // То, что в первом инпуте, положилось в заголовок
     elementTemplate.querySelector('.element__img').setAttribute('src', image);// Ссылка положилась в атрибут SRC
     elementTemplate.querySelector('.element__img').setAttribute('alt', title); // Название положилось в атрибут ALT
-    photosContainer.prepend(elementTemplate);
+    photosContainer.prepend(elementTemplate); // Из копии шаблона всё положили на страницу
 
+    // Прописываю функции:
+    function removeElement(evt) {
+        evt.preventDefault();  // Отменить выполнение события по умолчанию
+        elementTemplate.remove();
+        console.log('Прощай, пост! 🙈');
+    } // Удаляющую пост
+
+    // Слушатели:
+    like.addEventListener("click", likeActive); // Добавила на "лайк" слушатель
+    elementDelete.addEventListener("click", removeElement); // Добавила на "удалить" слушатель
+    buttonClosePreview.addEventListener("click", evt => {
+        elementPreview.classList.remove('element__preview_opened');
+        console.log('Закрываю просмотр 🔥');
+    }); // Добавила на "закрыть" слушатель
+    buttonOpenPreview.addEventListener("click", evt => {
+        elementPreview.classList.add('element__preview_opened');
+        console.log('Покажи поближе 👀');
+    }); // Добавила на "фото" слушатель
 
     console.log('Я добавляю постик в ленту 🌸🌸🌸');
-} // Прописываю функцию, добавляющую посты в ленту
+} // Добавляющую пост пользователя в ленту
 
 
 function addDefaultPost() {
     initialCards.forEach(function (element) {
         addPost(element.name, element.link);
     });
-} // Прописываю функцию, добавляющую фото в ленту из задания
+} // Добавляющую посты (6шт) в ленту (из задания)
 
 function savePopup(evt) {
-    evt.preventDefault();  // Отменить стандартную отправку формы
+    evt.preventDefault();  // Отменить выполнение события по умолчанию
     profileInfoName.textContent = firstProfileInput.value; // Из инпута данные летят в профиль
     profileInfoAbout.textContent = secondProfileInput.value; // Из инпута данные летят в профиль
     closePopup(); // Автоматически закрыть попап
     console.log('Информация обновлена 🥰');
-} // Прописываю функцию, передающую из инпутов в данные профиля
+} // Передающую из инпутов в данные профиля
 
 function savePopupPhoto(evt) {
-    evt.preventDefault();  // Отменить стандартную отправку формы
+    evt.preventDefault();  // Отменить выполнение события по умолчанию
     addPost(firstProfileInput.value, secondProfileInput.value); // Добавить пост в ленту (в аргументах инпуты, где пользователь ввёл данные)
     closePopup(); // Автоматически закрыть попап
     console.log('Лента обновлена 💬');
-} // Прописываю функцию, передающую из инпутов в блок с картинками
+} // Передающую из инпутов в блок с картинками
 
 
 // Прописываю события:
-addDefaultPost(); // Вызываю функцию, добавляющую фото в ленту из задания
+addDefaultPost(); // Вызываю функцию, добавляющую посты (6шт) в ленту (из задания)
 
 buttonEditProfile.addEventListener("click", openPopupForProfile); //Вызываю функцию, открывающую попап кликом на карандашик (ПРОФИЛЬ)
 buttonAddNewPost.addEventListener("click", openPopupForPhoto);//Вызываю функцию, открывающую попап кликом на плюсик (ФОТО)
