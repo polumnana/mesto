@@ -1,6 +1,0 @@
-.element__preview_opened {
-    visibility: visible;
-    opacity: 1;
-    transition: 1s;
-    display: flex;
-}

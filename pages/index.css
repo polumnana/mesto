@@ -17,7 +17,6 @@
 @import url(../blocks/element/__img/element__img.css);
 @import url(../blocks/element/__title/element__title.css);
 @import url(../blocks/element/__delete/element__delete.css);
-@import url(../blocks/element/__preview/element__preview.css);
 
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 
@@ -38,12 +37,9 @@
 @import url(../blocks/profile/__info-name/profile__info-name.css);
 @import url(../blocks/profile/__info/profile__info.css);
 
-@import url(../blocks/preview/__close-form-img/preview__close-form-img.css);
-@import url(../blocks/preview/__close-form/preview__close-form.css);
 @import url(../blocks/preview/__img/preview__img.css);
 @import url(../blocks/preview/__text/preview__text.css);
 
 /* Модификаторы */
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/element/__button/_active/element__button_active.css);
-@import url(../blocks/element/__preview/_opened/element__preview_opened.css);

@@ -125,11 +125,12 @@ function createCard(title, image) {
     const photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
     const elementTemplate = photosTemplate.querySelector('.element').cloneNode(true); // Скопировала содержимое блока-шаблона с содержимым
 
-    const elementPreview = elementTemplate.querySelector('.element__preview'); // Нашла в копии шаблона "просмотр"
     const elementDelete = elementTemplate.querySelector('.element__delete'); // Нашла в копии шаблона "удалить"
     const like = elementTemplate.querySelector('.element__button'); // Нашла в копии шаблона "лайк"
     const buttonOpenPreview = elementTemplate.querySelector('.element__img'); // Нашла в копии шаблона "фото"
-    const buttonClosePreview = elementTemplate.querySelector('.preview__close-form'); // Нашла в копии шаблона "закрыть"
+
+    const popupPreview = elementTemplate.querySelector('.popup_preview'); // Закрыть попап доб. фото
+    const buttonClosePreview = elementTemplate.querySelector('.popup__close-form_preview'); // Закрыть попап доб. фото
 
     // Возвращаю значения в нужные места:
     elementTemplate.querySelector('.preview__img').setAttribute('src', image); // Передали карточке SRC 
@@ -137,12 +138,12 @@ function createCard(title, image) {
     elementTemplate.querySelector('.preview__text').textContent = title;  // Передали карточке заголовок 
 
     elementTemplate.querySelector('.element__title').textContent = title; // То, что в первом инпуте, положилось в заголовок
-    elementTemplate.querySelector('.element__img').setAttribute('src', image);// Ссылка положилась в атрибут SRC
-    elementTemplate.querySelector('.element__img').setAttribute('alt', title); // Название положилось в атрибут ALT
+    buttonOpenPreview.setAttribute('src', image);// Ссылка положилась в атрибут SRC
+    buttonOpenPreview.setAttribute('alt', title); // Название положилось в атрибут ALT
 
     // Прописываю функции:
     function removeElement(evt) {
-        evt.preventDefault();  // Отменить выполнение события по умолчанию
+        evt.preventDefault(); // Отменить выполнение события по умолчанию
         elementTemplate.remove();
         console.log('Прощай, пост! 🙈');
     } // Удаляющую пост
@@ -150,17 +151,16 @@ function createCard(title, image) {
     // Слушатели:
     like.addEventListener("click", likeActive); // Добавила на "лайк" слушатель
     elementDelete.addEventListener("click", removeElement); // Добавила на "удалить" слушатель
-    buttonClosePreview.addEventListener("click", evt => {
-        elementPreview.classList.remove('element__preview_opened');
-        console.log('Закрываю просмотр 🔥');
-    }); // Добавила на "закрыть" слушатель
+
     buttonOpenPreview.addEventListener("click", evt => {
-        elementPreview.classList.add('element__preview_opened');
+        openPopup(popupPreview);
         console.log('Покажи поближе 👀');
     }); // Добавила на "фото" слушатель
 
-    return elementTemplate;
-}
+    buttonClosePreview.addEventListener("click", () => closePopup(popupPreview)); // Закрываю попап просмотр фото
+
+    return elementTemplate; // Вернуть результат функции
+};
 
 // Добавляющую пост пользователя в ленту
 function addPost(card, container) {
@@ -168,16 +168,13 @@ function addPost(card, container) {
     console.log('Я добавляю постик в ленту 🌸🌸🌸');
 }
 
-// Добавляющую посты (6шт) в ленту (из задания)
-function addDefaultPost() {
-    initialCards.forEach(function (element) {
-        const card = createCard(element.name, element.link);
-        addPost(card, photosContainer);
-    });
-}
-
 // Прописываю события:
-addDefaultPost(); // Вызываю функцию, добавляющую посты (6шт) в ленту (из задания)
+
+// Вызываю функцию, добавляющую посты (6шт) в ленту (из задания)
+initialCards.forEach(function (element) {
+    const card = createCard(element.name, element.link);
+    addPost(card, photosContainer);
+});
 
 buttonEditProfile.addEventListener("click", openPopupEditProfile); // Открывающую попап кликом на карандашик (ПРОФИЛЬ)
 buttonAddNewPost.addEventListener("click", openPopupAddPost); // Открывающую попап кликом на плюсик (ФОТО)
