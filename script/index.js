@@ -1,18 +1,3 @@
-// Объявляю переменные:
-const popupEditProfile = document.querySelector('.popup'); // Попап редактировать профиль
-const buttonCloseEditProfile = document.querySelector('.popup__close-form'); // Закрыть попап
-const buttonEditProfile = document.querySelector('.profile__button-edit'); // Редактировать профиль
-
-const formSubmit = document.querySelector('.popup__form'); // Форма
-const popupTitle = document.querySelector('.popup__title'); // Заголовок формы
-const firstProfileInput = document.querySelector('.popup__input_form_name'); // Данные в первом инпуте
-const secondProfileInput = document.querySelector('.popup__input_form_about'); // Данные во втором инпуте
-const profileInfoName = document.querySelector('.profile__info-name'); // Данные ИМЯ в самом профиле
-const profileInfoAbout = document.querySelector('.profile__info-about'); // Данные О СЕБЕ в самом профиле
-const buttonAddNewPost = document.querySelector('.profile__button-add'); // Добавить пост 
-const photosContainer = document.querySelector('.elements'); // Контейнер с постами
-
-
 // Массив с исходными фотографиями:
 const initialCards = [
     {
@@ -41,46 +26,100 @@ const initialCards = [
     }
 ];
 
+// Объявляю переменные общие:
+// const popup = document.querySelector('.popup'); // Попап
+
+// Объявляю переменные первого попапа (ред профиль):
+const popupProfile = document.querySelector('.popup_profile');
+
+const popupEditProfile = document.querySelector('.popup__container_edit-profile');
+
+const buttonEditProfile = document.querySelector('.profile__button-edit'); // Кнопка "Редактировать профиль"
+
+const buttonCloseEditProfile = document.querySelector('.popup__close-form_edit-profile'); // Закрыть попап ред. профиля
+const popupTitleEditProfile = document.querySelector('.popup__title_edit-profile'); // Заголовок формы
+const formSubmitEditProfile = document.querySelector('.popup__form_edit-profile'); // Форма
+
+const firstInputEditProfile = document.querySelector('.popup__input_form-name'); // Данные в первом инпуте попапа ред. профиль
+const secondInputEditProfile = document.querySelector('.popup__input_form-about'); // Данные во втором инпуте попапа ред. профиль
+
+const profileInfoName = document.querySelector('.profile__info-name'); // Данные ИМЯ в самом профиле
+const profileInfoAbout = document.querySelector('.profile__info-about'); // Данные О СЕБЕ в самом профиле
+
+
+// Объявляю переменные второго попапа (доб фото):
+const popupGallery = document.querySelector('.popup_gallery');
+
+const popupAddPhoto = document.querySelector('.popup__container_add-photo');
+
+const buttonAddNewPost = document.querySelector('.profile__button-add'); // Кнопка "Добавить пост" 
+
+const buttonCloseAddPhoto = document.querySelector('.popup__close-form_add-photo'); // Закрыть попап доб. фото
+const popupTitleAddPost = document.querySelector('.popup__title_add-photo'); // Заголовок формы
+const formSubmitAddPost = document.querySelector('.popup__form_add-photo'); // Форма
+
+const firstInputAddPost = document.querySelector('.popup__input_form-title'); // Данные в первом инпуте попапа доб. пост
+const secondInputAddPost = document.querySelector('.popup__input_form-link'); // Данные во втором инпуте попапа доб. пост
+
+const photosContainer = document.querySelector('.elements'); // Контейнер с постами
+
 // Прописываю функции:
 
-function closePopup() {
-    popupEditProfile.classList.remove('popup_opened');
-} // Закрывающую попап 
+// Открывающую попап
+function openPopup(element) {
+    element.classList.add('popup_opened');
+}
 
-function openPopup() {
-    popupEditProfile.classList.add('popup_opened');
-} // Открывающую попап
+// Закрывающую попап 
+function closePopup(element) {
+    element.classList.remove('popup_opened');
+}
 
-function openPopupForProfile() {
-    openPopup(); // Открыть попап
-    firstProfileInput.value = profileInfoName.textContent; // В инпут берутся данные из профиля
-    secondProfileInput.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
-    popupTitle.textContent = 'Редактировать профиль';
-    firstProfileInput.placeholder = 'Леник Бобзиковна';
-    secondProfileInput.placeholder = 'Люблю гладить котиков';
-    formSubmit.removeEventListener("submit", savePopupPhoto); // Убираю чужой слушатель
-    formSubmit.addEventListener("submit", savePopup); // Добавляю нужный слушатель
-} // Подгружающую в инпуты данные из профиля, заполняющую плейсхолдеры и заполняющую заголовок попапа
+function savePopupEditProfile(evt) {
+    evt.preventDefault();  // Отменить выполнение события по умолчанию
+    profileInfoName.textContent = firstInputEditProfile.value; // Из инпута данные летят в профиль
+    profileInfoAbout.textContent = secondInputEditProfile.value; // Из инпута данные летят в профиль
+    closePopup(popupProfile); // Автоматически закрыть попап
+    console.log('Информация обновлена 🥰');
+} // Передающую из инпутов в данные профиля
 
-function openPopupForPhoto() {
-    openPopup();
-    firstProfileInput.value = ''; // В инпуте должно быть пусто
-    secondProfileInput.value = ''; // В инпуте должно быть пусто
-    popupTitle.textContent = 'Новое место';
-    firstProfileInput.placeholder = 'Название';
-    secondProfileInput.placeholder = 'Ссылка на картинку';
-    formSubmit.removeEventListener("submit", savePopup); // Убираю чужой слушатель
-    formSubmit.addEventListener("submit", savePopupPhoto); // Добавляю нужный слушатель
-} // Ничего не подгружающую в инпуты, заполняющую плейсхолдеры и заполняющую заголовок попапа
+function savePopupAddPost(evt) {
+    evt.preventDefault();  // Отменить выполнение события по умолчанию
+    const card = createCard(firstInputAddPost.value, secondInputAddPost.value);
+    addPost(card, photosContainer);
 
+    closePopup(popupGallery); // Автоматически закрыть попап
+    console.log('Лента обновлена 💬');
+} // Передающую из инпутов в блок с картинками
+
+// Подгружающую в инпуты данные из профиля,заполняющую заголовок попапа
+function openPopupEditProfile() {
+    openPopup(popupProfile); // Открыть попап
+    firstInputEditProfile.value = profileInfoName.textContent; // В инпут берутся данные из профиля
+    secondInputEditProfile.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
+    popupTitleEditProfile.textContent = 'Редактировать профиль';
+    formSubmitEditProfile.addEventListener("submit", savePopupEditProfile); // Слушатель на "Сохранить"
+}
+
+// Ничего не подгружающую в инпуты, заполняющую заголовок попапа
+function openPopupAddPost() {
+    openPopup(popupGallery);
+    firstInputAddPost.value = ''; // В инпуте должно быть пусто
+    secondInputAddPost.value = ''; // В инпуте должно быть пусто
+    popupTitleAddPost.textContent = 'Новое место';
+    formSubmitAddPost.addEventListener("submit", savePopupAddPost); // Слушатель на "Сохранить"
+}
+
+// Меняющую лайк
 function likeActive(evt) {
     evt.preventDefault(); // Отменить выполнение события по умолчанию
     const targetLike = evt.target; // То, куда нажали, кладём в переменную
     targetLike.classList.toggle('element__button_active'); // Тому, что в переменной, переключаем класс
     console.log('Лайков много не бывает! ❤️');
-} // Меняющую лайк
+}
 
-function addPost(title, image) {
+// Создающую карточку-пост
+function createCard(title, image) {
 
     // Переменные
     const photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
@@ -100,7 +139,6 @@ function addPost(title, image) {
     elementTemplate.querySelector('.element__title').textContent = title; // То, что в первом инпуте, положилось в заголовок
     elementTemplate.querySelector('.element__img').setAttribute('src', image);// Ссылка положилась в атрибут SRC
     elementTemplate.querySelector('.element__img').setAttribute('alt', title); // Название положилось в атрибут ALT
-    photosContainer.prepend(elementTemplate); // Из копии шаблона всё положили на страницу
 
     // Прописываю функции:
     function removeElement(evt) {
@@ -121,35 +159,28 @@ function addPost(title, image) {
         console.log('Покажи поближе 👀');
     }); // Добавила на "фото" слушатель
 
+    return elementTemplate;
+}
+
+// Добавляющую пост пользователя в ленту
+function addPost(card, container) {
+    container.prepend(card); // Из копии шаблона всё положили на страницу
     console.log('Я добавляю постик в ленту 🌸🌸🌸');
-} // Добавляющую пост пользователя в ленту
+}
 
-
+// Добавляющую посты (6шт) в ленту (из задания)
 function addDefaultPost() {
     initialCards.forEach(function (element) {
-        addPost(element.name, element.link);
+        const card = createCard(element.name, element.link);
+        addPost(card, photosContainer);
     });
-} // Добавляющую посты (6шт) в ленту (из задания)
-
-function savePopup(evt) {
-    evt.preventDefault();  // Отменить выполнение события по умолчанию
-    profileInfoName.textContent = firstProfileInput.value; // Из инпута данные летят в профиль
-    profileInfoAbout.textContent = secondProfileInput.value; // Из инпута данные летят в профиль
-    closePopup(); // Автоматически закрыть попап
-    console.log('Информация обновлена 🥰');
-} // Передающую из инпутов в данные профиля
-
-function savePopupPhoto(evt) {
-    evt.preventDefault();  // Отменить выполнение события по умолчанию
-    addPost(firstProfileInput.value, secondProfileInput.value); // Добавить пост в ленту (в аргументах инпуты, где пользователь ввёл данные)
-    closePopup(); // Автоматически закрыть попап
-    console.log('Лента обновлена 💬');
-} // Передающую из инпутов в блок с картинками
-
+}
 
 // Прописываю события:
 addDefaultPost(); // Вызываю функцию, добавляющую посты (6шт) в ленту (из задания)
 
-buttonEditProfile.addEventListener("click", openPopupForProfile); //Вызываю функцию, открывающую попап кликом на карандашик (ПРОФИЛЬ)
-buttonAddNewPost.addEventListener("click", openPopupForPhoto);//Вызываю функцию, открывающую попап кликом на плюсик (ФОТО)
-buttonCloseEditProfile.addEventListener("click", closePopup); // Прописываю функцию, закрывающую попап кликом на крестик
+buttonEditProfile.addEventListener("click", openPopupEditProfile); // Открывающую попап кликом на карандашик (ПРОФИЛЬ)
+buttonAddNewPost.addEventListener("click", openPopupAddPost); // Открывающую попап кликом на плюсик (ФОТО)
+
+buttonCloseEditProfile.addEventListener("click", () => closePopup(popupProfile)); // Закрывающую попап ред. профиля кликом на крестик
+buttonCloseAddPhoto.addEventListener("click", () => closePopup(popupGallery)); // Закрывающую попап доб. фото кликом на крестик
