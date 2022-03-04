@@ -1,17 +1,17 @@
-.preview__img {
+.popup__img {
     max-height: 75vh;
     max-width: 75vw;
     object-fit: cover;
 }
 
 @media screen and (min-width: 521px) and (max-width: 920px) {
-    .preview__img {
+    .popup__img {
         height: 350px;
     }
 }
 
 @media screen and (min-width: 320px) and (max-width: 520px) {
-    .preview__img {
+    .popup__img {
         height: 300px;
     }
 }

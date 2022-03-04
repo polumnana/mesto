@@ -66,8 +66,8 @@ const photosContainer = document.querySelector('.elements'); // Контейне
 // Объявляю переменные третьего попапа (просмотр фото):
 const popupPreview = document.querySelector('.popup_preview');
 const buttonClosePreview = document.querySelector('.popup__close-form_preview'); // Закрыть попап просмотр фото
-const previewImg = document.querySelector('.preview__img'); // Крупное фото попап 
-const previewText = document.querySelector('.preview__text'); // Описание фото попап 
+const previewImg = document.querySelector('.popup__img'); // Крупное фото попап 
+const previewText = document.querySelector('.popup__text'); // Описание фото попап 
 
 
 // Прописываю функции:
