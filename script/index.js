@@ -63,6 +63,13 @@ const secondInputAddPost = document.querySelector('.popup__input_form-link'); //
 
 const photosContainer = document.querySelector('.elements'); // Контейнер с постами
 
+// Объявляю переменные третьего попапа (просмотр фото):
+const popupPreview = document.querySelector('.popup_preview');
+const buttonClosePreview = document.querySelector('.popup__close-form_preview'); // Закрыть попап просмотр фото
+const previewImg = document.querySelector('.preview__img'); // Крупное фото попап 
+const previewText = document.querySelector('.preview__text'); // Описание фото попап 
+
+
 // Прописываю функции:
 
 // Открывающую попап
@@ -98,7 +105,6 @@ function openPopupEditProfile() {
     firstInputEditProfile.value = profileInfoName.textContent; // В инпут берутся данные из профиля
     secondInputEditProfile.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
     popupTitleEditProfile.textContent = 'Редактировать профиль';
-    formSubmitEditProfile.addEventListener("submit", savePopupEditProfile); // Слушатель на "Сохранить"
 }
 
 // Ничего не подгружающую в инпуты, заполняющую заголовок попапа
@@ -107,7 +113,14 @@ function openPopupAddPost() {
     firstInputAddPost.value = ''; // В инпуте должно быть пусто
     secondInputAddPost.value = ''; // В инпуте должно быть пусто
     popupTitleAddPost.textContent = 'Новое место';
-    formSubmitAddPost.addEventListener("submit", savePopupAddPost); // Слушатель на "Сохранить"
+}
+
+function openPopupPreview(name, link) {
+    openPopup(popupPreview); // Открыть попап
+    previewImg.setAttribute('src', link); // Передали карточке SRC 
+    previewImg.setAttribute('alt', name); // Передали карточке ALT 
+    previewText.textContent = name;  // Передали карточке заголовок 
+    console.log('Покажи поближе 👀');
 }
 
 // Меняющую лайк
@@ -127,19 +140,11 @@ function createCard(title, image) {
 
     const elementDelete = elementTemplate.querySelector('.element__delete'); // Нашла в копии шаблона "удалить"
     const like = elementTemplate.querySelector('.element__button'); // Нашла в копии шаблона "лайк"
-    const buttonOpenPreview = elementTemplate.querySelector('.element__img'); // Нашла в копии шаблона "фото"
-
-    const popupPreview = elementTemplate.querySelector('.popup_preview'); // Закрыть попап доб. фото
-    const buttonClosePreview = elementTemplate.querySelector('.popup__close-form_preview'); // Закрыть попап доб. фото
-
-    // Возвращаю значения в нужные места:
-    elementTemplate.querySelector('.preview__img').setAttribute('src', image); // Передали карточке SRC 
-    elementTemplate.querySelector('.preview__img').setAttribute('alt', title); // Передали карточке ALT 
-    elementTemplate.querySelector('.preview__text').textContent = title;  // Передали карточке заголовок 
+    const elementImage = elementTemplate.querySelector('.element__img'); // Нашла в копии шаблона "фото"
 
     elementTemplate.querySelector('.element__title').textContent = title; // То, что в первом инпуте, положилось в заголовок
-    buttonOpenPreview.setAttribute('src', image);// Ссылка положилась в атрибут SRC
-    buttonOpenPreview.setAttribute('alt', title); // Название положилось в атрибут ALT
+    elementImage.setAttribute('src', image);// Ссылка положилась в атрибут SRC
+    elementImage.setAttribute('alt', title); // Название положилось в атрибут ALT
 
     // Прописываю функции:
     function removeElement(evt) {
@@ -152,12 +157,9 @@ function createCard(title, image) {
     like.addEventListener("click", likeActive); // Добавила на "лайк" слушатель
     elementDelete.addEventListener("click", removeElement); // Добавила на "удалить" слушатель
 
-    buttonOpenPreview.addEventListener("click", evt => {
-        openPopup(popupPreview);
-        console.log('Покажи поближе 👀');
+    elementImage.addEventListener("click", evt => {
+        openPopupPreview(title, image);
     }); // Добавила на "фото" слушатель
-
-    buttonClosePreview.addEventListener("click", () => closePopup(popupPreview)); // Закрываю попап просмотр фото
 
     return elementTemplate; // Вернуть результат функции
 };
@@ -170,6 +172,7 @@ function addPost(card, container) {
 
 // Прописываю события:
 
+// const buttonClosePreview = document.querySelector('.popup__close-form_preview'); // Закрыть попап доб. фото
 // Вызываю функцию, добавляющую посты (6шт) в ленту (из задания)
 initialCards.forEach(function (element) {
     const card = createCard(element.name, element.link);
@@ -182,7 +185,6 @@ buttonAddNewPost.addEventListener("click", openPopupAddPost); // Открыва�
 buttonCloseEditProfile.addEventListener("click", () => closePopup(popupProfile)); // Закрывающую попап ред. профиля кликом на крестик
 buttonCloseAddPhoto.addEventListener("click", () => closePopup(popupGallery)); // Закрывающую попап доб. фото кликом на крестик
 buttonClosePreview.addEventListener("click", () => closePopup(popupPreview)); // Закрывающую попап доб. фото кликом на крестик
-
 
 formSubmitEditProfile.addEventListener("submit", savePopupEditProfile); // Слушатель на "Сохранить" ред. профиля
 formSubmitAddPost.addEventListener("submit", savePopupAddPost); // Слушатель на "Сохранить" доб. фото
