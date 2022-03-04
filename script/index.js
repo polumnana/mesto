@@ -181,3 +181,8 @@ buttonAddNewPost.addEventListener("click", openPopupAddPost); // Открыва�
 
 buttonCloseEditProfile.addEventListener("click", () => closePopup(popupProfile)); // Закрывающую попап ред. профиля кликом на крестик
 buttonCloseAddPhoto.addEventListener("click", () => closePopup(popupGallery)); // Закрывающую попап доб. фото кликом на крестик
+buttonClosePreview.addEventListener("click", () => closePopup(popupPreview)); // Закрывающую попап доб. фото кликом на крестик
+
+
+formSubmitEditProfile.addEventListener("submit", savePopupEditProfile); // Слушатель на "Сохранить" ред. профиля
+formSubmitAddPost.addEventListener("submit", savePopupAddPost); // Слушатель на "Сохранить" доб. фото
