@@ -172,7 +172,6 @@ function addPost(card, container) {
 
 // Прописываю события:
 
-// const buttonClosePreview = document.querySelector('.popup__close-form_preview'); // Закрыть попап доб. фото
 // Вызываю функцию, добавляющую посты (6шт) в ленту (из задания)
 initialCards.forEach(function (element) {
     const card = createCard(element.name, element.link);
@@ -184,7 +183,7 @@ buttonAddNewPost.addEventListener("click", openPopupAddPost); // Открыва�
 
 buttonCloseEditProfile.addEventListener("click", () => closePopup(popupProfile)); // Закрывающую попап ред. профиля кликом на крестик
 buttonCloseAddPhoto.addEventListener("click", () => closePopup(popupGallery)); // Закрывающую попап доб. фото кликом на крестик
-buttonClosePreview.addEventListener("click", () => closePopup(popupPreview)); // Закрывающую попап доб. фото кликом на крестик
+buttonClosePreview.addEventListener("click", () => closePopup(popupPreview)); // Закрывающую попап просмотр фото кликом на крестик
 
 formSubmitEditProfile.addEventListener("submit", savePopupEditProfile); // Слушатель на "Сохранить" ред. профиля
 formSubmitAddPost.addEventListener("submit", savePopupAddPost); // Слушатель на "Сохранить" доб. фото
