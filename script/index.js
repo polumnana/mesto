@@ -3,12 +3,9 @@ const initialCards = window.initialCards;
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
 
-const popupEditProfile = document.querySelector('.popup__container_edit-profile');
-
 const buttonEditProfile = document.querySelector('.profile__button-edit'); // Кнопка "Редактировать профиль"
 
 const buttonCloseEditProfile = document.querySelector('.popup__close-form_edit-profile'); // Закрыть попап ред. профиля
-const popupTitleEditProfile = document.querySelector('.popup__title_edit-profile'); // Заголовок формы
 const formSubmitEditProfile = document.querySelector('.popup__form_edit-profile'); // Форма
 
 const firstInputEditProfile = document.querySelector('.popup__input_form-name'); // Данные в первом инпуте попапа ред. профиль
@@ -21,12 +18,9 @@ const profileInfoAbout = document.querySelector('.profile__info-about'); // Да
 // Объявляю переменные второго попапа (доб фото):
 const popupGallery = document.querySelector('.popup_gallery');
 
-const popupAddPhoto = document.querySelector('.popup__container_add-photo');
-
 const buttonAddNewPost = document.querySelector('.profile__button-add'); // Кнопка "Добавить пост" 
 
 const buttonCloseAddPhoto = document.querySelector('.popup__close-form_add-photo'); // Закрыть попап доб. фото
-const popupTitleAddPost = document.querySelector('.popup__title_add-photo'); // Заголовок формы
 const formSubmitAddPost = document.querySelector('.popup__form_add-photo'); // Форма
 
 const firstInputAddPost = document.querySelector('.popup__input_form-title'); // Данные в первом инпуте попапа доб. пост
@@ -75,7 +69,6 @@ function openPopupEditProfile() {
     openPopup(popupProfile); // Открыть попап
     firstInputEditProfile.value = profileInfoName.textContent; // В инпут берутся данные из профиля
     secondInputEditProfile.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
-    popupTitleEditProfile.textContent = 'Редактировать профиль';
 }
 
 // Ничего не подгружающую в инпуты, заполняющую заголовок попапа
@@ -83,7 +76,6 @@ function openPopupAddPost() {
     openPopup(popupGallery);
     firstInputAddPost.value = ''; // В инпуте должно быть пусто
     secondInputAddPost.value = ''; // В инпуте должно быть пусто
-    popupTitleAddPost.textContent = 'Новое место';
 }
 
 function openPopupPreview(name, link) {
