@@ -133,6 +133,79 @@ function addPost(card, container) {
     console.log('Я добавляю постик в ленту 🌸🌸🌸');
 }
 
+// Находим элемент ошибки внутри самой функции
+const showInputError = (formElement, inputElement, errorMessage) => {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.add('form__input_type_error');
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add('form__input-error_active');
+};
+
+const hideInputError = (formElement, inputElement) => {
+    // Находим элемент ошибки
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove('form__input_type_error');   
+    errorElement.classList.remove('form__input-error_active');
+    errorElement.textContent = reset;
+};
+
+const checkInputValidity = (formElement, inputElement) => {
+    if (!inputElement.validity.valid) {
+        showInputError(formElement, inputElement, inputElement.validationMessage);// showInputError теперь получает параметром форму, в которой
+        // находится проверяемое поле, и само это поле
+    } else {
+        hideInputError(formElement, inputElement);
+    }
+};
+
+//Функция, которая принимает на вход какой-то инпут 
+const setEventListeners = (formElement) => {
+    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+    const buttonElement = formElement.querySelector('.popup__form-submit');
+
+    toggleButtonState(inputList, buttonElement); // чтобы сразу заблокировать кнопку при загрузке страницы
+    console.log('2', inputList, buttonElement);
+    inputList.forEach((inputElement) => {
+        inputElement.addEventListener('input', function () {
+            checkInputValidity(formElement, inputElement);
+            toggleButtonState(inputList, buttonElement);
+            console.log('инпут работает');
+        });
+    });
+};
+
+function enableValidation() {
+    console.log('0');
+    const formList = Array.from(document.querySelectorAll('.popup__form'));
+    formList.forEach((formElement) => {
+        formElement.addEventListener('submit', function (evt) {
+            evt.preventDefault();
+        });
+        setEventListeners(formElement);
+        console.log('1', formElement);
+    });
+}
+
+// Функция принимает массив инпутов
+function hasInvalidInput(inputList) {
+    return inputList.some(function (inputElement) { // проходим по этому массиву методом some
+        return !inputElement.validity.valid; // Если поле не валидно, 
+        //  колбэк вернёт true (Обход массива прекратится и вся фунцкция вернёт true)
+    })
+}
+
+// Функция на основании hasInvalidInput() стилизует кнопку (включает или выключает класс со стилем), принимает массив инпутов и кнопку, которую надо будет менять
+function toggleButtonState(inputList, buttonElement) {
+    if (hasInvalidInput(inputList)) {
+        buttonElement.classList.add('popup__form-submit_disabled');
+    } else {
+        buttonElement.classList.remove('popup__form-submit_disabled');
+    }
+}
+
+enableValidation();
+
+
 // Прописываю события:
 
 // Вызываю функцию, добавляющую посты (6шт) в ленту (из задания)

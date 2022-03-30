@@ -26,3 +26,8 @@
         margin: 45px 0 25px;
     }
 }
+
+.popup__form-submit:disabled + .popup__form-submit_disabled {
+    background-color: #fff;
+    opacity: .2;
+}
