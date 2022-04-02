@@ -1,5 +1,5 @@
 const initialCards = window.initialCards;
-
+const popupList = document.querySelectorAll('.popup');
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
 
@@ -57,6 +57,14 @@ function closePopup(element) {
     element.classList.remove('popup_opened');
     document.onkeydown = null;
 }
+// Закрывающую попап на оверлей
+popupList.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('popup')) {
+            closePopup(popup);
+        }
+    });
+});
 
 function savePopupEditProfile(evt) {
     evt.preventDefault();  // Отменить выполнение события по умолчанию
@@ -144,14 +152,14 @@ function addPost(card, container) {
     console.log('Я добавляю постик в ленту 🌸🌸🌸');
 }
 
-// Находим элемент ошибки внутри самой функции
+// Показываем ошибку
 const showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add('popup__input_type-error');
     errorElement.textContent = errorMessage;
     errorElement.classList.add('popup__input_error-active');
 };
-
+// Скрываем ошибку
 const hideInputError = (formElement, inputElement) => {
     // Находим элемент ошибки
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -160,18 +168,17 @@ const hideInputError = (formElement, inputElement) => {
     errorElement.classList.remove('popup__input_error-active');
     errorElement.textContent = '';
 };
-
+//Показываем или скрываем ошибку
 const checkInputValidity = (formElement, inputElement) => {
     if (!inputElement.validity.valid) {
-        showInputError(formElement, inputElement, inputElement.validationMessage);// showInputError теперь получает параметром форму, в которой
-        console.log('ЛАААААААААААААААААААА');
-        // находится проверяемое поле, и само это поле
+        showInputError(formElement, inputElement, inputElement.validationMessage);// Проверяем форму и инпуты
+
     } else {
         hideInputError(formElement, inputElement);
     }
 };
 
-//Функция, которая принимает на вход какой-то инпут 
+//Вешаем на инпут слушатели: один смотрит валидность, другой переключаем состояние кнопки
 const setEventListeners = (formElement) => {
     const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
     const buttonElement = formElement.querySelector('.popup__form-submit');
@@ -184,18 +191,18 @@ const setEventListeners = (formElement) => {
         });
     });
 };
-
+//Валидация
 function enableValidation() {
     const formList = Array.from(document.querySelectorAll('.popup__form'));
     formList.forEach((formElement) => {
         formElement.addEventListener('submit', function (evt) {
-            evt.preventDefault();
+            evt.preventDefault();//Прерываем
         });
-        setEventListeners(formElement);
+        setEventListeners(formElement);//Смотрим валидность, продолжаем
     });
 }
 
-// Функция принимает массив инпутов
+// Функция принимает массив инпутов и смотрит их валидность
 function hasInvalidInput(inputList) {
     return inputList.some(function (inputElement) { // проходим по этому массиву методом some
         return !inputElement.validity.valid; // Если поле не валидно, 
@@ -203,7 +210,7 @@ function hasInvalidInput(inputList) {
     })
 }
 
-// Функция на основании hasInvalidInput() стилизует кнопку (включает или выключает класс со стилем), принимает массив инпутов и кнопку, которую надо будет менять
+// Функция на основании валидности инпутов меняет состояние кнопки
 function toggleButtonState(inputList, buttonElement) {
     if (hasInvalidInput(inputList)) {
         buttonElement.classList.add('popup__form-submit_disabled');
@@ -212,19 +219,13 @@ function toggleButtonState(inputList, buttonElement) {
     }
 }
 
-enableValidation();
 
-const popupList = document.querySelectorAll('.popup');
-popupList.forEach((popup) => {
-    popup.addEventListener('click', (evt) => {
-        if (evt.target.classList.contains('popup')) {
-            closePopup(popup);
-        }
-    });
-});
 
 // Прописываю события:
 
+
+
+enableValidation();
 // Вызываю функцию, добавляющую посты (6шт) в ленту (из задания)
 initialCards.forEach(function (element) {
     const card = createCard(element.name, element.link);
