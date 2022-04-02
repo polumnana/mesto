@@ -40,12 +40,22 @@ const previewText = document.querySelector('.popup__text'); // Описание 
 // Открывающую попап
 function openPopup(element) {
     element.classList.add('popup_opened');
+    document.onkeydown = function (evt) {
+        if (evt.key === 'Escape') {
+            closePopup(element);
+        }
+    };
+    const formElement = element.querySelector('.popup__form');
+    const inputList = Array.from(element.querySelectorAll('.popup__input'));
+    inputList.forEach((inputElement) => {
+        checkInputValidity(formElement, inputElement);
+    });
 }
 
 // Закрывающую попап 
 function closePopup(element) {
     element.classList.remove('popup_opened');
-    return undefined;
+    document.onkeydown = null;
 }
 
 function savePopupEditProfile(evt) {
@@ -67,9 +77,9 @@ function savePopupAddPost(evt) {
 
 // Подгружающую в инпуты данные из профиля,заполняющую заголовок попапа
 function openPopupEditProfile() {
-    openPopup(popupProfile); // Открыть попап
     firstInputEditProfile.value = profileInfoName.textContent; // В инпут берутся данные из профиля
     secondInputEditProfile.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
+    openPopup(popupProfile); // Открыть попап
 }
 
 // Ничего не подгружающую в инпуты, заполняющую заголовок попапа
@@ -137,17 +147,17 @@ function addPost(card, container) {
 // Находим элемент ошибки внутри самой функции
 const showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add('form__input_type_error');
+    inputElement.classList.add('popup__input_type-error');
     errorElement.textContent = errorMessage;
-    errorElement.classList.add('form__input-error_active');
+    errorElement.classList.add('popup__input_error-active');
 };
 
 const hideInputError = (formElement, inputElement) => {
     // Находим элемент ошибки
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove('form__input_type_error');
+    inputElement.classList.remove('popup__input_type-error');
     console.log(formElement, inputElement);
-    errorElement.classList.remove('form__input-error_active');
+    errorElement.classList.remove('popup__input_error-active');
     errorElement.textContent = '';
 };
 
@@ -167,25 +177,21 @@ const setEventListeners = (formElement) => {
     const buttonElement = formElement.querySelector('.popup__form-submit');
 
     toggleButtonState(inputList, buttonElement); // чтобы сразу заблокировать кнопку при загрузке страницы
-    console.log('2', inputList, buttonElement);
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', function () {
             checkInputValidity(formElement, inputElement);
             toggleButtonState(inputList, buttonElement);
-            console.log('инпут работает');
         });
     });
 };
 
 function enableValidation() {
-    console.log('0');
     const formList = Array.from(document.querySelectorAll('.popup__form'));
     formList.forEach((formElement) => {
         formElement.addEventListener('submit', function (evt) {
             evt.preventDefault();
         });
         setEventListeners(formElement);
-        console.log('1', formElement);
     });
 }
 
@@ -215,24 +221,7 @@ popupList.forEach((popup) => {
             closePopup(popup);
         }
     });
-
-    popup.addEventListener('keypress', (evt) => {
-        console.log(evt.key);
-        if (evt.key === 'Escape') {
-            closePopup(popup);
-            console.log('ескейп должен работать2');
-        }
-    });
 });
-
-document.onkeydown = function (evt) {
-    if (evt.key === 'Escape') {
-        const popupActive = document.querySelector('.popup_opened');
-        if (popupActive)
-            closePopup(popupActive);
-    }
-};
-
 
 // Прописываю события:
 

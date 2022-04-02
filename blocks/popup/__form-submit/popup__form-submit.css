@@ -4,7 +4,7 @@
     background-color: #000;
     color: #fff;
     border-radius: 2px;
-    margin: 48px 0 37px;
+    margin: 18px 0 37px;
     padding: 0;
     font-style: normal;
     font-weight: normal;
@@ -25,9 +25,4 @@
         width: 238px;
         margin: 45px 0 25px;
     }
-}
-
-.popup__form-submit_disabled {
-    opacity: .2;
-    pointer-events: none;
 }
