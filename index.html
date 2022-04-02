@@ -58,11 +58,11 @@
                 <form class="popup__form popup__form_edit-profile" name="formEditProfile" novalidate>
                     <input id="name-input" type="text"
                         class="popup__input popup__input_form-name popup__input_name-error" placeholder="Ваше имя"
-                        name="name" required value="">
+                        name="name" required minlength="2" maxlength="40" value="">
                     <span class="name-input-error"></span>
                     <input id="about-input" type="text"
                         class="popup__input popup__input_form-about popup__input_about-error"
-                        placeholder="Расскажите о себе..." name="about" required value="">
+                        placeholder="Расскажите о себе..." name="about" required minlength="2" maxlength="200" value="">
                     <span class="about-input-error"></span>
                     <button type="submit"
                         class="popup__form-submit popup__form-submit_edit-profile popup__form-submit_disabled">Сохранить</button>
@@ -77,7 +77,7 @@
                 <h2 class="popup__title">Новое место</h2>
                 <form class="popup__form popup__form_add-photo" name="formAddPhoto" novalidate>
                     <input id="photo-input" type="text" class="popup__input popup__input_form-title"
-                        placeholder="Описание фото" name="title" required value="">
+                        placeholder="Описание фото" name="title" required minlength="2" maxlength="30" value="">
                     <span class="photo-input-error"></span>
                     <input id="link-input" type="url" class="popup__input popup__input_form-link"
                         placeholder="Ссылка на фото" name="link" required value="">

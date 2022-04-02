@@ -45,6 +45,7 @@ function openPopup(element) {
 // Закрывающую попап 
 function closePopup(element) {
     element.classList.remove('popup_opened');
+    return undefined;
 }
 
 function savePopupEditProfile(evt) {
@@ -207,6 +208,24 @@ function toggleButtonState(inputList, buttonElement) {
 
 enableValidation();
 
+const popupList = document.querySelectorAll('.popup');
+const popupListContainer = document.querySelectorAll('.popup__container');
+popupList.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('popup')) {
+       closePopup(popup);
+    }
+});
+});
+
+
+
+// popupList.forEach((popup) => {
+//     popup.addEventListener('keydown', function(evt){
+//         if ((evt.key === 'Escape')
+//         closePopup(popup);
+//     });
+// })
 
 
 // Прописываю события:
