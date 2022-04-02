@@ -153,6 +153,7 @@ const hideInputError = (formElement, inputElement) => {
 const checkInputValidity = (formElement, inputElement) => {
     if (!inputElement.validity.valid) {
         showInputError(formElement, inputElement, inputElement.validationMessage);// showInputError теперь получает параметром форму, в которой
+        console.log('ЛАААААААААААААААААААА');
         // находится проверяемое поле, и само это поле
     } else {
         hideInputError(formElement, inputElement);
@@ -205,6 +206,7 @@ function toggleButtonState(inputList, buttonElement) {
 }
 
 enableValidation();
+
 
 
 // Прописываю события:

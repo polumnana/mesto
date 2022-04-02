@@ -55,7 +55,7 @@
         <section class="popup popup_profile">
             <div class="popup__container">
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <form class="popup__form popup__form_edit-profile" name="formEditProfile">
+                <form class="popup__form popup__form_edit-profile" name="formEditProfile" novalidate>
                     <input id="name-input" type="text"
                         class="popup__input popup__input_form-name popup__input_name-error" placeholder="Ваше имя"
                         name="name" required value="">
@@ -75,11 +75,11 @@
         <section class="popup popup_gallery">
             <div class="popup__container">
                 <h2 class="popup__title">Новое место</h2>
-                <form class="popup__form popup__form_add-photo" name="formAddPhoto">
+                <form class="popup__form popup__form_add-photo" name="formAddPhoto" novalidate>
                     <input id="photo-input" type="text" class="popup__input popup__input_form-title"
                         placeholder="Описание фото" name="title" required value="">
                     <span class="photo-input-error"></span>
-                    <input id="link-input" type="text" class="popup__input popup__input_form-link"
+                    <input id="link-input" type="url" class="popup__input popup__input_form-link"
                         placeholder="Ссылка на фото" name="link" required value="">
                     <span class="link-input-error"></span>
                     <button type="submit"

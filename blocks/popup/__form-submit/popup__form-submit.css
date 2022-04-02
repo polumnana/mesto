@@ -27,7 +27,7 @@
     }
 }
 
-.popup__form-submit:disabled + .popup__form-submit_disabled {
-    background-color: #fff;
+.popup__form-submit_disabled {
     opacity: .2;
+    pointer-events: none;
 }
