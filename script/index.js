@@ -145,8 +145,9 @@ const hideInputError = (formElement, inputElement) => {
     // Находим элемент ошибки
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove('form__input_type_error');   
+    console.log(formElement, inputElement);
     errorElement.classList.remove('form__input-error_active');
-    errorElement.textContent = reset;
+    errorElement.textContent = '';
 };
 
 const checkInputValidity = (formElement, inputElement) => {
