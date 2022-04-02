@@ -145,7 +145,7 @@ const showInputError = (formElement, inputElement, errorMessage) => {
 const hideInputError = (formElement, inputElement) => {
     // Находим элемент ошибки
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove('form__input_type_error');   
+    inputElement.classList.remove('form__input_type_error');
     console.log(formElement, inputElement);
     errorElement.classList.remove('form__input-error_active');
     errorElement.textContent = '';
@@ -209,23 +209,29 @@ function toggleButtonState(inputList, buttonElement) {
 enableValidation();
 
 const popupList = document.querySelectorAll('.popup');
-const popupListContainer = document.querySelectorAll('.popup__container');
 popupList.forEach((popup) => {
     popup.addEventListener('click', (evt) => {
         if (evt.target.classList.contains('popup')) {
-       closePopup(popup);
+            closePopup(popup);
+        }
+    });
+
+    popup.addEventListener('keypress', (evt) => {
+        console.log(evt.key);
+        if (evt.key === 'Escape') {
+            closePopup(popup);
+            console.log('ескейп должен работать2');
+        }
+    });
+});
+
+document.onkeydown = function (evt) {
+    if (evt.key === 'Escape') {
+        const popupActive = document.querySelector('.popup_opened');
+        if (popupActive)
+            closePopup(popupActive);
     }
-});
-});
-
-
-
-// popupList.forEach((popup) => {
-//     popup.addEventListener('keydown', function(evt){
-//         if ((evt.key === 'Escape')
-//         closePopup(popup);
-//     });
-// })
+};
 
 
 // Прописываю события:
