@@ -41,7 +41,7 @@ function setFormButtonState(formElement) {
 }
 
 //Вешаем на инпут слушатели: один смотрит валидность, другой переключаем состояние кнопки
-const setEventListeners = (formElement) => {
+const setEventListeners = (settings, formElement) => {
     const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
     const buttonElement = formElement.querySelector('.popup__form-submit');
 
@@ -54,13 +54,13 @@ const setEventListeners = (formElement) => {
     });
 };
 //Валидация
-function enableValidation() {
-    const formList = Array.from(document.querySelectorAll('.popup__form'));
+function enableValidation(settings) {
+    const formList = Array.from(settings.formSelector);
     formList.forEach((formElement) => {
         formElement.addEventListener('submit', function (evt) {
             evt.preventDefault();//Прерываем
         });
-        setEventListeners(formElement);//Смотрим валидность, продолжаем
+        setEventListeners(settings, formElement);//Смотрим валидность, продолжаем
     });
 }
 
@@ -82,4 +82,11 @@ function toggleButtonState(inputList, buttonElement) {
 }
 
 // Прописываю события:
-enableValidation();
+enableValidation({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+});
