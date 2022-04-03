@@ -25,11 +25,11 @@ const checkInputValidity = (formElement, inputElement) => {
     }
 };
 
-function validatePopup(popup) {
+function clearErrors(popup) {
     const formElement = popup.querySelector('.popup__form');
     const inputList = Array.from(popup.querySelectorAll('.popup__input'));
     inputList.forEach((inputElement) => {
-        checkInputValidity(formElement, inputElement);
+        hideInputError(formElement, inputElement);
     });
 }
 

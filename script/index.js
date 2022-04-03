@@ -84,14 +84,15 @@ function savePopupAddPost(evt) {
 function openPopupEditProfile() {
     inputNameEditProfile.value = profileInfoName.textContent; // В инпут берутся данные из профиля
     inputAboutEditProfile.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
+    clearErrors(popupProfile);
     openPopup(popupProfile); // Открыть попап
-    validatePopup(popupProfile);
 }
 
 // Ничего не подгружающую в инпуты, заполняющую заголовок попапа
 function openPopupAddPost() {
     firstInputAddPost.value = ''; // В инпуте должно быть пусто
     secondInputAddPost.value = ''; // В инпуте должно быть пусто
+    clearErrors(popupGallery);
     openPopup(popupGallery);
     setFormButtonState(popupGallery);
 }
