@@ -25,12 +25,19 @@ const checkInputValidity = (formElement, inputElement) => {
     }
 };
 
+function setFormButtonState(formElement) {
+    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+    const buttonElement = formElement.querySelector('.popup__form-submit');
+
+    toggleButtonState(inputList, buttonElement); // чтобы сразу заблокировать кнопку при загрузке страницы
+}
+
 //Вешаем на инпут слушатели: один смотрит валидность, другой переключаем состояние кнопки
 const setEventListeners = (formElement) => {
     const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
     const buttonElement = formElement.querySelector('.popup__form-submit');
 
-    toggleButtonState(inputList, buttonElement); // чтобы сразу заблокировать кнопку при загрузке страницы
+
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', function () {
             checkInputValidity(formElement, inputElement);
