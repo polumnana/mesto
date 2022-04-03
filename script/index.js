@@ -1,4 +1,3 @@
-const initialCards = cards;
 const popupList = document.querySelectorAll('.popup');
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
@@ -155,7 +154,7 @@ function addPost(card, container) {
 // Прописываю события:
 
 // Вызываю функцию, добавляющую посты (6шт) в ленту (из задания)
-initialCards.forEach(function (element) {
+cards.forEach(function (element) {
     const card = createCard(element.name, element.link);
     addPost(card, photosContainer);
 });
