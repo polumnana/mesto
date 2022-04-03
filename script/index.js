@@ -36,21 +36,26 @@ const previewText = document.querySelector('.popup__text'); // Описание 
 const photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
 // Прописываю функции:
 
+function closeEscape(evt) {
+    if (evt.key === 'Escape') {
+        const popup = document.querySelector('.popup_opened');
+        if (popup)
+            closePopup(popup);
+    }
+}
+
 // Открывающую попап
 function openPopup(element) {
     element.classList.add('popup_opened');
-    document.onkeydown = function (evt) {
-        if (evt.key === 'Escape') {
-            closePopup(element);
-        }
-    };
+    document.addEventListener('keydown', closeEscape);
 }
 
 // Закрывающую попап 
 function closePopup(element) {
     element.classList.remove('popup_opened');
-    document.onkeydown = null;
+    document.removeEventListener('keydown', closeEscape);
 }
+
 // Закрывающую попап на оверлей
 popupList.forEach((popup) => {
     popup.addEventListener('click', (evt) => {
