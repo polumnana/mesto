@@ -45,11 +45,6 @@ function openPopup(element) {
             closePopup(element);
         }
     };
-    const formElement = element.querySelector('.popup__form');
-    const inputList = Array.from(element.querySelectorAll('.popup__input'));
-    inputList.forEach((inputElement) => {
-        checkInputValidity(formElement, inputElement);
-    });
 }
 
 // Закрывающую попап 
@@ -83,11 +78,20 @@ function savePopupAddPost(evt) {
     console.log('Лента обновлена 💬');
 } // Передающую из инпутов в блок с картинками
 
+function validatePopup(popup) {
+    const formElement = popup.querySelector('.popup__form');
+    const inputList = Array.from(popup.querySelectorAll('.popup__input'));
+    inputList.forEach((inputElement) => {
+        checkInputValidity(formElement, inputElement);
+    });
+}
+
 // Подгружающую в инпуты данные из профиля,заполняющую заголовок попапа
 function openPopupEditProfile() {
     inputNameEditProfile.value = profileInfoName.textContent; // В инпут берутся данные из профиля
     inputAboutEditProfile.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
     openPopup(popupProfile); // Открыть попап
+    validatePopup(popupProfile);
 }
 
 // Ничего не подгружающую в инпуты, заполняющую заголовок попапа
@@ -117,7 +121,7 @@ function likeActive(evt) {
 function createCard(title, image) {
 
     // Переменные
-    
+
     const elementTemplate = photosTemplate.querySelector('.element').cloneNode(true); // Скопировала содержимое блока-шаблона с содержимым
 
     const elementDelete = elementTemplate.querySelector('.element__delete'); // Нашла в копии шаблона "удалить"
@@ -130,7 +134,7 @@ function createCard(title, image) {
 
     // Прописываю функции:
     function removeElement(evt) {
-        
+
         elementTemplate.remove();
         console.log('Прощай, пост! 🙈');
     } // Удаляющую пост
