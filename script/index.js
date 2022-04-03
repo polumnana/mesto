@@ -1,5 +1,5 @@
 const initialCards = window.initialCards;
-
+const popupList = document.querySelectorAll('.popup');
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
 
@@ -8,8 +8,8 @@ const buttonEditProfile = document.querySelector('.profile__button-edit'); // К
 const buttonCloseEditProfile = document.querySelector('.popup__close-form_edit-profile'); // Закрыть попап ред. профиля
 const formSubmitEditProfile = document.querySelector('.popup__form_edit-profile'); // Форма
 
-const firstInputEditProfile = document.querySelector('.popup__input_form-name'); // Данные в первом инпуте попапа ред. профиль
-const secondInputEditProfile = document.querySelector('.popup__input_form-about'); // Данные во втором инпуте попапа ред. профиль
+const inputNameEditProfile = document.querySelector('.popup__input_form-name'); // Данные в первом инпуте попапа ред. профиль
+const inputAboutEditProfile = document.querySelector('.popup__input_form-about'); // Данные во втором инпуте попапа ред. профиль
 
 const profileInfoName = document.querySelector('.profile__info-name'); // Данные ИМЯ в самом профиле
 const profileInfoAbout = document.querySelector('.profile__info-about'); // Данные О СЕБЕ в самом профиле
@@ -34,7 +34,7 @@ const buttonClosePreview = document.querySelector('.popup__close-form_preview');
 const previewImg = document.querySelector('.popup__img'); // Крупное фото попап 
 const previewText = document.querySelector('.popup__text'); // Описание фото попап 
 
-
+const photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
 // Прописываю функции:
 
 // Открывающую попап
@@ -68,8 +68,8 @@ popupList.forEach((popup) => {
 
 function savePopupEditProfile(evt) {
     evt.preventDefault();  // Отменить выполнение события по умолчанию
-    profileInfoName.textContent = firstInputEditProfile.value; // Из инпута данные летят в профиль
-    profileInfoAbout.textContent = secondInputEditProfile.value; // Из инпута данные летят в профиль
+    profileInfoName.textContent = inputNameEditProfile.value; // Из инпута данные летят в профиль
+    profileInfoAbout.textContent = inputAboutEditProfile.value; // Из инпута данные летят в профиль
     closePopup(popupProfile); // Автоматически закрыть попап
     console.log('Информация обновлена 🥰');
 } // Передающую из инпутов в данные профиля
@@ -85,29 +85,29 @@ function savePopupAddPost(evt) {
 
 // Подгружающую в инпуты данные из профиля,заполняющую заголовок попапа
 function openPopupEditProfile() {
-    firstInputEditProfile.value = profileInfoName.textContent; // В инпут берутся данные из профиля
-    secondInputEditProfile.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
+    inputNameEditProfile.value = profileInfoName.textContent; // В инпут берутся данные из профиля
+    inputAboutEditProfile.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
     openPopup(popupProfile); // Открыть попап
 }
 
 // Ничего не подгружающую в инпуты, заполняющую заголовок попапа
 function openPopupAddPost() {
-    openPopup(popupGallery);
     firstInputAddPost.value = ''; // В инпуте должно быть пусто
     secondInputAddPost.value = ''; // В инпуте должно быть пусто
+    openPopup(popupGallery);
 }
 
 function openPopupPreview(name, link) {
-    openPopup(popupPreview); // Открыть попап
     previewImg.setAttribute('src', link); // Передали карточке SRC 
     previewImg.setAttribute('alt', name); // Передали карточке ALT 
-    previewText.textContent = name;  // Передали карточке заголовок 
+    previewText.textContent = name;  // Передали карточке заголовок
+    openPopup(popupPreview); // Открыть попап 
     console.log('Покажи поближе 👀');
 }
 
 // Меняющую лайк
 function likeActive(evt) {
-    evt.preventDefault(); // Отменить выполнение события по умолчанию
+
     const targetLike = evt.target; // То, куда нажали, кладём в переменную
     targetLike.classList.toggle('element__button_active'); // Тому, что в переменной, переключаем класс
     console.log('Лайков много не бывает! ❤️');
@@ -117,7 +117,7 @@ function likeActive(evt) {
 function createCard(title, image) {
 
     // Переменные
-    const photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
+    
     const elementTemplate = photosTemplate.querySelector('.element').cloneNode(true); // Скопировала содержимое блока-шаблона с содержимым
 
     const elementDelete = elementTemplate.querySelector('.element__delete'); // Нашла в копии шаблона "удалить"
@@ -130,7 +130,7 @@ function createCard(title, image) {
 
     // Прописываю функции:
     function removeElement(evt) {
-        evt.preventDefault(); // Отменить выполнение события по умолчанию
+        
         elementTemplate.remove();
         console.log('Прощай, пост! 🙈');
     } // Удаляющую пост

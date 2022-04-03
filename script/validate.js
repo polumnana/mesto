@@ -1,4 +1,3 @@
-const popupList = document.querySelectorAll('.popup');
 
 // Показываем ошибку
 const showInputError = (formElement, inputElement, errorMessage) => {
