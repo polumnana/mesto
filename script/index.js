@@ -1,4 +1,4 @@
-const initialCards = window.initialCards;
+const initialCards = cards;
 const popupList = document.querySelectorAll('.popup');
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
@@ -78,13 +78,7 @@ function savePopupAddPost(evt) {
     console.log('Лента обновлена 💬');
 } // Передающую из инпутов в блок с картинками
 
-function validatePopup(popup) {
-    const formElement = popup.querySelector('.popup__form');
-    const inputList = Array.from(popup.querySelectorAll('.popup__input'));
-    inputList.forEach((inputElement) => {
-        checkInputValidity(formElement, inputElement);
-    });
-}
+
 
 // Подгружающую в инпуты данные из профиля,заполняющую заголовок попапа
 function openPopupEditProfile() {

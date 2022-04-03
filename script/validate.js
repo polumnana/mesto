@@ -25,6 +25,14 @@ const checkInputValidity = (formElement, inputElement) => {
     }
 };
 
+function validatePopup(popup) {
+    const formElement = popup.querySelector('.popup__form');
+    const inputList = Array.from(popup.querySelectorAll('.popup__input'));
+    inputList.forEach((inputElement) => {
+        checkInputValidity(formElement, inputElement);
+    });
+}
+
 function setFormButtonState(formElement) {
     const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
     const buttonElement = formElement.querySelector('.popup__form-submit');
