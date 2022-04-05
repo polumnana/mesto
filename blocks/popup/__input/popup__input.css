@@ -15,11 +15,3 @@
     white-space: nowrap;
     overflow: hidden;
 }
-
-.popup__input:nth-child(1){
-    margin-bottom: 30px;
-}
-
-.popup__input:invalid {
-    margin-bottom: 0px;
-}
