@@ -97,8 +97,8 @@ function openPopupAddPost() {
     firstInputAddPost.value = ''; // В инпуте должно быть пусто
     secondInputAddPost.value = ''; // В инпуте должно быть пусто
     clearErrors(validationSettings, popupGallery);
-    openPopup(popupGallery);
     setFormButtonState(validationSettings, popupGallery);
+    openPopup(popupGallery);
 }
 
 function openPopupPreview(name, link) {
