@@ -1,4 +1,7 @@
-const popupList = document.querySelectorAll('.popup');
+import Card from "./card.js";
+import cards from "./arr.js";
+import { openPopup, closePopup } from "./utils.js";
+
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
 
@@ -30,40 +33,12 @@ const photosContainer = document.querySelector('.elements'); // Контейне
 // Объявляю переменные третьего попапа (просмотр фото):
 const popupPreview = document.querySelector('.popup_preview');
 const buttonClosePreview = document.querySelector('.popup__close-form_preview'); // Закрыть попап просмотр фото
-const previewImg = document.querySelector('.popup__img'); // Крупное фото попап 
-const previewText = document.querySelector('.popup__text'); // Описание фото попап 
+
 
 const photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
 // Прописываю функции:
 
-function closeEscape(evt) {
-    if (evt.key === 'Escape') {
-        const popup = document.querySelector('.popup_opened');
-        if (popup)
-            closePopup(popup);
-    }
-}
 
-// Открывающую попап
-function openPopup(element) {
-    element.classList.add('popup_opened');
-    document.addEventListener('keydown', closeEscape);
-}
-
-// Закрывающую попап 
-function closePopup(element) {
-    element.classList.remove('popup_opened');
-    document.removeEventListener('keydown', closeEscape);
-}
-
-// Закрывающую попап на оверлей
-popupList.forEach((popup) => {
-    popup.addEventListener('click', (evt) => {
-        if (evt.target.classList.contains('popup')) {
-            closePopup(popup);
-        }
-    });
-});
 
 function savePopupEditProfile(evt) {
     evt.preventDefault();  // Отменить выполнение события по умолчанию
@@ -101,55 +76,6 @@ function openPopupAddPost() {
     openPopup(popupGallery);
 }
 
-function openPopupPreview(name, link) {
-    previewImg.setAttribute('src', link); // Передали карточке SRC 
-    previewImg.setAttribute('alt', name); // Передали карточке ALT 
-    previewText.textContent = name;  // Передали карточке заголовок
-    openPopup(popupPreview); // Открыть попап 
-    console.log('Покажи поближе 👀');
-}
-
-// Меняющую лайк
-function likeActive(evt) {
-
-    const targetLike = evt.target; // То, куда нажали, кладём в переменную
-    targetLike.classList.toggle('element__button_active'); // Тому, что в переменной, переключаем класс
-    console.log('Лайков много не бывает! ❤️');
-}
-
-// Создающую карточку-пост
-function createCard(title, image) {
-
-    // Переменные
-
-    const elementTemplate = photosTemplate.querySelector('.element').cloneNode(true); // Скопировала содержимое блока-шаблона с содержимым
-
-    const elementDelete = elementTemplate.querySelector('.element__delete'); // Нашла в копии шаблона "удалить"
-    const like = elementTemplate.querySelector('.element__button'); // Нашла в копии шаблона "лайк"
-    const elementImage = elementTemplate.querySelector('.element__img'); // Нашла в копии шаблона "фото"
-
-    elementTemplate.querySelector('.element__title').textContent = title; // То, что в первом инпуте, положилось в заголовок
-    elementImage.setAttribute('src', image);// Ссылка положилась в атрибут SRC
-    elementImage.setAttribute('alt', title); // Название положилось в атрибут ALT
-
-    // Прописываю функции:
-    function removeElement(evt) {
-
-        elementTemplate.remove();
-        console.log('Прощай, пост! 🙈');
-    } // Удаляющую пост
-
-    // Слушатели:
-    like.addEventListener("click", likeActive); // Добавила на "лайк" слушатель
-    elementDelete.addEventListener("click", removeElement); // Добавила на "удалить" слушатель
-
-    elementImage.addEventListener("click", evt => {
-        openPopupPreview(title, image);
-    }); // Добавила на "фото" слушатель
-
-    return elementTemplate; // Вернуть результат функции
-};
-
 // Добавляющую пост пользователя в ленту
 function addPost(card, container) {
     container.prepend(card); // Из копии шаблона всё положили на страницу
@@ -158,11 +84,12 @@ function addPost(card, container) {
 
 // Прописываю события:
 
-// Вызываю функцию, добавляющую посты (6шт) в ленту (из задания)
-cards.forEach(function (element) {
-    const card = createCard(element.name, element.link);
-    addPost(card, photosContainer);
-});
+cards.forEach((element) => {
+    const card = new Card(element, '.element-template'); // Создадается экземпляр карточки из класса
+    const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
+
+    photosContainer.prepend(cardElement);
+}); // Добавляем в ленту постики (6 шт)
 
 buttonEditProfile.addEventListener("click", openPopupEditProfile); // Открывающую попап кликом на карандашик (ПРОФИЛЬ)
 buttonAddNewPost.addEventListener("click", openPopupAddPost); // Открывающую попап кликом на плюсик (ФОТО)
