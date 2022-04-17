@@ -1,7 +1,6 @@
 import Card from "./card.js";
 import cards from "./arr.js";
 import { openPopup, closePopup } from "./utils.js";
-import { ValidationSettings } from "./validation_settings.js";
 import { clearErrors, validationSettings } from "./validate.js";
 
 // Объявляю переменные первого попапа (ред профиль):
@@ -37,7 +36,6 @@ const popupPreview = document.querySelector('.popup_preview');
 const buttonClosePreview = document.querySelector('.popup__close-form_preview'); // Закрыть попап просмотр фото
 
 
-const photosTemplate = document.querySelector('.element-template').content; // Нашла в документе блок-шаблон
 // Прописываю функции:
 
 
