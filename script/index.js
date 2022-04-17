@@ -1,6 +1,8 @@
 import Card from "./card.js";
 import cards from "./arr.js";
 import { openPopup, closePopup } from "./utils.js";
+import { ValidationSettings } from "./validation_settings.js";
+import { clearErrors, validationSettings } from "./validate.js";
 
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
@@ -50,8 +52,16 @@ function savePopupEditProfile(evt) {
 
 function savePopupAddPost(evt) {
     evt.preventDefault();  // Отменить выполнение события по умолчанию
-    const card = createCard(firstInputAddPost.value, secondInputAddPost.value);
-    addPost(card, photosContainer);
+
+    const obj = {
+        name: firstInputAddPost.value,
+        link: secondInputAddPost.value,
+    }
+
+    const card = new Card(obj, '.element-template'); // Создадается экземпляр карточки из класса
+    const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
+
+    addPost(cardElement, photosContainer);
 
     closePopup(popupGallery); // Автоматически закрыть попап
     console.log('Лента обновлена 💬');
@@ -63,6 +73,8 @@ function savePopupAddPost(evt) {
 function openPopupEditProfile() {
     inputNameEditProfile.value = profileInfoName.textContent; // В инпут берутся данные из профиля
     inputAboutEditProfile.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
+
+
     clearErrors(validationSettings, popupProfile);
     openPopup(popupProfile); // Открыть попап
 }
@@ -88,7 +100,7 @@ cards.forEach((element) => {
     const card = new Card(element, '.element-template'); // Создадается экземпляр карточки из класса
     const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
 
-    photosContainer.prepend(cardElement);
+    addPost(cardElement, photosContainer);
 }); // Добавляем в ленту постики (6 шт)
 
 buttonEditProfile.addEventListener("click", openPopupEditProfile); // Открывающую попап кликом на карандашик (ПРОФИЛЬ)
