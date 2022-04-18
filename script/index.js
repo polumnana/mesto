@@ -37,9 +37,18 @@ const popupPreview = document.querySelector('.popup_preview');
 const buttonClosePreview = document.querySelector('.popup__close-form_preview'); // Закрыть попап просмотр фото
 
 
+// Свойства валидации:
+const validationSettings = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__form-submit',
+    inactiveButtonClass: 'popup__form-submit_disabled',
+    inputErrorClass: 'popup__input_type-error',
+    errorClass: 'popup__input_error-active'
+};
+
+
 // Прописываю функции:
-
-
 
 function savePopupEditProfile(evt) {
     evt.preventDefault();  // Отменить выполнение события по умолчанию
@@ -118,25 +127,12 @@ formSubmitEditProfile.addEventListener("submit", savePopupEditProfile); // Сл�
 formSubmitAddPost.addEventListener("submit", savePopupAddPost); // Слушатель на "Сохранить" доб. фото
 
 
+function enableValidation(settings) {
+    const formList = (document.querySelectorAll(settings.formSelector));
+    formList.forEach((formElement) => {
+        const validator = new ValidationSettings(settings, formElement); // Создадается экземпляр карточки из класса
+        validator.enableValidation(); // Создаём карточку и возвращаем наружу
+    });
+}
 
-// function enableValidation(settings) {
-//     const formList = (document.querySelectorAll(settings.formSelector));
-//     formList.forEach((formElement) => {
-        
-        
-//         const validator = new ValidationSettings(settings, formElement); // Создадается экземпляр карточки из класса
-//         validator.enableValidation(); // Создаём карточку и возвращаем наружу
-        
-//     });
-// }
-
-// export const validationSettings = {
-//     formSelector: '.popup__form',
-//     inputSelector: '.popup__input',
-//     submitButtonSelector: '.popup__form-submit',
-//     inactiveButtonClass: 'popup__form-submit_disabled',
-//     inputErrorClass: 'popup__input_type-error',
-//     errorClass: 'popup__input_error-active'
-// };
-
-// enableValidation(validationSettings);
+enableValidation(validationSettings);
