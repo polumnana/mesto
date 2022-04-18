@@ -1,7 +1,8 @@
-import Card from "./card.js";
+import Card from "./card_class.js";
 import cards from "./arr.js";
+
 import { openPopup, closePopup } from "./utils.js";
-import { clearErrors, validationSettings } from "./validate.js";
+import { ValidationSettings } from "./validation_class.js";
 
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
@@ -72,8 +73,8 @@ function openPopupEditProfile() {
     inputNameEditProfile.value = profileInfoName.textContent; // В инпут берутся данные из профиля
     inputAboutEditProfile.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
 
-
-    clearErrors(validationSettings, popupProfile);
+    ValidationSettings.clearErrors(validationSettings, popupProfile); // Эту надо поменять на вызов метода класса
+    
     openPopup(popupProfile); // Открыть попап
 }
 
@@ -81,8 +82,10 @@ function openPopupEditProfile() {
 function openPopupAddPost() {
     firstInputAddPost.value = ''; // В инпуте должно быть пусто
     secondInputAddPost.value = ''; // В инпуте должно быть пусто
-    clearErrors(validationSettings, popupGallery);
-    setFormButtonState(validationSettings, popupGallery);
+    
+    ValidationSettings.clearErrors(validationSettings, popupGallery);// Эту надо поменять на вызов метода класса
+    ValidationSettings.setFormButtonState(validationSettings, popupGallery);// Эту надо поменять на вызов метода класса
+
     openPopup(popupGallery);
 }
 

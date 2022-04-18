@@ -1,4 +1,4 @@
-import { ValidationSettings } from "./validation_settings.js";
+
 
 // Скрываем ошибку
 const hideInputError = (settings, formElement, inputElement) => {
@@ -15,6 +15,13 @@ export function clearErrors(settings, popup) {
     inputList.forEach((inputElement) => {
         hideInputError(settings, formElement, inputElement);
     });
+}
+
+export function setFormButtonState(settings, formElement) {
+    const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
+    const buttonElement = formElement.querySelector(settings.submitButtonSelector);
+
+    toggleButtonState(settings, inputList, buttonElement); // чтобы сразу заблокировать кнопку при загрузке страницы
 }
 
 //Валидация

@@ -11,24 +11,24 @@ export class ValidationSettings {
         this._form = form;
     }
 
+    // Публичные методы:
+
     enableValidation() {
         this._form.addEventListener('submit', function (evt) {
             evt.preventDefault();//Прерываем
         });
         this._setEventListeners();
-    }
+    } //Валидация
 
-    _setEventListeners() {
-        const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-        const buttonElement = this._form.querySelector(this._submitButtonSelector);
+    public_setFormButtonState() {
+        this._setFormButtonState();
+    } // Чтобы в openPopupAddPost() вызвать теперь приватный метод _setFormButtonState()
 
-        inputList.forEach((inputElement) => {
-            inputElement.addEventListener('input', function () {
-                this._checkInputValidity(inputElement);
-                this._toggleButtonState(inputList, buttonElement);
-            });
-        });
-    }
+    public_clearErrors() {
+        this._clearErrors();
+    } // Чтобы в openPopupEditProfile() и openPopupAddPost() вызвать теперь приватный метод _clearErrors()
+
+    // Приватные методы:
 
     _showInputError(inputElement, errorMessage) {
         const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
@@ -44,6 +44,23 @@ export class ValidationSettings {
         errorElement.textContent = '';
     } // Скрываем ошибку
 
+    // Принимает массив инпутов и смотрит их валидность
+    _hasInvalidInput(inputList) {
+        return inputList.some(function (inputElement) { // проходим по этому массиву методом some
+            return !inputElement.validity.valid; // Если поле не валидно, 
+            //  колбэк вернёт true (Обход массива прекратится и вся фунцкция вернёт true)
+        })
+    }
+
+    // На основании валидности инпутов меняет состояние кнопки
+    _toggleButtonState(inputList, buttonElement) {
+        if (this._hasInvalidInput(inputList)) {
+            buttonElement.classList.add(this._inactiveButtonClass);
+        } else {
+            buttonElement.classList.remove(this._inactiveButtonClass);
+        }
+    }
+
     _checkInputValidity(inputElement) {
         if (!inputElement.validity.valid) {
             this._showInputError(inputElement, inputElement.validationMessage);// Проверяем форму и инпуты
@@ -57,7 +74,7 @@ export class ValidationSettings {
 
         const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
         inputList.forEach((inputElement) => {
-            hideInputError(inputElement);
+            this._hideInputError(inputElement);
         });
     } // Скрываем ошибку, когда открываем попап
 
@@ -69,48 +86,19 @@ export class ValidationSettings {
     }
 
     //Вешаем на инпут слушатели: один смотрит валидность, другой переключаем состояние кнопки
-    _setEventListeners = () => {
+    _setEventListeners() {
         const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
         const buttonElement = this._form.querySelector(this._submitButtonSelector);
 
-
         inputList.forEach((inputElement) => {
-            inputElement.addEventListener('input', () => {
+            inputElement.addEventListener('input', function () {
                 this._checkInputValidity(inputElement);
                 this._toggleButtonState(inputList, buttonElement);
             });
         });
-    };
-
-
-
-    //Валидация
-    _enableValidation() {
-        const formList = (document.querySelectorAll(this._formSelector));
-        formList.forEach((formElement) => {
-            formElement.addEventListener('submit', function (evt) {
-                evt.preventDefault();//Прерываем
-            });
-            setEventListeners(formElement);//Смотрим валидность, продолжаем
-        });
     }
 
-    // Функция принимает массив инпутов и смотрит их валидность
-    _hasInvalidInput(inputList) {
-        return inputList.some(function (inputElement) { // проходим по этому массиву методом some
-            return !inputElement.validity.valid; // Если поле не валидно, 
-            //  колбэк вернёт true (Обход массива прекратится и вся фунцкция вернёт true)
-        })
-    }
 
-    // Функция на основании валидности инпутов меняет состояние кнопки
-    _toggleButtonState(inputList, buttonElement) {
-        if (this._hasInvalidInput(inputList)) {
-            buttonElement.classList.add(this._inactiveButtonClass);
-        } else {
-            buttonElement.classList.remove(this._inactiveButtonClass);
-        }
-    }
 
 }
 
