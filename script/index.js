@@ -73,8 +73,9 @@ function openPopupEditProfile() {
     inputNameEditProfile.value = profileInfoName.textContent; // В инпут берутся данные из профиля
     inputAboutEditProfile.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
 
-    ValidationSettings.clearErrors(validationSettings, popupProfile); // Эту надо поменять на вызов метода класса
-    
+    const validatorEditProfile = new ValidationSettings(validationSettings, popupProfile);
+    validatorEditProfile.clearErrors();
+
     openPopup(popupProfile); // Открыть попап
 }
 
@@ -83,8 +84,9 @@ function openPopupAddPost() {
     firstInputAddPost.value = ''; // В инпуте должно быть пусто
     secondInputAddPost.value = ''; // В инпуте должно быть пусто
     
-    ValidationSettings.clearErrors(validationSettings, popupGallery);// Эту надо поменять на вызов метода класса
-    ValidationSettings.setFormButtonState(validationSettings, popupGallery);// Эту надо поменять на вызов метода класса
+    const validatorAddPost = new ValidationSettings(validationSettings, popupGallery);
+    validatorAddPost.clearErrors();
+    validatorAddPost.setFormButtonState();
 
     openPopup(popupGallery);
 }
@@ -98,6 +100,7 @@ function addPost(card, container) {
 // Прописываю события:
 
 cards.forEach((element) => {
+
     const card = new Card(element, '.element-template'); // Создадается экземпляр карточки из класса
     const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
 
@@ -113,3 +116,27 @@ buttonClosePreview.addEventListener("click", () => closePopup(popupPreview)); //
 
 formSubmitEditProfile.addEventListener("submit", savePopupEditProfile); // Слушатель на "Сохранить" ред. профиля
 formSubmitAddPost.addEventListener("submit", savePopupAddPost); // Слушатель на "Сохранить" доб. фото
+
+
+
+// function enableValidation(settings) {
+//     const formList = (document.querySelectorAll(settings.formSelector));
+//     formList.forEach((formElement) => {
+        
+        
+//         const validator = new ValidationSettings(settings, formElement); // Создадается экземпляр карточки из класса
+//         validator.enableValidation(); // Создаём карточку и возвращаем наружу
+        
+//     });
+// }
+
+// export const validationSettings = {
+//     formSelector: '.popup__form',
+//     inputSelector: '.popup__input',
+//     submitButtonSelector: '.popup__form-submit',
+//     inactiveButtonClass: 'popup__form-submit_disabled',
+//     inputErrorClass: 'popup__input_type-error',
+//     errorClass: 'popup__input_error-active'
+// };
+
+// enableValidation(validationSettings);

@@ -20,14 +20,22 @@ export class ValidationSettings {
         this._setEventListeners();
     } //Валидация
 
-    public_setFormButtonState() {
-        this._setFormButtonState();
-    } // Чтобы в openPopupAddPost() вызвать теперь приватный метод _setFormButtonState()
 
-    public_clearErrors() {
-        this._clearErrors();
-    } // Чтобы в openPopupEditProfile() и openPopupAddPost() вызвать теперь приватный метод _clearErrors()
+    clearErrors() {
 
+        const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+        inputList.forEach((inputElement) => {
+            this._hideInputError(inputElement);
+        });
+    } // Чтобы в openPopupEditProfile() и openPopupAddPost() вызвать
+
+    setFormButtonState() {
+        const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+        const buttonElement = this._form.querySelector(this._submitButtonSelector);
+
+        this._toggleButtonState(inputList, buttonElement); // чтобы сразу заблокировать кнопку при загрузке страницы
+    } // Чтобы в openPopupAddPost() вызвать
+    
     // Приватные методы:
 
     _showInputError(inputElement, errorMessage) {
@@ -70,20 +78,7 @@ export class ValidationSettings {
         }
     } //Показываем или скрываем ошибку
 
-    _clearErrors() {
 
-        const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-        inputList.forEach((inputElement) => {
-            this._hideInputError(inputElement);
-        });
-    } // Скрываем ошибку, когда открываем попап
-
-    _setFormButtonState() {
-        const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-        const buttonElement = this._form.querySelector(this._submitButtonSelector);
-
-        this._toggleButtonState(inputList, buttonElement); // чтобы сразу заблокировать кнопку при загрузке страницы
-    }
 
     //Вешаем на инпут слушатели: один смотрит валидность, другой переключаем состояние кнопки
     _setEventListeners() {
@@ -91,7 +86,7 @@ export class ValidationSettings {
         const buttonElement = this._form.querySelector(this._submitButtonSelector);
 
         inputList.forEach((inputElement) => {
-            inputElement.addEventListener('input', function () {
+            inputElement.addEventListener('input', () => {
                 this._checkInputValidity(inputElement);
                 this._toggleButtonState(inputList, buttonElement);
             });
