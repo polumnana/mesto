@@ -35,7 +35,7 @@ export class ValidationSettings {
 
         this._toggleButtonState(inputList, buttonElement); // чтобы сразу заблокировать кнопку при загрузке страницы
     } // Чтобы в openPopupAddPost() вызвать
-    
+
     // Приватные методы:
 
     _showInputError(inputElement, errorMessage) {
@@ -92,9 +92,6 @@ export class ValidationSettings {
             });
         });
     }
-
-
-
 }
 
 

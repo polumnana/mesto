@@ -28,7 +28,7 @@ export default class Card {
         return this._element;
     } // Наполнили шаблон и вернули карточку с описанием и фото
 
-    _setEventListeners(){
+    _setEventListeners() {
         const buttonLike = this._element.querySelector('.element__button');
         buttonLike.addEventListener('click', () => {
             buttonLike.classList.toggle('element__button_active');
