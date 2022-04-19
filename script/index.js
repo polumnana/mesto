@@ -2,7 +2,7 @@ import Card from "./card_class.js";
 import cards from "./arr.js";
 
 import { openPopup, closePopup } from "./utils.js";
-import { ValidationSettings } from "./validation_class.js";
+import { FormValidator } from "./validation_class.js";
 
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
@@ -84,7 +84,7 @@ function openPopupEditProfile() {
     inputNameEditProfile.value = profileInfoName.textContent; // В инпут берутся данные из профиля
     inputAboutEditProfile.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
 
-    const validatorEditProfile = new ValidationSettings(validationSettings, popupProfile);
+    const validatorEditProfile = new FormValidator(validationSettings, popupProfile);
     validatorEditProfile.clearErrors();
 
     openPopup(popupProfile); // Открыть попап
@@ -95,7 +95,7 @@ function openPopupAddPost() {
     firstInputAddPost.value = ''; // В инпуте должно быть пусто
     secondInputAddPost.value = ''; // В инпуте должно быть пусто
 
-    const validatorAddPost = new ValidationSettings(validationSettings, popupGallery);
+    const validatorAddPost = new FormValidator(validationSettings, popupGallery);
     validatorAddPost.clearErrors();
     validatorAddPost.setFormButtonState();
 
@@ -129,7 +129,7 @@ formSubmitAddPost.addEventListener("submit", savePopupAddPost); // Слушат�
 function enableValidation(settings) {
     const formList = (document.querySelectorAll(settings.formSelector));
     formList.forEach((formElement) => {
-        const validator = new ValidationSettings(settings, formElement); // Создадается экземпляр карточки из класса
+        const validator = new FormValidator(settings, formElement); // Создадается экземпляр карточки из класса
         validator.enableValidation(); // Создаём карточку и возвращаем наружу
     });
 }
