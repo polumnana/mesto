@@ -58,19 +58,23 @@ function savePopupEditProfile(evt) {
     console.log('Информация обновлена 🥰');
 } // Передающую из инпутов в данные профиля
 
-function savePopupAddPost(evt) {
-    evt.preventDefault();  // Отменить выполнение события по умолчанию
-
-    const obj = {
-        name: firstInputAddPost.value,
-        link: secondInputAddPost.value,
-    }
-
+function createCardElement(obj) {
     const card = new Card(obj, '.element-template'); // Создадается экземпляр карточки из класса
     const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
+    return cardElement;
+}
 
-    addPost(cardElement, photosContainer);
+function savePopupAddPost(evt) {
+    evt.preventDefault();  // Отменить выполнение события по умолчанию
+  
+    const inputs = {
+        name: firstInputAddPost.value,
+        link: secondInputAddPost.value,
+    };
 
+    const newPost = createCardElement(inputs);
+    addPost(newPost, photosContainer);
+      
     closePopup(popupGallery); // Автоматически закрыть попап
     console.log('Лента обновлена 💬');
 } // Передающую из инпутов в блок с картинками
@@ -109,11 +113,8 @@ function addPost(card, container) {
 // Прописываю события:
 
 cards.forEach((element) => {
-
-    const card = new Card(element, '.element-template'); // Создадается экземпляр карточки из класса
-    const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
-
-    addPost(cardElement, photosContainer);
+    const rrr = createCardElement(element);
+    addPost(rrr, photosContainer);
 }); // Добавляем в ленту постики (6 шт)
 
 buttonEditProfile.addEventListener("click", openPopupEditProfile); // Открывающую попап кликом на карандашик (ПРОФИЛЬ)
