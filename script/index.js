@@ -51,7 +51,6 @@ const validationSettings = {
 // Прописываю функции:
 
 function savePopupEditProfile(evt) {
-    evt.preventDefault();  // Отменить выполнение события по умолчанию
     profileInfoName.textContent = inputNameEditProfile.value; // Из инпута данные летят в профиль
     profileInfoAbout.textContent = inputAboutEditProfile.value; // Из инпута данные летят в профиль
     closePopup(popupProfile); // Автоматически закрыть попап
@@ -65,7 +64,6 @@ function createCardElement(obj) {
 }
 
 function savePopupAddPost(evt) {
-    evt.preventDefault();  // Отменить выполнение события по умолчанию
   
     const inputs = {
         name: firstInputAddPost.value,
