@@ -7,8 +7,8 @@ export class ValidationSettings {
         this._inactiveButtonClass = validationSettings.inactiveButtonClass;
         this._inputErrorClass = validationSettings.inputErrorClass;
         this._errorClass = validationSettings.errorClass;
-
         this._form = form;
+        this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
     }
 
     // Публичные методы:
@@ -23,17 +23,15 @@ export class ValidationSettings {
 
     clearErrors() {
 
-        const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-        inputList.forEach((inputElement) => {
+        this._inputList.forEach((inputElement) => {
             this._hideInputError(inputElement);
         });
     } // Чтобы в openPopupEditProfile() и openPopupAddPost() вызвать
 
     setFormButtonState() {
-        const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
         const buttonElement = this._form.querySelector(this._submitButtonSelector);
 
-        this._toggleButtonState(inputList, buttonElement); // чтобы сразу заблокировать кнопку при загрузке страницы
+        this._toggleButtonState(this._inputList, buttonElement); // чтобы сразу заблокировать кнопку при загрузке страницы
     } // Чтобы в openPopupAddPost() вызвать
 
     // Приватные методы:
@@ -82,13 +80,12 @@ export class ValidationSettings {
 
     //Вешаем на инпут слушатели: один смотрит валидность, другой переключаем состояние кнопки
     _setEventListeners() {
-        const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
         const buttonElement = this._form.querySelector(this._submitButtonSelector);
 
-        inputList.forEach((inputElement) => {
+        this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._checkInputValidity(inputElement);
-                this._toggleButtonState(inputList, buttonElement);
+                this._toggleButtonState(this._inputList, buttonElement);
             });
         });
     }
