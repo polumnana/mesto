@@ -9,6 +9,7 @@ export class ValidationSettings {
         this._errorClass = validationSettings.errorClass;
         this._form = form;
         this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+        this._buttonElement = this._form.querySelector(this._submitButtonSelector);
     }
 
     // Публичные методы:
@@ -29,9 +30,7 @@ export class ValidationSettings {
     } // Чтобы в openPopupEditProfile() и openPopupAddPost() вызвать
 
     setFormButtonState() {
-        const buttonElement = this._form.querySelector(this._submitButtonSelector);
-
-        this._toggleButtonState(this._inputList, buttonElement); // чтобы сразу заблокировать кнопку при загрузке страницы
+        this._toggleButtonState(this._inputList, this._buttonElement); // чтобы сразу заблокировать кнопку при загрузке страницы
     } // Чтобы в openPopupAddPost() вызвать
 
     // Приватные методы:
@@ -51,19 +50,19 @@ export class ValidationSettings {
     } // Скрываем ошибку
 
     // Принимает массив инпутов и смотрит их валидность
-    _hasInvalidInput(inputList) {
-        return inputList.some(function (inputElement) { // проходим по этому массиву методом some
+    _hasInvalidInput() {
+        return this._inputList.some(function (inputElement) { // проходим по этому массиву методом some
             return !inputElement.validity.valid; // Если поле не валидно, 
             //  колбэк вернёт true (Обход массива прекратится и вся фунцкция вернёт true)
         })
     }
 
     // На основании валидности инпутов меняет состояние кнопки
-    _toggleButtonState(inputList, buttonElement) {
-        if (this._hasInvalidInput(inputList)) {
-            buttonElement.classList.add(this._inactiveButtonClass);
+    _toggleButtonState() {
+        if (this._hasInvalidInput()) {
+            this._buttonElement.classList.add(this._inactiveButtonClass);
         } else {
-            buttonElement.classList.remove(this._inactiveButtonClass);
+            this._buttonElement.classList.remove(this._inactiveButtonClass);
         }
     }
 
@@ -80,12 +79,10 @@ export class ValidationSettings {
 
     //Вешаем на инпут слушатели: один смотрит валидность, другой переключаем состояние кнопки
     _setEventListeners() {
-        const buttonElement = this._form.querySelector(this._submitButtonSelector);
-
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._checkInputValidity(inputElement);
-                this._toggleButtonState(this._inputList, buttonElement);
+                this._toggleButtonState();
             });
         });
     }
