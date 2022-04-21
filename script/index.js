@@ -64,7 +64,6 @@ function createCardElement(obj) {
 }
 
 function savePopupAddPost(evt) {
-  
     const inputs = {
         name: firstInputAddPost.value,
         link: secondInputAddPost.value,
@@ -72,7 +71,7 @@ function savePopupAddPost(evt) {
 
     const newPost = createCardElement(inputs);
     addPost(newPost, photosContainer);
-      
+    formValidators[formSubmitAddPost.name].disableSubmit();
     closePopup(popupGallery); // Автоматически закрыть попап
     console.log('Лента обновлена 💬');
 } // Передающую из инпутов в блок с картинками
@@ -84,8 +83,7 @@ function openPopupEditProfile() {
     inputNameEditProfile.value = profileInfoName.textContent; // В инпут берутся данные из профиля
     inputAboutEditProfile.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
 
-    const validatorEditProfile = formValidators[formSubmitEditProfile.name];
-    validatorEditProfile.clearErrors();
+    formValidators[formSubmitEditProfile.name].clearErrors();
 
     openPopup(popupProfile); // Открыть попап
 }
@@ -111,8 +109,7 @@ function addPost(card, container) {
 // Прописываю события:
 
 cards.forEach((element) => {
-    const rrr = createCardElement(element);
-    addPost(rrr, photosContainer);
+    addPost(createCardElement(element), photosContainer);
 }); // Добавляем в ленту постики (6 шт)
 
 buttonEditProfile.addEventListener("click", openPopupEditProfile); // Открывающую попап кликом на карандашик (ПРОФИЛЬ)
@@ -126,11 +123,11 @@ formSubmitEditProfile.addEventListener("submit", savePopupEditProfile); // Сл�
 formSubmitAddPost.addEventListener("submit", savePopupAddPost); // Слушатель на "Сохранить" доб. фото
 
 function enableValidation(settings) {
-    const formList = (document.querySelectorAll(settings.formSelector));
-    
+    const formList = document.querySelectorAll(settings.formSelector);
+
     formList.forEach((formElement) => {
         const validator = new FormValidator(settings, formElement); // Создадается экземпляр  класса
-        validator.enableValidation(); 
+        validator.enableValidation();
 
         const name = formElement.name;
         formValidators[name] = validator;

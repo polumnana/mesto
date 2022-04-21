@@ -33,6 +33,10 @@ export class FormValidator {
         this._toggleButtonState(this._inputList, this._buttonElement); // чтобы сразу заблокировать кнопку при загрузке страницы
     } // Чтобы в openPopupAddPost() вызвать
 
+    disableSubmit() {
+        this._buttonElement.setAttribute("disabled", "disabled");
+    }
+
     // Приватные методы:
 
     _showInputError(inputElement, errorMessage) {
