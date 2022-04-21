@@ -46,7 +46,7 @@ const validationSettings = {
     inputErrorClass: 'popup__input_type-error',
     errorClass: 'popup__input_error-active'
 };
-
+const formValidators = {}; //Объект, где хранятся экземпляры каждой формы
 
 // Прописываю функции:
 
@@ -84,7 +84,7 @@ function openPopupEditProfile() {
     inputNameEditProfile.value = profileInfoName.textContent; // В инпут берутся данные из профиля
     inputAboutEditProfile.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
 
-    const validatorEditProfile = new FormValidator(validationSettings, popupProfile);
+    const validatorEditProfile = formValidators[formSubmitEditProfile.name];
     validatorEditProfile.clearErrors();
 
     openPopup(popupProfile); // Открыть попап
@@ -95,7 +95,7 @@ function openPopupAddPost() {
     firstInputAddPost.value = ''; // В инпуте должно быть пусто
     secondInputAddPost.value = ''; // В инпуте должно быть пусто
 
-    const validatorAddPost = new FormValidator(validationSettings, popupGallery);
+    const validatorAddPost = formValidators[formSubmitAddPost.name];
     validatorAddPost.clearErrors();
     validatorAddPost.setFormButtonState();
 
@@ -125,12 +125,15 @@ buttonClosePreview.addEventListener("click", () => closePopup(popupPreview)); //
 formSubmitEditProfile.addEventListener("submit", savePopupEditProfile); // Слушатель на "Сохранить" ред. профиля
 formSubmitAddPost.addEventListener("submit", savePopupAddPost); // Слушатель на "Сохранить" доб. фото
 
-
 function enableValidation(settings) {
     const formList = (document.querySelectorAll(settings.formSelector));
+    
     formList.forEach((formElement) => {
-        const validator = new FormValidator(settings, formElement); // Создадается экземпляр карточки из класса
-        validator.enableValidation(); // Создаём карточку и возвращаем наружу
+        const validator = new FormValidator(settings, formElement); // Создадается экземпляр  класса
+        validator.enableValidation(); 
+
+        const name = formElement.name;
+        formValidators[name] = validator;
     });
 }
 
