@@ -51,6 +51,7 @@ const formValidators = {}; //Объект, где хранятся экземп�
 // Прописываю функции:
 
 function savePopupEditProfile(evt) {
+    evt.preventDefault();//Прерываем
     profileInfoName.textContent = inputNameEditProfile.value; // Из инпута данные летят в профиль
     profileInfoAbout.textContent = inputAboutEditProfile.value; // Из инпута данные летят в профиль
     closePopup(popupProfile); // Автоматически закрыть попап
@@ -64,6 +65,7 @@ function createCardElement(obj) {
 }
 
 function savePopupAddPost(evt) {
+    evt.preventDefault();//Прерываем
     const inputs = {
         name: firstInputAddPost.value,
         link: secondInputAddPost.value,

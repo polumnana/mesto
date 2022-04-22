@@ -15,9 +15,6 @@ export class FormValidator {
     // Публичные методы:
 
     enableValidation() {
-        this._form.addEventListener('submit', function (evt) {
-            evt.preventDefault();//Прерываем
-        });
         this._setEventListeners();
     } //Валидация
 
