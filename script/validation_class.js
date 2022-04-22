@@ -34,10 +34,16 @@ export class FormValidator {
     } // Чтобы в openPopupAddPost() вызвать
 
     disableSubmit() {
+        this._buttonElement.classList.add(this._inactiveButtonClass);
         this._buttonElement.setAttribute("disabled", "disabled");
     }
 
     // Приватные методы:
+
+    _enableSubmit() {
+        this._buttonElement.classList.remove(this._inactiveButtonClass);
+        this._buttonElement.removeAttribute("disabled", "disabled");
+    }
 
     _showInputError(inputElement, errorMessage) {
         const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
@@ -64,16 +70,15 @@ export class FormValidator {
     // На основании валидности инпутов меняет состояние кнопки
     _toggleButtonState() {
         if (this._hasInvalidInput()) {
-            this._buttonElement.classList.add(this._inactiveButtonClass);
+            this.disableSubmit();
         } else {
-            this._buttonElement.classList.remove(this._inactiveButtonClass);
+            this._enableSubmit();
         }
     }
 
     _checkInputValidity(inputElement) {
         if (!inputElement.validity.valid) {
             this._showInputError(inputElement, inputElement.validationMessage);// Проверяем форму и инпуты
-
         } else {
             this._hideInputError(inputElement);
         }
