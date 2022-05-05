@@ -4,6 +4,8 @@ import cards from "./arr.js";
 import { openPopup, closePopup } from "./utils.js";
 import { FormValidator } from "./validation_class.js";
 
+import '../pages/index.css';
+
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
 

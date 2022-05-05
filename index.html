@@ -11,22 +11,22 @@
 <body>
     <div class="page">
         <header class="header">
-            <img src="./images/Logo.svg" alt="Логотип Место" class="header__logo">
+            <img src="<%=require('./images/Logo.svg')%>" alt="Логотип Место" class="header__logo">
         </header>
 
         <main class="content">
             <section class="profile">
-                <img src="./images/Avatar.jpg" alt="Аватар пользователя" class="profile__avatar">
+                <img src="<%=require('./images/Avatar.jpg')%>" alt="Аватар пользователя" class="profile__avatar">
 
                 <div class="profile__info">
                     <h1 class="profile__info-name">Жак-Ив Кусто</h1>
                     <button type="button" class="profile__button-edit" aria-label>
-                        <img src="./images/Edit_Button.svg" alt="Кнопка карандашик" class="">
+                        <img src="<%=require('./images/Edit_Button.svg')%>" alt="Кнопка карандашик" class="">
                     </button>
                 </div>
                 <p class="profile__info-about">Исследователь океана</p>
                 <button type="button" class="profile__button-add" aria-label>
-                    <img src="./images/Add_post.svg" alt="Кнопка плюсик" class="">
+                    <img src="<%=require('./images/Add_post.svg')%>" alt="Кнопка плюсик" class="">
                 </button>
             </section>
             <section class="elements">
@@ -40,7 +40,8 @@
                     <button type="button" class="element__button" aria-label>
                     </button>
                     <button type="button" class="element__delete" aria-label>
-                        <img src="./images/Delete.svg" alt="Корзина удалить" class="element__delete-img">
+                        <img src="<%=require('./images/Delete.svg')%>" alt="Корзина удалить"
+                            class="element__delete-img">
                     </button>
                 </article>
 
@@ -56,19 +57,19 @@
             <div class="popup__container">
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <form class="popup__form popup__form_edit-profile" name="formEditProfile" novalidate>
-                    <input id="name-input" type="text"
-                        class="popup__input popup__input_form-name" placeholder="Ваше имя"
-                        name="username" required minlength="2" maxlength="40" value="123123">
+                    <input id="name-input" type="text" class="popup__input popup__input_form-name"
+                        placeholder="Ваше имя" name="username" required minlength="2" maxlength="40" value="123123">
                     <span class="popup__type-input-error name-input-error"></span>
-                    <input id="about-input" type="text"
-                        class="popup__input popup__input_form-about"
-                        placeholder="Расскажите о себе..." name="about" required minlength="2" maxlength="200" value="1215125125">
+                    <input id="about-input" type="text" class="popup__input popup__input_form-about"
+                        placeholder="Расскажите о себе..." name="about" required minlength="2" maxlength="200"
+                        value="1215125125">
                     <span class="popup__type-input-error about-input-error"></span>
                     <button type="submit"
                         class="popup__form-submit popup__form-submit_edit-profile popup__form-submit_disabled">Сохранить</button>
                 </form>
                 <button type="reset" class="popup__close-form popup__close-form_edit-profile" aria-label>
-                    <img src="./images/Close_edit_Icon.svg" alt="Кнопка закрыть крестик" class="popup__close-form-img">
+                    <img src="<%=require('./images/Close_edit_Icon.svg')%>" alt="Кнопка закрыть крестик"
+                        class="popup__close-form-img">
                 </button>
             </div>
         </section>
@@ -86,7 +87,8 @@
                         class="popup__form-submit popup__form-submit_add-photo popup__form-submit_disabled">Создать</button>
                 </form>
                 <button type="reset" class="popup__close-form popup__close-form_add-photo" aria-label>
-                    <img src="./images/Close_edit_Icon.svg" alt="Кнопка закрыть крестик" class="popup__close-form-img">
+                    <img src="<%=require('./images/Close_edit_Icon.svg')%>" alt="Кнопка закрыть крестик"
+                        class="popup__close-form-img">
                 </button>
             </div>
         </section>
@@ -95,13 +97,14 @@
                 <img class="popup__img">
                 <p class="popup__text"></p>
                 <button type="reset" class="popup__close-form popup__close-form_preview" aria-label>
-                    <img src="./images/Close_edit_Icon.svg" alt="Кнопка закрыть крестик" class="popup__close-form-img">
+                    <img src="<%=require('./images/Close_edit_Icon.svg')%>" alt="Кнопка закрыть крестик"
+                        class="popup__close-form-img">
                 </button>
             </div>
         </section>
 
     </div>
-    
+
     <script type="module" src="./script/index.js"></script>
 
 </body>
