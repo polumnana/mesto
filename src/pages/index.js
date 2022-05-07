@@ -5,6 +5,8 @@ import { openPopup, closePopup } from "../components/utils.js";
 import { FormValidator } from "../components/FormValidator.js";
 
 import '../pages/index.css';
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
@@ -61,7 +63,8 @@ function savePopupEditProfile(evt) {
 } // Передающую из инпутов в данные профиля
 
 function createCardElement(obj) {
-    const card = new Card(obj, '.element-template'); // Создадается экземпляр карточки из класса
+    const popup = new PopupWithImage(popupPreview);
+    const card = new Card(obj, '.element-template', (title, link) => {popup.open(title, link)}); // Создадается экземпляр карточки из класса
     const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
     return cardElement;
 }

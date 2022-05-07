@@ -1,14 +1,9 @@
-import { openPopup } from "./utils.js";
-
-const previewImg = document.querySelector('.popup__img'); // Крупное фото попап 
-const previewText = document.querySelector('.popup__text'); // Описание фото попап 
-const popupPreview = document.querySelector('.popup_preview');
-
 export default class Card {
-    constructor(data, selector) {
+    constructor(data, selector, handleOpenPopup) {
         this._title = data.name;
         this._image = data.link;
         this._selector = selector;
+        this._handleOpenPopup = handleOpenPopup;
     }
 
     _getElement() {
@@ -39,7 +34,7 @@ export default class Card {
             this._element.remove();
         }); // Удаляем карточку-пост
         this._element.querySelector('.element__img').addEventListener("click", evt => {
-            this._openPopupPreview(this._title, this._image);
+            this._handleOpenPopup(this._title, this._image);
         }); // Открываем просмотр
     }
 
@@ -51,4 +46,3 @@ export default class Card {
         console.log('Покажи поближе 👀');
     }
 }
-
