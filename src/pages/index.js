@@ -6,6 +6,7 @@ import { FormValidator } from "../components/FormValidator.js";
 import '../pages/index.css';
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
 
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
@@ -51,8 +52,10 @@ const formValidators = {}; //Объект, где хранятся экземп�
 // Прописываю функции:
 
 function savePopupEditProfile() {
-    profileInfoName.textContent = inputNameEditProfile.value; // Из инпута данные летят в профиль
-    profileInfoAbout.textContent = inputAboutEditProfile.value; // Из инпута данные летят в профиль
+    userInfo.setUserInfo({
+        userName: inputNameEditProfile.value,
+        infoAbout: inputAboutEditProfile.value,
+    }); // Из инпута данные летят в профиль
     popupEditProfile.close(); // Автоматически закрыть попап
     console.log('Информация обновлена 🥰');
 } // Передающую из инпутов в данные профиля
@@ -78,12 +81,12 @@ function savePopupAddPost() {
     console.log('Лента обновлена 💬');
 } // Передающую из инпутов в блок с картинками
 
-
-
+const userInfo = new UserInfo({ userName: profileInfoName, infoAbout: profileInfoAbout });
 // Подгружающую в инпуты данные из профиля,заполняющую заголовок попапа
 function openPopupEditProfile() {
-    inputNameEditProfile.value = profileInfoName.textContent; // В инпут берутся данные из профиля
-    inputAboutEditProfile.value = profileInfoAbout.textContent; // В инпут берутся данные из профиля
+
+    inputNameEditProfile.value = userInfo.getUserInfo().userName; // В инпут берутся данные из профиля
+    inputAboutEditProfile.value = userInfo.getUserInfo().infoAbout; // В инпут берутся данные из профиля
 
     formValidators[formSubmitEditProfile.name].clearErrors();
 
