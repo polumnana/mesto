@@ -28,7 +28,6 @@ export default class Card {
         const buttonLike = this._element.querySelector('.element__button');
         buttonLike.addEventListener('click', () => {
             buttonLike.classList.toggle('element__button_active');
-            console.log('Лайков много не бывает! ❤️');
         }); // Переключаем лайк
         this._element.querySelector('.element__delete').addEventListener('click', () => {
             this._element.remove();
@@ -43,6 +42,5 @@ export default class Card {
         previewImg.setAttribute('alt', name); // Передали карточке ALT 
         previewText.textContent = name;  // Передали карточке заголовок
         openPopup(popupPreview); // Открыть попап 
-        console.log('Покажи поближе 👀');
     }
 }
