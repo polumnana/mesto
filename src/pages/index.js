@@ -57,7 +57,6 @@ function savePopupEditProfile() {
         infoAbout: inputAboutEditProfile.value,
     }); // Из инпута данные летят в профиль
     popupEditProfile.close(); // Автоматически закрыть попап
-    console.log('Информация обновлена 🥰');
 } // Передающую из инпутов в данные профиля
 
 function createCardElement(obj) {
@@ -78,7 +77,6 @@ function savePopupAddPost() {
     addPost(newPost, photosContainer);
     formValidators[formSubmitAddPost.name].disableSubmit();
     popupAddPost.close(); // Автоматически закрыть попап
-    console.log('Лента обновлена 💬');
 } // Передающую из инпутов в блок с картинками
 
 const userInfo = new UserInfo({ userName: profileInfoName, infoAbout: profileInfoAbout });
@@ -95,8 +93,7 @@ function openPopupEditProfile() {
 
 // Ничего не подгружающую в инпуты, заполняющую заголовок попапа
 function openPopupAddPost() {
-    firstInputAddPost.value = ''; // В инпуте должно быть пусто
-    secondInputAddPost.value = ''; // В инпуте должно быть пусто
+    formSubmitAddPost.reset(); 
 
     const validatorAddPost = formValidators[formSubmitAddPost.name];
     validatorAddPost.clearErrors();
@@ -108,7 +105,6 @@ function openPopupAddPost() {
 // Добавляющую пост пользователя в ленту
 function addPost(card, container) {
     container.prepend(card); // Из копии шаблона всё положили на страницу
-    console.log('Я добавляю постик в ленту 🌸🌸🌸');
 }
 
 // Прописываю события:
