@@ -1,7 +1,6 @@
 import Card from "../components/Card.js";
 import cards from "../components/arr.js";
 
-import { openPopup, closePopup } from "../components/utils.js";
 import { FormValidator } from "../components/FormValidator.js";
 
 import '../pages/index.css';
@@ -13,7 +12,6 @@ const popupProfile = document.querySelector('.popup_profile');
 
 const buttonEditProfile = document.querySelector('.profile__button-edit'); // Кнопка "Редактировать профиль"
 
-const buttonCloseEditProfile = document.querySelector('.popup__close-form_edit-profile'); // Закрыть попап ред. профиля
 const formSubmitEditProfile = document.querySelector('.popup__form_edit-profile'); // Форма
 
 const inputNameEditProfile = document.querySelector('.popup__input_form-name'); // Данные в первом инпуте попапа ред. профиль
@@ -28,7 +26,6 @@ const popupGallery = document.querySelector('.popup_gallery');
 
 const buttonAddNewPost = document.querySelector('.profile__button-add'); // Кнопка "Добавить пост" 
 
-const buttonCloseAddPhoto = document.querySelector('.popup__close-form_add-photo'); // Закрыть попап доб. фото
 const formSubmitAddPost = document.querySelector('.popup__form_add-photo'); // Форма
 
 const firstInputAddPost = document.querySelector('.popup__input_form-title'); // Данные в первом инпуте попапа доб. пост
@@ -53,11 +50,10 @@ const formValidators = {}; //Объект, где хранятся экземп�
 
 // Прописываю функции:
 
-function savePopupEditProfile(evt) {
-    evt.preventDefault();//Прерываем
+function savePopupEditProfile() {
     profileInfoName.textContent = inputNameEditProfile.value; // Из инпута данные летят в профиль
     profileInfoAbout.textContent = inputAboutEditProfile.value; // Из инпута данные летят в профиль
-    closePopup(popupProfile); // Автоматически закрыть попап
+    popupEditProfile.close(); // Автоматически закрыть попап
     console.log('Информация обновлена 🥰');
 } // Передающую из инпутов в данные профиля
 
@@ -69,8 +65,7 @@ function createCardElement(obj) {
     return cardElement;
 }
 
-function savePopupAddPost(evt) {
-    evt.preventDefault();//Прерываем
+function savePopupAddPost() {
     const inputs = {
         name: firstInputAddPost.value,
         link: secondInputAddPost.value,
@@ -79,7 +74,7 @@ function savePopupAddPost(evt) {
     const newPost = createCardElement(inputs);
     addPost(newPost, photosContainer);
     formValidators[formSubmitAddPost.name].disableSubmit();
-    closePopup(popupGallery); // Автоматически закрыть попап
+    popupAddPost.close(); // Автоматически закрыть попап
     console.log('Лента обновлена 💬');
 } // Передающую из инпутов в блок с картинками
 
@@ -92,7 +87,7 @@ function openPopupEditProfile() {
 
     formValidators[formSubmitEditProfile.name].clearErrors();
 
-    openPopup(popupProfile); // Открыть попап
+    popupEditProfile.open(); // Открыть попап
 }
 
 // Ничего не подгружающую в инпуты, заполняющую заголовок попапа
@@ -104,7 +99,7 @@ function openPopupAddPost() {
     validatorAddPost.clearErrors();
     validatorAddPost.setFormButtonState();
 
-    openPopup(popupGallery);
+    popupAddPost.open();
 }
 
 // Добавляющую пост пользователя в ленту
@@ -119,14 +114,15 @@ cards.forEach((element) => {
     addPost(createCardElement(element), photosContainer);
 }); // Добавляем в ленту постики (6 шт)
 
+const popupAddPost = new PopupWithForm(popupGallery, savePopupAddPost);
+popupAddPost.setEventListeners();
+
+const popupEditProfile = new PopupWithForm(popupProfile, savePopupEditProfile);
+popupEditProfile.setEventListeners();
+
 buttonEditProfile.addEventListener("click", openPopupEditProfile); // Открывающую попап кликом на карандашик (ПРОФИЛЬ)
 buttonAddNewPost.addEventListener("click", openPopupAddPost); // Открывающую попап кликом на плюсик (ФОТО)
 
-buttonCloseEditProfile.addEventListener("click", () => closePopup(popupProfile)); // Закрывающую попап ред. профиля кликом на крестик
-buttonCloseAddPhoto.addEventListener("click", () => closePopup(popupGallery)); // Закрывающую попап доб. фото кликом на крестик
-
-formSubmitEditProfile.addEventListener("submit", savePopupEditProfile); // Слушатель на "Сохранить" ред. профиля
-formSubmitAddPost.addEventListener("submit", savePopupAddPost); // Слушатель на "Сохранить" доб. фото
 
 function enableValidation(settings) {
     const formList = document.querySelectorAll(settings.formSelector);
