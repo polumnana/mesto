@@ -60,9 +60,7 @@ function savePopupEditProfile() {
 } // Передающую из инпутов в данные профиля
 
 function createCardElement(obj) {
-    const popup = new PopupWithImage(popupPreview);
-    popup.setEventListeners();
-    const card = new Card(obj, '.element-template', (title, link) => { popup.open(title, link) }); // Создадается экземпляр карточки из класса
+    const card = new Card(obj, '.element-template', (title, link) => { popupImage.open(title, link) }); // Создадается экземпляр карточки из класса
     const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
     return cardElement;
 }
@@ -118,6 +116,9 @@ popupAddPost.setEventListeners();
 
 const popupEditProfile = new PopupWithForm(popupProfile, savePopupEditProfile);
 popupEditProfile.setEventListeners();
+
+const popupImage = new PopupWithImage(popupPreview);
+popupImage.setEventListeners();
 
 buttonEditProfile.addEventListener("click", openPopupEditProfile); // Открывающую попап кликом на карандашик (ПРОФИЛЬ)
 buttonAddNewPost.addEventListener("click", openPopupAddPost); // Открывающую попап кликом на плюсик (ФОТО)
