@@ -38,7 +38,6 @@ const photosContainer = document.querySelector('.elements'); // Контейне
 
 // Объявляю переменные третьего попапа (просмотр фото):
 const popupPreview = document.querySelector('.popup_preview');
-const buttonClosePreview = document.querySelector('.popup__close-form_preview'); // Закрыть попап просмотр фото
 
 
 // Свойства валидации:
@@ -64,7 +63,8 @@ function savePopupEditProfile(evt) {
 
 function createCardElement(obj) {
     const popup = new PopupWithImage(popupPreview);
-    const card = new Card(obj, '.element-template', (title, link) => {popup.open(title, link)}); // Создадается экземпляр карточки из класса
+    popup.setEventListeners();
+    const card = new Card(obj, '.element-template', (title, link) => { popup.open(title, link) }); // Создадается экземпляр карточки из класса
     const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
     return cardElement;
 }
@@ -124,7 +124,6 @@ buttonAddNewPost.addEventListener("click", openPopupAddPost); // Открыва�
 
 buttonCloseEditProfile.addEventListener("click", () => closePopup(popupProfile)); // Закрывающую попап ред. профиля кликом на крестик
 buttonCloseAddPhoto.addEventListener("click", () => closePopup(popupGallery)); // Закрывающую попап доб. фото кликом на крестик
-buttonClosePreview.addEventListener("click", () => closePopup(popupPreview)); // Закрывающую попап просмотр фото кликом на крестик
 
 formSubmitEditProfile.addEventListener("submit", savePopupEditProfile); // Слушатель на "Сохранить" ред. профиля
 formSubmitAddPost.addEventListener("submit", savePopupAddPost); // Слушатель на "Сохранить" доб. фото
