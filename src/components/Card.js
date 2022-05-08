@@ -16,10 +16,12 @@ export default class Card {
         this._element = this._getElement();
 
         this._element.querySelector('.element__title').textContent = this._title;
-        this._element.querySelector('.element__img').src = this._image;
-        this._element.querySelector('.element__img').alt = this._title;
 
-        this._setEventListeners();
+        const elementImg = this._element.querySelector('.element__img');
+        elementImg.src = this._image;
+        elementImg.alt = this._title;
+
+        this._setEventListeners();   
 
         return this._element;
     } // Наполнили шаблон и вернули карточку с описанием и фото
