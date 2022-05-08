@@ -1,5 +1,5 @@
 import Card from "../components/Card.js";
-import cards from "../components/arr.js";
+import cards from "../utils/arr.js";
 
 import { FormValidator } from "../components/FormValidator.js";
 
