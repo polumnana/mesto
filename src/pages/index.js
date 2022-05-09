@@ -59,18 +59,13 @@ function savePopupEditProfile() {
     popupEditProfile.close(); // Автоматически закрыть попап
 } // Передающую из инпутов в данные профиля
 
-function createCardElement(obj) {
-    const card = new Card(obj, '.element-template', (title, link) => { popupImage.open(title, link) }); // Создадается экземпляр карточки из класса
+function createCardElement(item) {
+    const card = new Card(item, '.element-template', (titlePreview, linkPreview) => { popupImage.open(titlePreview, linkPreview) }); // Создадается экземпляр карточки из класса
     const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
     return cardElement;
 }
 
-function savePopupAddPost() {
-    const inputs = {
-        name: firstInputAddPost.value,
-        link: secondInputAddPost.value,
-    };
-
+function savePopupAddPost(inputs) {
     const newPost = createCardElement(inputs);
     addPost(newPost, photosContainer);
     formValidators[formSubmitAddPost.name].disableSubmit();
