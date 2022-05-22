@@ -19,7 +19,7 @@ const inputAboutEditProfile = document.querySelector('.popup__input_form-about')
 
 const profileInfoName = document.querySelector('.profile__info-name'); // Данные ИМЯ в самом профиле
 const profileInfoAbout = document.querySelector('.profile__info-about'); // Данные О СЕБЕ в самом профиле
-
+const profileAvatar = document.querySelector('.profile__avatar');
 
 // Объявляю переменные второго попапа (доб фото):
 const popupGallery = document.querySelector('.popup_gallery');
@@ -69,7 +69,7 @@ function savePopupAddPost(inputs) {
     popupAddPost.close(); // Автоматически закрыть попап
 } // Передающую из инпутов в блок с картинками
 
-const userInfo = new UserInfo({ userName: profileInfoName, infoAbout: profileInfoAbout });
+const userInfo = new UserInfo({ userName: profileInfoName, infoAbout: profileInfoAbout, avatar: profileAvatar });
 // Подгружающую в инпуты данные из профиля,заполняющую заголовок попапа
 function openPopupEditProfile() {
 
