@@ -119,7 +119,7 @@ fetch('https://mesto.nomoreparties.co/v1/cohort-41/users/me', {
 })
     .then(res => res.json())
     .then((result) => {
-        userInfo.setUserInfo({
+        userInfo.setUserInfoOnLoad({
             userName: result.name,
             infoAbout: result.about,
             avatar: result.avatar,
