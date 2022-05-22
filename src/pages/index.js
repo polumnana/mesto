@@ -1,5 +1,4 @@
 import Card from "../components/Card.js";
-import cards from "../utils/arr.js";
 
 import { FormValidator } from "../components/FormValidator.js";
 
@@ -29,8 +28,6 @@ const buttonAddNewPost = document.querySelector('.profile__button-add'); // Кн
 
 const formSubmitAddPost = document.querySelector('.popup__form_add-photo'); // Форма
 
-const firstInputAddPost = document.querySelector('.popup__input_form-title'); // Данные в первом инпуте попапа доб. пост
-const secondInputAddPost = document.querySelector('.popup__input_form-link'); // Данные во втором инпуте попапа доб. пост
 
 const photosContainer = document.querySelector('.elements'); // Контейнер с постами
 
@@ -100,11 +97,22 @@ function addPost(card, container) {
     container.prepend(card); // Из копии шаблона всё положили на страницу
 }
 
+fetch('https://mesto.nomoreparties.co/v1/cohort-41/cards', {
+  headers: {
+    authorization: ' 313ac141-ac1d-4bd4-8cbd-191f2a15741d'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+    result.forEach((element) => {
+        addPost(createCardElement(element), photosContainer);
+    }); // Добавляем в ленту постики (чужие)
+  });
+
 // Прописываю события:
 
-cards.forEach((element) => {
-    addPost(createCardElement(element), photosContainer);
-}); // Добавляем в ленту постики (6 шт)
+
 
 const popupAddPost = new PopupWithForm(popupGallery, savePopupAddPost);
 popupAddPost.setEventListeners();
