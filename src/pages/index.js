@@ -83,7 +83,7 @@ function openPopupEditProfile() {
 
 // Ничего не подгружающую в инпуты, заполняющую заголовок попапа
 function openPopupAddPost() {
-    formSubmitAddPost.reset(); 
+    formSubmitAddPost.reset();
 
     const validatorAddPost = formValidators[formSubmitAddPost.name];
     validatorAddPost.clearErrors();
@@ -98,17 +98,39 @@ function addPost(card, container) {
 }
 
 fetch('https://mesto.nomoreparties.co/v1/cohort-41/cards', {
-  headers: {
-    authorization: ' 313ac141-ac1d-4bd4-8cbd-191f2a15741d'
-  }
+    headers: {
+        authorization: '313ac141-ac1d-4bd4-8cbd-191f2a15741d'
+    }
 })
-  .then(res => res.json())
-  .then((result) => {
-    console.log(result);
-    result.forEach((element) => {
-        addPost(createCardElement(element), photosContainer);
-    }); // Добавляем в ленту постики (чужие)
-  });
+    .then(res => res.json())
+    .then((result) => {
+        result.forEach((element) => {
+            addPost(createCardElement(element), photosContainer);
+        }); // Добавляем в ленту постики (чужие)
+    })
+    .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
+
+fetch('https://mesto.nomoreparties.co/v1/cohort-41/users/me', {
+    headers: {
+        authorization: '313ac141-ac1d-4bd4-8cbd-191f2a15741d'
+    }
+})
+    .then(res => res.json())
+    .then((result) => {
+        userInfo.setUserInfo({
+            userName: result.name,
+            infoAbout: result.about,
+            avatar: result.avatar,
+            _id: result._id,
+            cohort: result.cohort,
+        });
+    })
+    .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+    }); 
+
 
 // Прописываю события:
 
