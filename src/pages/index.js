@@ -6,6 +6,7 @@ import '../pages/index.css';
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
@@ -49,11 +50,24 @@ const formValidators = {}; //Объект, где хранятся экземп�
 // Прописываю функции:
 
 function savePopupEditProfile() {
-    userInfo.setUserInfo({
-        userName: inputNameEditProfile.value,
-        infoAbout: inputAboutEditProfile.value,
-    }); // Из инпута данные летят в профиль
-    popupEditProfile.close(); // Автоматически закрыть попап
+    console.log("Сохранение ...");
+
+    const newUserInfo = {
+        name: inputNameEditProfile.value,
+        about: inputAboutEditProfile.value,
+    };
+
+    api.updateUserInfo(newUserInfo)
+        .then((res) => {
+            userInfo.setUserInfo(res); // Из инпута данные летят в профиль
+            popupEditProfile.close(); // Автоматически закрыть попап
+        })
+        .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+        })
+        .finally(() => {
+            console.log("Сохранено");
+        });
 } // Передающую из инпутов в данные профиля
 
 function createCardElement(item) {
@@ -63,18 +77,24 @@ function createCardElement(item) {
 }
 
 function savePopupAddPost(inputs) {
-    const newPost = createCardElement(inputs);
-    addPost(newPost, photosContainer);
     formValidators[formSubmitAddPost.name].disableSubmit();
-    popupAddPost.close(); // Автоматически закрыть попап
+    api.createCard(inputs)
+    .then((res) => {
+        const newPost = createCardElement(res);
+        addPost(newPost, photosContainer);
+        popupAddPost.close(); // Автоматически закрыть попап
+    })
+    .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+    });
 } // Передающую из инпутов в блок с картинками
 
-const userInfo = new UserInfo({ userName: profileInfoName, infoAbout: profileInfoAbout, avatar: profileAvatar });
+const userInfo = new UserInfo({ name: profileInfoName, about: profileInfoAbout, avatar: profileAvatar });
 // Подгружающую в инпуты данные из профиля,заполняющую заголовок попапа
 function openPopupEditProfile() {
 
-    inputNameEditProfile.value = userInfo.getUserInfo().userName; // В инпут берутся данные из профиля
-    inputAboutEditProfile.value = userInfo.getUserInfo().infoAbout; // В инпут берутся данные из профиля
+    inputNameEditProfile.value = userInfo.getUserInfo().name; // В инпут берутся данные из профиля
+    inputAboutEditProfile.value = userInfo.getUserInfo().about; // В инпут берутся данные из профиля
 
     formValidators[formSubmitEditProfile.name].clearErrors();
 
@@ -97,12 +117,15 @@ function addPost(card, container) {
     container.prepend(card); // Из копии шаблона всё положили на страницу
 }
 
-fetch('https://mesto.nomoreparties.co/v1/cohort-41/cards', {
+var api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-41',
     headers: {
-        authorization: '313ac141-ac1d-4bd4-8cbd-191f2a15741d'
+        authorization: '313ac141-ac1d-4bd4-8cbd-191f2a15741d',
+        'Content-Type': 'application/json'
     }
-})
-    .then(res => res.json())
+});
+
+api.fetchCards()
     .then((result) => {
         result.forEach((element) => {
             addPost(createCardElement(element), photosContainer);
@@ -110,18 +133,13 @@ fetch('https://mesto.nomoreparties.co/v1/cohort-41/cards', {
     })
     .catch((err) => {
         console.log(err); // выведем ошибку в консоль
-      });
+    });
 
-fetch('https://mesto.nomoreparties.co/v1/cohort-41/users/me', {
-    headers: {
-        authorization: '313ac141-ac1d-4bd4-8cbd-191f2a15741d'
-    }
-})
-    .then(res => res.json())
+api.fetchUserInfo()
     .then((result) => {
-        userInfo.setUserInfoOnLoad({
-            userName: result.name,
-            infoAbout: result.about,
+        userInfo.setUserInfo({
+            name: result.name,
+            about: result.about,
             avatar: result.avatar,
             _id: result._id,
             cohort: result.cohort,
@@ -129,7 +147,7 @@ fetch('https://mesto.nomoreparties.co/v1/cohort-41/users/me', {
     })
     .catch((err) => {
         console.log(err); // выведем ошибку в консоль
-    }); 
+    });
 
 
 // Прописываю события:
