@@ -70,8 +70,8 @@ function savePopupEditProfile() {
         });
 } // Передающую из инпутов в данные профиля
 
-function createCardElement(item, ownerId) {
-    const card = new Card(item, ownerId, '.element-template', (titlePreview, linkPreview) => { popupImage.open(titlePreview, linkPreview) }); // Создадается экземпляр карточки из класса
+function createCardElement(item, isMyCard) {
+    const card = new Card(item, isMyCard, '.element-template', (titlePreview, linkPreview) => { popupImage.open(titlePreview, linkPreview) }); // Создадается экземпляр карточки из класса
     const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
     return cardElement;
 }
@@ -80,8 +80,7 @@ function savePopupAddPost(inputs) {
     formValidators[formSubmitAddPost.name].disableSubmit();
     api.createCard(inputs)
         .then((res) => {
-            const ownerId = userInfo.getUserInfo().id; 
-            const newPost = createCardElement(res, ownerId); //Из объекта данных пользователя достали айди
+            const newPost = createCardElement(res, true); 
             addPost(newPost, photosContainer);
             popupAddPost.close(); // Автоматически закрыть попап
         })
@@ -130,13 +129,14 @@ api.fetchUserInfo()
     .then((result) => {
         userInfo.setUserInfo( result );
 
-        const ownerId = result._id;
+        const myId = result._id;
         
         // В случае, если успешно, 
         api.fetchCards()
             .then((result) => {
                 result.forEach((element) => {
-                    addPost(createCardElement(element, ownerId), photosContainer);
+                    const isMyCard = myId === element.owner._id;
+                    addPost(createCardElement(element, isMyCard), photosContainer);
                 }); // Добавляем в ленту постики (чужие)
             })
             .catch((err) => {

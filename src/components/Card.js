@@ -1,10 +1,9 @@
 export default class Card {
-    constructor(data, ownerId, selector, handleCardClick) {
+    constructor(data, isMyCard, selector, handleCardClick) {
         this._title = data.name;
         this._image = data.link;
         this._likes = data.likes;
-        this._cardOwnerId  = data.owner._id;
-        this._myId = ownerId;
+        this._isMyCard = isMyCard;
         this._selector = selector;
         this._handleOpenPopup = handleCardClick;
     }
@@ -27,7 +26,7 @@ export default class Card {
 
         this._setEventListeners();   
         
-        if (this._cardOwnerId !== this._myId)
+        if (!this._isMyCard)
             this._element.querySelector('.element__delete').remove();
 
         return this._element;
