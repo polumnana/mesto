@@ -70,8 +70,8 @@ function savePopupEditProfile() {
         });
 } // Передающую из инпутов в данные профиля
 
-function createCardElement(item) {
-    const card = new Card(item, '.element-template', (titlePreview, linkPreview) => { popupImage.open(titlePreview, linkPreview) }); // Создадается экземпляр карточки из класса
+function createCardElement(item, ownerId) {
+    const card = new Card(item, ownerId, '.element-template', (titlePreview, linkPreview) => { popupImage.open(titlePreview, linkPreview) }); // Создадается экземпляр карточки из класса
     const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
     return cardElement;
 }
@@ -79,14 +79,15 @@ function createCardElement(item) {
 function savePopupAddPost(inputs) {
     formValidators[formSubmitAddPost.name].disableSubmit();
     api.createCard(inputs)
-    .then((res) => {
-        const newPost = createCardElement(res);
-        addPost(newPost, photosContainer);
-        popupAddPost.close(); // Автоматически закрыть попап
-    })
-    .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-    });
+        .then((res) => {
+            const ownerId = userInfo.getUserInfo().id; 
+            const newPost = createCardElement(res, ownerId); //Из объекта данных пользователя достали айди
+            addPost(newPost, photosContainer);
+            popupAddPost.close(); // Автоматически закрыть попап
+        })
+        .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+        });
 } // Передающую из инпутов в блок с картинками
 
 const userInfo = new UserInfo({ name: profileInfoName, about: profileInfoAbout, avatar: profileAvatar });
@@ -125,25 +126,22 @@ var api = new Api({
     }
 });
 
-api.fetchCards()
-    .then((result) => {
-        result.forEach((element) => {
-            addPost(createCardElement(element), photosContainer);
-        }); // Добавляем в ленту постики (чужие)
-    })
-    .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-    });
-
 api.fetchUserInfo()
     .then((result) => {
-        userInfo.setUserInfo({
-            name: result.name,
-            about: result.about,
-            avatar: result.avatar,
-            _id: result._id,
-            cohort: result.cohort,
-        });
+        userInfo.setUserInfo( result );
+
+        const ownerId = result._id;
+        
+        // В случае, если успешно, 
+        api.fetchCards()
+            .then((result) => {
+                result.forEach((element) => {
+                    addPost(createCardElement(element, ownerId), photosContainer);
+                }); // Добавляем в ленту постики (чужие)
+            })
+            .catch((err) => {
+                console.log(err); // выведем ошибку в консоль
+            });
     })
     .catch((err) => {
         console.log(err); // выведем ошибку в консоль

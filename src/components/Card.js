@@ -1,8 +1,10 @@
 export default class Card {
-    constructor(data, selector, handleCardClick) {
+    constructor(data, ownerId, selector, handleCardClick) {
         this._title = data.name;
         this._image = data.link;
         this._likes = data.likes;
+        this._cardOwnerId  = data.owner._id;
+        this._myId = ownerId;
         this._selector = selector;
         this._handleOpenPopup = handleCardClick;
     }
@@ -24,6 +26,9 @@ export default class Card {
         elementImg.alt = this._title;
 
         this._setEventListeners();   
+        
+        if (this._cardOwnerId !== this._myId)
+            this._element.querySelector('.element__delete').remove();
 
         return this._element;
     } // Наполнили шаблон и вернули карточку с описанием и фото
