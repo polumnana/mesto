@@ -27,9 +27,9 @@ export default class Card {
     } // Наполнили шаблон и вернули карточку с описанием и фото
 
     _setEventListeners() {
-        const buttonLike = this._element.querySelector('.element__button');
+        const buttonLike = this._element.querySelector('.element__button-like');
         buttonLike.addEventListener('click', () => {
-            buttonLike.classList.toggle('element__button_active');
+            buttonLike.classList.toggle('element__button-like_active');
         }); // Переключаем лайк
         this._element.querySelector('.element__delete').addEventListener('click', () => {
             this._element.remove();
