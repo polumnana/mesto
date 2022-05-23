@@ -24,8 +24,8 @@ export default class Card {
         elementImg.src = this._image;
         elementImg.alt = this._title;
 
-        this._setEventListeners();   
-        
+        this._setEventListeners();
+
         if (!this._isMyCard)
             this._element.querySelector('.element__delete').remove();
 
@@ -37,9 +37,11 @@ export default class Card {
         buttonLike.addEventListener('click', () => {
             buttonLike.classList.toggle('element__button-like_active');
         }); // Переключаем лайк
-        this._element.querySelector('.element__delete').addEventListener('click', () => {
-            this._element.remove();
-        }); // Удаляем карточку-пост
+
+        if (this._isMyCard)
+            this._element.querySelector('.element__delete').addEventListener('click', () => {
+                this._element.remove();
+            }); // Удаляем карточку-пост
         this._element.querySelector('.element__img').addEventListener("click", evt => {
             this._handleOpenPopup(this._title, this._image);
         }); // Открываем просмотр
