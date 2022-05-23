@@ -2,6 +2,7 @@ export default class Card {
     constructor(data, isMyCard, selector, handleCardClick) {
         this._title = data.name;
         this._image = data.link;
+        this._id = data._id;
         this._likes = data.likes;
         this._isMyCard = isMyCard;
         this._selector = selector;
