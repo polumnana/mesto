@@ -102,11 +102,26 @@ function createCardElement(item, isMyCard) {
         handleDeleteIconClick: (cardClicked) => {
             popupDeletePost.setCard(cardClicked);
             popupDeletePost.open();
-        }
+        },
+        handleLikePost: () => likeCard(card),
+        
     }); // Создадается экземпляр карточки из класса
     const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
     return cardElement;
 }
+
+function likeCard(card) {
+    const cardId = card.getId();
+    api.likeCard(cardId)
+        .then((res) => {
+            card.setData(res);
+        })
+        .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+        });
+}
+
+
 
 function savePopupAddPost(inputs) {
     formValidators[formSubmitAddPost.name].disableSubmit();

@@ -1,5 +1,5 @@
 export default class Card {
-    constructor({ data, isMyCard, selector, handleCardClick, handleDeleteIconClick }) {
+    constructor({ data, isMyCard, selector, handleCardClick, handleDeleteIconClick, handleLikePost }) {
         this._title = data.name;
         this._image = data.link;
         this._id = data._id;
@@ -8,6 +8,7 @@ export default class Card {
         this._selector = selector;
         this._handleOpenPopup = handleCardClick;
         this._handleDeleteIconClick = handleDeleteIconClick;
+        this._handleLikePost =  handleLikePost;
     }
 
     _getElement() {
@@ -20,11 +21,18 @@ export default class Card {
         return this._id;
     }
 
+    setData(data) {
+        this._title = data.name;
+        this._image = data.link;
+        this._id = data._id;
+        this._likes = data.likes;
+    }
+
     generateCard() {
         this._element = this._getElement();
 
         this._element.querySelector('.element__title').textContent = this._title;
-        this._element.querySelector('.element__button-like').textContent = this._likes.length;
+        this._element.querySelector('.element__counter-like').textContent = this._likes.length;
 
         const elementImg = this._element.querySelector('.element__img');
         elementImg.src = this._image;
@@ -45,6 +53,7 @@ export default class Card {
     _setEventListeners() {
         const buttonLike = this._element.querySelector('.element__button-like');
         buttonLike.addEventListener('click', () => {
+            this._handleLikePost(this._id);
             buttonLike.classList.toggle('element__button-like_active');
         }); // Переключаем лайк
 
@@ -55,12 +64,5 @@ export default class Card {
         this._element.querySelector('.element__img').addEventListener("click", evt => {
             this._handleOpenPopup(this._title, this._image);
         }); // Открываем просмотр
-    }
-
-    _openPopupPreview(name, link) {
-        previewImg.setAttribute('src', link); // Передали карточке SRC 
-        previewImg.setAttribute('alt', name); // Передали карточке ALT 
-        previewText.textContent = name;  // Передали карточке заголовок
-        openPopup(popupPreview); // Открыть попап 
     }
 }
