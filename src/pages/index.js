@@ -93,7 +93,7 @@ function savePopupEditProfile() {
         });
 } // Передающую из инпутов в данные профиля
 
-function createCardElement(item, isMyCard) {
+function createCardElement(item, isMyCard, like) {
     const card = new Card({
         data: item,
         isMyCard: isMyCard,
@@ -104,14 +104,17 @@ function createCardElement(item, isMyCard) {
             popupDeletePost.open();
         },
         handleLikePost: () => likeCard(card),
-        
+        handleUnlikePost: () => unlikeCard(card),
     }); // Создадается экземпляр карточки из класса
     const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
+    card.setIsLiked(like);
     return cardElement;
 }
 
 function likeCard(card) {
     const cardId = card.getId();
+    card.setIsLiked(true);
+
     api.likeCard(cardId)
         .then((res) => {
             card.setData(res);
@@ -121,14 +124,25 @@ function likeCard(card) {
         });
 }
 
+function unlikeCard(card) {
+    const cardId = card.getId();
+    card.setIsLiked(false);
 
+    api.unlikeCard(cardId)
+        .then((res) => {
+            card.setData(res);
+        })
+        .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+        });
+}
 
 function savePopupAddPost(inputs) {
     formValidators[formSubmitAddPost.name].disableSubmit();
     renderLoading(true, submitButtonAddPost);
     api.createCard(inputs)
         .then((res) => {
-            const newPost = createCardElement(res, true);
+            const newPost = createCardElement(res, true, false);
             addPost(newPost, photosContainer);
             popupAddPost.close(); // Автоматически закрыть попап
         })
@@ -193,6 +207,17 @@ function openPopupAvatar() {
     popupUpdateAvatar.open();
 }
 
+function isLikedByMe(card) {
+    const myId = userInfo.getUserInfo().id;
+    let result = false;
+
+    card.likes.forEach(like => {
+        if (like._id == myId)
+            result = true;
+    });
+
+    return result;
+}
 
 
 // Добавляющую пост пользователя в ленту
@@ -219,7 +244,8 @@ api.fetchUserInfo()
             .then((result) => {
                 result.forEach((element) => {
                     const isMyCard = myId === element.owner._id;
-                    addPost(createCardElement(element, isMyCard), photosContainer);
+                    const like = isLikedByMe(element);
+                    addPost(createCardElement(element, isMyCard, like), photosContainer);
                 }); // Добавляем в ленту постики (чужие)
             })
             .catch((err) => {

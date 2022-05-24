@@ -1,5 +1,5 @@
 export default class Card {
-    constructor({ data, isMyCard, selector, handleCardClick, handleDeleteIconClick, handleLikePost }) {
+    constructor({ data, isMyCard, selector, handleCardClick, handleDeleteIconClick, handleLikePost, handleUnlikePost }) {
         this._title = data.name;
         this._image = data.link;
         this._id = data._id;
@@ -8,7 +8,8 @@ export default class Card {
         this._selector = selector;
         this._handleOpenPopup = handleCardClick;
         this._handleDeleteIconClick = handleDeleteIconClick;
-        this._handleLikePost =  handleLikePost;
+        this._handleLikePost = handleLikePost;
+        this._handleUnlikePost = handleUnlikePost;
     }
 
     _getElement() {
@@ -26,6 +27,8 @@ export default class Card {
         this._image = data.link;
         this._id = data._id;
         this._likes = data.likes;
+
+        this._element.querySelector('.element__counter-like').textContent = this._likes.length;
     }
 
     generateCard() {
@@ -50,11 +53,26 @@ export default class Card {
         this._element.remove();
     }
 
+    setIsLiked(isLiked) {
+        console.log('like', isLiked);
+
+        const buttonLike = this._element.querySelector('.element__button-like');
+        this._isLiked = isLiked;
+
+        if (this._isLiked) {
+            buttonLike.classList.add('element__button-like_active');
+        } else {
+            buttonLike.classList.remove('element__button-like_active');
+        }
+    }
+
     _setEventListeners() {
         const buttonLike = this._element.querySelector('.element__button-like');
         buttonLike.addEventListener('click', () => {
-            this._handleLikePost(this._id);
-            buttonLike.classList.toggle('element__button-like_active');
+            if (this._isLiked)
+                this._handleUnlikePost(this._id);
+            else
+                this._handleLikePost(this._id);
         }); // Переключаем лайк
 
         if (this._isMyCard)
