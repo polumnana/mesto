@@ -99,8 +99,8 @@ function createCardElement(item, isMyCard, like) {
         isMyCard: isMyCard,
         selector: '.element-template',
         handleCardClick: (titlePreview, linkPreview) => { popupImage.open(titlePreview, linkPreview) },
-        handleDeleteIconClick: (cardClicked) => {
-            popupDeletePost.setCard(cardClicked);
+        handleDeleteIconClick: (cardId) => {
+            popupDeletePost.setCard(cards[cardId]);
             popupDeletePost.open();
         },
         handleLikePost: (cardId) => likeCard(cardId),
@@ -226,7 +226,7 @@ function addPost(card, container) {
     container.prepend(card); // Из копии шаблона всё положили на страницу
 }
 
-var api = new Api({
+const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-41',
     headers: {
         authorization: '313ac141-ac1d-4bd4-8cbd-191f2a15741d',

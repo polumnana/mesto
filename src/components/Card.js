@@ -77,7 +77,7 @@ export default class Card {
 
         if (this._isMyCard)
             this._element.querySelector('.element__delete').addEventListener('click', () => {
-                this._handleDeleteIconClick(this);
+                this._handleDeleteIconClick(this._id);
             }); // Повесить обработчик на удаление
         this._element.querySelector('.element__img').addEventListener("click", evt => {
             this._handleOpenPopup(this._title, this._image);
