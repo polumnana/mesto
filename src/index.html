@@ -107,11 +107,11 @@
         <section class="popup popup_delete">
             <div class="popup__container">
                 <h2 class="popup__title">Вы уверены?</h2>
-                <form class="popup__form popup__form_popup_delete" name="formAddPhoto" novalidate>
+                <form class="popup__form popup__form_popup-delete" name="formAddPhoto" novalidate>
                     <button type="submit"
-                        class="popup__form-submit popup__form-submit_add-photo popup__form-submit_disabled">Да</button>
+                        class="popup__form-submit popup__form-submit_add-photo">Да</button>
                 </form>
-                <button type="reset" class="popup__close-form popup__close-form_add-photo" aria-label>
+                <button type="reset" class="popup__close-form popup__close-form_popup-delete" aria-label>
                     <img src="<%=require('./images/Close_edit_Icon.svg')%>" alt="Кнопка закрыть крестик"
                         class="popup__close-form-img">
                 </button>
@@ -125,7 +125,7 @@
                         placeholder="Ссылка на фото" name="link" required value="">
                     <span class="popup__type-input-error avatar-link-input-error"></span>
                     <button type="submit"
-                        class="popup__form-submit popup__form-submit_update-avatar popup__form-submit_disabled">Сохранить]</button>
+                        class="popup__form-submit popup__form-submit_update-avatar popup__form-submit_disabled">Сохранить</button>
                 </form>
                 <button type="reset" class="popup__close-form popup__close-form_update-avatar" aria-label>
                     <img src="<%=require('./images/Close_edit_Icon.svg')%>" alt="Кнопка закрыть крестик"

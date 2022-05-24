@@ -1,5 +1,5 @@
 export default class Card {
-    constructor(data, isMyCard, selector, handleCardClick) {
+    constructor({ data, isMyCard, selector, handleCardClick, handleDeleteIconClick }) {
         this._title = data.name;
         this._image = data.link;
         this._id = data._id;
@@ -7,6 +7,7 @@ export default class Card {
         this._isMyCard = isMyCard;
         this._selector = selector;
         this._handleOpenPopup = handleCardClick;
+        this._handleDeleteIconClick = handleDeleteIconClick;
     }
 
     _getElement() {
@@ -14,6 +15,10 @@ export default class Card {
         const cardElement = photosTemplate.querySelector('.element').cloneNode(true);
         return cardElement;
     } // Сделали копию шаблона
+
+    getId() {
+        return this._id;
+    }
 
     generateCard() {
         this._element = this._getElement();
@@ -33,6 +38,10 @@ export default class Card {
         return this._element;
     } // Наполнили шаблон и вернули карточку с описанием и фото
 
+    deletePost() {
+        this._element.remove();
+    }
+
     _setEventListeners() {
         const buttonLike = this._element.querySelector('.element__button-like');
         buttonLike.addEventListener('click', () => {
@@ -41,8 +50,8 @@ export default class Card {
 
         if (this._isMyCard)
             this._element.querySelector('.element__delete').addEventListener('click', () => {
-                this._element.remove();
-            }); // Удаляем карточку-пост
+                this._handleDeleteIconClick(this);
+            }); // Повесить обработчик на удаление
         this._element.querySelector('.element__img').addEventListener("click", evt => {
             this._handleOpenPopup(this._title, this._image);
         }); // Открываем просмотр

@@ -7,6 +7,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
+import PopupDelete from "../components/PopupDelete.js";
 
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
@@ -34,6 +35,8 @@ const photosContainer = document.querySelector('.elements'); // Контейне
 
 // Объявляю переменные третьего попапа (просмотр фото):
 const popupPreview = document.querySelector('.popup_preview');
+// Объявляю переменные четвертого попапа (удаление поста):
+const popupDelete = document.querySelector('.popup_delete');
 
 
 // Свойства валидации:
@@ -48,6 +51,18 @@ const validationSettings = {
 const formValidators = {}; //Объект, где хранятся экземпляры каждой формы
 
 // Прописываю функции:
+
+function deletePost(card) {
+    const id = card.getId();
+    api.deleteCard(id)
+        .then(() => {
+            card.deletePost();
+            popupDeletePost.close(); // Автоматически закрыть попап
+        })
+        .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+        });
+}
 
 function savePopupEditProfile() {
     console.log("Сохранение ...");
@@ -71,7 +86,16 @@ function savePopupEditProfile() {
 } // Передающую из инпутов в данные профиля
 
 function createCardElement(item, isMyCard) {
-    const card = new Card(item, isMyCard, '.element-template', (titlePreview, linkPreview) => { popupImage.open(titlePreview, linkPreview) }); // Создадается экземпляр карточки из класса
+    const card = new Card({
+        data: item,
+        isMyCard: isMyCard,
+        selector: '.element-template',
+        handleCardClick: (titlePreview, linkPreview) => { popupImage.open(titlePreview, linkPreview) },
+        handleDeleteIconClick: (cardClicked) => {
+            popupDeletePost.setCard(cardClicked);
+            popupDeletePost.open();
+        }
+    }); // Создадается экземпляр карточки из класса
     const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
     return cardElement;
 }
@@ -80,7 +104,7 @@ function savePopupAddPost(inputs) {
     formValidators[formSubmitAddPost.name].disableSubmit();
     api.createCard(inputs)
         .then((res) => {
-            const newPost = createCardElement(res, true); 
+            const newPost = createCardElement(res, true);
             addPost(newPost, photosContainer);
             popupAddPost.close(); // Автоматически закрыть попап
         })
@@ -127,10 +151,10 @@ var api = new Api({
 
 api.fetchUserInfo()
     .then((result) => {
-        userInfo.setUserInfo( result );
+        userInfo.setUserInfo(result);
 
         const myId = result._id;
-        
+
         // В случае, если успешно, 
         api.fetchCards()
             .then((result) => {
@@ -160,6 +184,9 @@ popupEditProfile.setEventListeners();
 
 const popupImage = new PopupWithImage(popupPreview);
 popupImage.setEventListeners();
+
+const popupDeletePost = new PopupDelete(popupDelete, deletePost);
+popupDeletePost.setEventListeners();
 
 buttonEditProfile.addEventListener("click", openPopupEditProfile); // Открывающую попап кликом на карандашик (ПРОФИЛЬ)
 buttonAddNewPost.addEventListener("click", openPopupAddPost); // Открывающую попап кликом на плюсик (ФОТО)
