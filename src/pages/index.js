@@ -8,6 +8,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import PopupDelete from "../components/PopupDelete.js";
+import { renderLoading } from "../components/utils.js";
 
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
@@ -18,6 +19,7 @@ const formSubmitEditProfile = document.querySelector('.popup__form_edit-profile'
 
 const inputNameEditProfile = document.querySelector('.popup__input_form-name'); // Данные в первом инпуте попапа ред. профиль
 const inputAboutEditProfile = document.querySelector('.popup__input_form-about'); // Данные во втором инпуте попапа ред. профиль
+const submitButtonEditProfile = document.querySelector('.popup__form-submit_edit-profile'); // Сабмит формы ред профиль
 
 const profileInfoName = document.querySelector('.profile__info-name'); // Данные ИМЯ в самом профиле
 const profileInfoAbout = document.querySelector('.profile__info-about'); // Данные О СЕБЕ в самом профиле
@@ -29,7 +31,7 @@ const popupGallery = document.querySelector('.popup_gallery');
 const buttonAddNewPost = document.querySelector('.profile__button-add'); // Кнопка "Добавить пост" 
 
 const formSubmitAddPost = document.querySelector('.popup__form_add-photo'); // Форма
-
+const submitButtonAddPost = document.querySelector('.popup__form-submit_add-photo'); // Сабмит формы добавить пост
 
 const photosContainer = document.querySelector('.elements'); // Контейнер с постами
 
@@ -65,7 +67,7 @@ function deletePost(card) {
 }
 
 function savePopupEditProfile() {
-    console.log("Сохранение ...");
+    renderLoading(true, submitButtonEditProfile);
 
     const newUserInfo = {
         name: inputNameEditProfile.value,
@@ -81,7 +83,7 @@ function savePopupEditProfile() {
             console.log(err); // выведем ошибку в консоль
         })
         .finally(() => {
-            console.log("Сохранено");
+            renderLoading(false, submitButtonEditProfile);
         });
 } // Передающую из инпутов в данные профиля
 
@@ -102,6 +104,7 @@ function createCardElement(item, isMyCard) {
 
 function savePopupAddPost(inputs) {
     formValidators[formSubmitAddPost.name].disableSubmit();
+    renderLoading(true, submitButtonAddPost);
     api.createCard(inputs)
         .then((res) => {
             const newPost = createCardElement(res, true);
@@ -110,6 +113,9 @@ function savePopupAddPost(inputs) {
         })
         .catch((err) => {
             console.log(err); // выведем ошибку в консоль
+        })
+        .finally(() => {
+            renderLoading(false, submitButtonAddPost);
         });
 } // Передающую из инпутов в блок с картинками
 
