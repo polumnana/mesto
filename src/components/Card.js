@@ -54,8 +54,6 @@ export default class Card {
     }
 
     setIsLiked(isLiked) {
-        console.log('like', isLiked);
-
         const buttonLike = this._element.querySelector('.element__button-like');
         this._isLiked = isLiked;
 
