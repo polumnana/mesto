@@ -103,16 +103,17 @@ function createCardElement(item, isMyCard, like) {
             popupDeletePost.setCard(cardClicked);
             popupDeletePost.open();
         },
-        handleLikePost: () => likeCard(card),
-        handleUnlikePost: () => unlikeCard(card),
+        handleLikePost: (cardId) => likeCard(cardId),
+        handleUnlikePost: (cardId) => unlikeCard(cardId),
     }); // Создадается экземпляр карточки из класса
+    cards[item._id] = card;
     const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
     card.setIsLiked(like);
     return cardElement;
 }
 
-function likeCard(card) {
-    const cardId = card.getId();
+function likeCard(cardId) {
+    const card = cards[cardId];
     card.setIsLiked(true);
 
     api.likeCard(cardId)
@@ -124,8 +125,8 @@ function likeCard(card) {
         });
 }
 
-function unlikeCard(card) {
-    const cardId = card.getId();
+function unlikeCard(cardId) {
+    const card = cards[cardId];
     card.setIsLiked(false);
 
     api.unlikeCard(cardId)
@@ -232,6 +233,8 @@ var api = new Api({
         'Content-Type': 'application/json'
     }
 });
+
+const cards = {};
 
 api.fetchUserInfo()
     .then((result) => {
