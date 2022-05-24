@@ -23,7 +23,9 @@ const submitButtonEditProfile = document.querySelector('.popup__form-submit_edit
 
 const profileInfoName = document.querySelector('.profile__info-name'); // Данные ИМЯ в самом профиле
 const profileInfoAbout = document.querySelector('.profile__info-about'); // Данные О СЕБЕ в самом профиле
-const profileAvatar = document.querySelector('.profile__avatar');
+const profileAvatar = document.querySelector('.profile__avatar'); // Сама фотка аватар
+const buttonEditAvatar = document.querySelector('.profile__button-avatar'); // Кнопка ред аватар
+
 
 // Объявляю переменные второго попапа (доб фото):
 const popupGallery = document.querySelector('.popup_gallery');
@@ -39,6 +41,10 @@ const photosContainer = document.querySelector('.elements'); // Контейне
 const popupPreview = document.querySelector('.popup_preview');
 // Объявляю переменные четвертого попапа (удаление поста):
 const popupDelete = document.querySelector('.popup_delete');
+// Объявляю переменные пятого попапа (изменение аватара):
+const popupEditAvatar = document.querySelector('.popup_update-avatar');
+const formSubmitUpdateAvatar = document.querySelector('.popup__form_update-avatar'); // Форма
+const submitButtonUpdateAvatar = document.querySelector('.popup__form-submit_update-avatar'); // Сабмит формы обновить аватар
 
 
 // Свойства валидации:
@@ -47,7 +53,7 @@ const validationSettings = {
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__form-submit',
     inactiveButtonClass: 'popup__form-submit_disabled',
-    inputErrorClass: 'popup__input_type-error',
+    inputErrorClass: 'popup__input_type-error',    
     errorClass: 'popup__input_error-active'
 };
 const formValidators = {}; //Объект, где хранятся экземпляры каждой формы
@@ -119,6 +125,26 @@ function savePopupAddPost(inputs) {
         });
 } // Передающую из инпутов в блок с картинками
 
+function savePopupEditAvatar(inputs) {
+    formValidators[formSubmitUpdateAvatar.name].disableSubmit();
+    renderLoading(true, submitButtonUpdateAvatar);
+    const avatarLink = inputs.link;
+    api.updateUserAvatar(avatarLink)
+        .then(() => {
+            console.log(avatarLink);
+            // const newPost = createCardElement(res, true);
+            // addPost(newPost, photosContainer);
+            popupUpdateAvatar.close(); // Автоматически закрыть попап
+        })
+        .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+        })
+        .finally(() => {
+            renderLoading(false, submitButtonAddPost);
+        });
+}
+
+
 const userInfo = new UserInfo({ name: profileInfoName, about: profileInfoAbout, avatar: profileAvatar });
 // Подгружающую в инпуты данные из профиля,заполняющую заголовок попапа
 function openPopupEditProfile() {
@@ -141,6 +167,18 @@ function openPopupAddPost() {
 
     popupAddPost.open();
 }
+
+function openPopupAvatar() {
+    formSubmitUpdateAvatar.reset();
+
+    const validatorUpdateAvatar = formValidators[formSubmitUpdateAvatar.name];
+    validatorUpdateAvatar.clearErrors();
+    validatorUpdateAvatar.setFormButtonState();
+
+    popupUpdateAvatar.open();
+}
+
+
 
 // Добавляющую пост пользователя в ленту
 function addPost(card, container) {
@@ -188,6 +226,9 @@ popupAddPost.setEventListeners();
 const popupEditProfile = new PopupWithForm(popupProfile, savePopupEditProfile);
 popupEditProfile.setEventListeners();
 
+const popupUpdateAvatar = new PopupWithForm(popupEditAvatar, savePopupEditAvatar);
+popupUpdateAvatar.setEventListeners();
+
 const popupImage = new PopupWithImage(popupPreview);
 popupImage.setEventListeners();
 
@@ -196,6 +237,7 @@ popupDeletePost.setEventListeners();
 
 buttonEditProfile.addEventListener("click", openPopupEditProfile); // Открывающую попап кликом на карандашик (ПРОФИЛЬ)
 buttonAddNewPost.addEventListener("click", openPopupAddPost); // Открывающую попап кликом на плюсик (ФОТО)
+buttonEditAvatar.addEventListener("click", openPopupAvatar);// Открывающую попап кликом на карандашик (АВАТАР)
 
 
 function enableValidation(settings) {
