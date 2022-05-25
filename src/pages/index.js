@@ -53,7 +53,7 @@ const validationSettings = {
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__form-submit',
     inactiveButtonClass: 'popup__form-submit_disabled',
-    inputErrorClass: 'popup__input_type-error',    
+    inputErrorClass: 'popup__input_type-error',
     errorClass: 'popup__input_error-active'
 };
 const formValidators = {}; //Объект, где хранятся экземпляры каждой формы
@@ -114,10 +114,10 @@ function createCardElement(item, isMyCard, like) {
 
 function likeCard(cardId) {
     const card = cards[cardId];
-    card.setIsLiked(true);
 
     api.likeCard(cardId)
         .then((res) => {
+            card.setIsLiked(true);
             card.setData(res);
         })
         .catch((err) => {
@@ -127,10 +127,10 @@ function likeCard(cardId) {
 
 function unlikeCard(cardId) {
     const card = cards[cardId];
-    card.setIsLiked(false);
 
     api.unlikeCard(cardId)
         .then((res) => {
+            card.setIsLiked(false);
             card.setData(res);
         })
         .catch((err) => {
