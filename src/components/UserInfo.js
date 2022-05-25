@@ -20,4 +20,8 @@ export default class UserInfo {
         this._id = _id;
         this._cohort = cohort;
     }
+
+    setAvatar(avatar){
+        this._avatar.src = avatar;
+    }
 }

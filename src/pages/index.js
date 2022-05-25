@@ -161,6 +161,7 @@ function savePopupEditAvatar(inputs) {
     const avatarLink = inputs.link;
     api.updateUserAvatar(avatarLink)
         .then(() => {
+            userInfo.setAvatar(avatarLink);
             popupUpdateAvatar.close(); // Автоматически закрыть попап
         })
         .catch((err) => {
