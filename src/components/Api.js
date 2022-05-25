@@ -7,27 +7,13 @@ export default class Api {
     fetchCards() {
         return fetch(this._baseUrl + '/cards', {
             headers: this._headers
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-
-            // если ошибка, отклоняем промис
-            return Promise.reject(`Ошибка: ${res.status}`);
-        });
+        }).then(this._checkResponse);
     }
 
     fetchUserInfo() {
         return fetch(this._baseUrl + '/users/me', {
             headers: this._headers
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-
-            // если ошибка, отклоняем промис
-            return Promise.reject(`Ошибка: ${res.status}`);
-        });
+        }).then(this._checkResponse);
     }
 
     updateUserInfo({ name, about }) {
@@ -38,14 +24,7 @@ export default class Api {
                 name: name,
                 about: about
             })
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-
-            // если ошибка, отклоняем промис
-            return Promise.reject(`Ошибка: ${res.status}`);
-        });
+        }).then(this._checkResponse);
     }
 
     updateUserAvatar(userAvatar) {
@@ -55,28 +34,14 @@ export default class Api {
             body: JSON.stringify({
                 avatar: userAvatar,
             })
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-
-            // если ошибка, отклоняем промис
-            return Promise.reject(`Ошибка: ${res.status}`);
-        });
+        }).then(this._checkResponse);
     }
 
     deleteCard(cardId) {
         return fetch(this._baseUrl + `/cards/${cardId}`, {
             method: 'DELETE',
             headers: this._headers,
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-
-            // если ошибка, отклоняем промис
-            return Promise.reject(`Ошибка: ${res.status}`);
-        });
+        }).then(this._checkResponse);
     }
 
     createCard({ name, link }) {
@@ -87,41 +52,29 @@ export default class Api {
                 name: name,
                 link: link,
             })
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-
-            // если ошибка, отклоняем промис
-            return Promise.reject(`Ошибка: ${res.status}`);
-        });
+        }).then(this._checkResponse);
     }
 
     likeCard(cardId) {
         return fetch(this._baseUrl + `/cards/${cardId}/likes`, {
             method: 'PUT',
             headers: this._headers,
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-
-            // если ошибка, отклоняем промис
-            return Promise.reject(`Ошибка: ${res.status}`);
-        });
+        }).then(this._checkResponse);
     }
 
     unlikeCard(cardId) {
         return fetch(this._baseUrl + `/cards/${cardId}/likes`, {
             method: 'DELETE',
             headers: this._headers,
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
+        }).then(this._checkResponse);
+    }
 
-            // если ошибка, отклоняем промис
-            return Promise.reject(`Ошибка: ${res.status}`);
-        });
+    _checkResponse(res) {
+        if (res.ok) {
+            return res.json();
+        }
+
+        // если ошибка, отклоняем промис
+        return Promise.reject(`Ошибка: ${res.status}`);
     }
 }
