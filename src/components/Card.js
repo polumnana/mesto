@@ -27,19 +27,10 @@ export default class Card {
         this._image = data.link;
         this._id = data._id;
         this._likes = data.likes;
-
-        this._element.querySelector('.element__counter-like').textContent = this._likes.length;
     }
 
     generateCard() {
         this._element = this._getElement();
-
-        this._element.querySelector('.element__title').textContent = this._title;
-        this._element.querySelector('.element__counter-like').textContent = this._likes.length;
-
-        const elementImg = this._element.querySelector('.element__img');
-        elementImg.src = this._image;
-        elementImg.alt = this._title;
 
         this._setEventListeners();
 
@@ -54,14 +45,23 @@ export default class Card {
     }
 
     setIsLiked(isLiked) {
-        const buttonLike = this._element.querySelector('.element__button-like');
         this._isLiked = isLiked;
+    }
 
+    render() {
+        const buttonLike = this._element.querySelector('.element__button-like');
         if (this._isLiked) {
             buttonLike.classList.add('element__button-like_active');
         } else {
             buttonLike.classList.remove('element__button-like_active');
         }
+
+        this._element.querySelector('.element__title').textContent = this._title;
+        this._element.querySelector('.element__counter-like').textContent = this._likes.length;
+
+        const elementImg = this._element.querySelector('.element__img');
+        elementImg.src = this._image;
+        elementImg.alt = this._title;
     }
 
     _setEventListeners() {

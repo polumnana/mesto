@@ -9,6 +9,7 @@ import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import PopupDelete from "../components/PopupDelete.js";
 import { renderLoading } from "../components/utils.js";
+import Section from "../components/Section.js";
 
 // Объявляю переменные первого попапа (ред профиль):
 const popupProfile = document.querySelector('.popup_profile');
@@ -107,6 +108,7 @@ function createCardElement(item, isMyCard, like) {
         handleUnlikePost: (cardId) => unlikeCard(cardId),
     }); // Создадается экземпляр карточки из класса
     cards[item._id] = card;
+    cardsArr.push(card);
     const cardElement = card.generateCard(); // Создаём карточку и возвращаем наружу
     card.setIsLiked(like);
     return cardElement;
@@ -119,6 +121,7 @@ function likeCard(cardId) {
         .then((res) => {
             card.setIsLiked(true);
             card.setData(res);
+            cardsSection.renderItems(cardsArr);
         })
         .catch((err) => {
             console.log(err); // выведем ошибку в консоль
@@ -132,6 +135,7 @@ function unlikeCard(cardId) {
         .then((res) => {
             card.setIsLiked(false);
             card.setData(res);
+            cardsSection.renderItems(cardsArr);
         })
         .catch((err) => {
             console.log(err); // выведем ошибку в консоль
@@ -144,7 +148,8 @@ function savePopupAddPost(inputs) {
     api.createCard(inputs)
         .then((res) => {
             const newPost = createCardElement(res, true, false);
-            addPost(newPost, photosContainer);
+            cardsSection.addItem(newPost);
+            cardsSection.renderItems(cardsArr);
             popupAddPost.close(); // Автоматически закрыть попап
         })
         .catch((err) => {
@@ -218,12 +223,6 @@ function isLikedByMe(card) {
     return result;
 }
 
-
-// Добавляющую пост пользователя в ленту
-function addPost(card, container) {
-    container.prepend(card); // Из копии шаблона всё положили на страницу
-}
-
 const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-41',
     headers: {
@@ -233,6 +232,7 @@ const api = new Api({
 });
 
 const cards = {};
+const cardsArr = [];
 
 Promise
     .all([api.fetchUserInfo(), api.fetchCards()])
@@ -246,8 +246,11 @@ Promise
         cards.forEach((element) => {
             const isMyCard = myId === element.owner._id;
             const like = isLikedByMe(element);
-            addPost(createCardElement(element, isMyCard, like), photosContainer);
+            var cardElement = createCardElement(element, isMyCard, like);
+            cardsSection.addItem(cardElement);
         }); // Добавляем в ленту постики (чужие)
+
+        cardsSection.renderItems(cardsArr);
     })
     .catch((err) => {
         console.log(err); // выведем ошибку в консоль
@@ -274,6 +277,11 @@ buttonEditProfile.addEventListener("click", openPopupEditProfile); // Откры
 buttonAddNewPost.addEventListener("click", openPopupAddPost); // Открывающую попап кликом на плюсик (ФОТО)
 buttonEditAvatar.addEventListener("click", openPopupAvatar);// Открывающую попап кликом на карандашик (АВАТАР)
 
+var cardsSection = new Section({
+    renderer: (card) => card.render(),
+    items: cardsArr,
+    container: photosContainer,
+});
 
 function enableValidation(settings) {
     const formList = document.querySelectorAll(settings.formSelector);
