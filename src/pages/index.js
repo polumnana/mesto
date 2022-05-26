@@ -234,24 +234,20 @@ const api = new Api({
 
 const cards = {};
 
-api.fetchUserInfo()
-    .then((result) => {
-        userInfo.setUserInfo(result);
+Promise
+    .all([api.fetchUserInfo(), api.fetchCards()])
+    .then(([userData, cards]) => {
+        // тут установка данных пользователя
+        // и тут отрисовка карточек
+        userInfo.setUserInfo(userData);
 
-        const myId = result._id;
+        const myId = userData._id;
 
-        // В случае, если успешно, 
-        api.fetchCards()
-            .then((result) => {
-                result.forEach((element) => {
-                    const isMyCard = myId === element.owner._id;
-                    const like = isLikedByMe(element);
-                    addPost(createCardElement(element, isMyCard, like), photosContainer);
-                }); // Добавляем в ленту постики (чужие)
-            })
-            .catch((err) => {
-                console.log(err); // выведем ошибку в консоль
-            });
+        cards.forEach((element) => {
+            const isMyCard = myId === element.owner._id;
+            const like = isLikedByMe(element);
+            addPost(createCardElement(element, isMyCard, like), photosContainer);
+        }); // Добавляем в ленту постики (чужие)
     })
     .catch((err) => {
         console.log(err); // выведем ошибку в консоль
@@ -259,9 +255,6 @@ api.fetchUserInfo()
 
 
 // Прописываю события:
-
-
-
 const popupAddPost = new PopupWithForm(popupGallery, savePopupAddPost);
 popupAddPost.setEventListeners();
 
